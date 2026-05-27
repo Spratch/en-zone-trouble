@@ -1,0 +1,25 @@
+---
+import { sanityClient } from "sanity:client";
+import PortableText from "../../components/PortableText.astro";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const posts = await sanityClient.fetch(`*[_type == "show"]{ slug }`);
+
+  return posts.map(({ slug }: { slug: { current: string } }) => ({
+    params: { slug: slug.current },
+  }));
+}
+
+const { slug } = Astro.params;
+const post = await sanityClient.fetch(
+  `*[_type == "show" && slug.current == $slug][0]{ title, synopsis }`,
+  { slug },
+);
+console.log(post.title);
+---
+
+<Layout
+  ><h1>{post.title}</h1>
+  <PortableText portableText={post.synopsis} />
+</Layout>

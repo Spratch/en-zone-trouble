@@ -1,0 +1,46 @@
+---
+import { sanityClient } from "sanity:client";
+import { footerSettingsQuery } from "../sanity/lib/queries";
+
+const settings = await sanityClient.fetch(footerSettingsQuery);
+const siteTitle = settings?.title;
+const navigationLogo = settings?.navigationLogo;
+const navigation = settings?.navigation;
+const aboutItem = navigation?.find((item) => item.slug === "la-compagnie");
+---
+
+<footer>
+  {siteTitle && <h1 class="footer-title">{siteTitle}</h1>}
+  <nav class="footer-navigation">
+    {
+      navigationLogo && (
+        <img class="navigation-logo" src={navigationLogo} alt="Logo" />
+      )
+    }
+
+    {
+      navigation && (
+        <ul role="list" class="navigation-pages">
+          {navigation.map((item) => {
+            if (item.slug === "la-compagnie") return null;
+            return (
+              <li role="listitem" class="navigation-item">
+                <a class="navigation-link" href={item.slug}>
+                  {item.title}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      )
+    }
+
+    {
+      aboutItem && (
+        <a class="navigation-about" href={aboutItem.slug}>
+          {aboutItem.title}
+        </a>
+      )
+    }
+  </nav>
+</footer>

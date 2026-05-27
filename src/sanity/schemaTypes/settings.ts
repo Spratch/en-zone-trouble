@@ -1,3 +1,4 @@
+import { InlineElementIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
 export const settingsSchema = defineType({
@@ -56,8 +57,45 @@ export const settingsSchema = defineType({
     defineField({
       name: "homeImage",
       title: "Image d'accueil",
-      type: "image",
+      type: "imageAlt",
       description: "Image affichée sur la page d'accueil",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "navigation",
+      title: "Menu de navigation",
+      description:
+        "Renseigner les éléments composant le menu de navigation présent dans le footer",
+      type: "array",
+      of: [
+        defineField({
+          name: "item",
+          title: "Item",
+          description: "Un élément du menu de navigation",
+          icon: InlineElementIcon,
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Titre",
+              type: "string",
+              description: "Le titre de l'élément du menu de navigation",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "slug",
+              title: "Slug",
+              type: "slug",
+              options: {
+                source: (_, context) =>
+                  (context.parent as Record<string, unknown>).title as string,
+              },
+              description: "Le slug de l'élément du menu de navigation",
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+        }),
+      ],
       validation: (Rule) => Rule.required(),
     }),
   ],

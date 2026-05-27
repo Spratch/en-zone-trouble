@@ -7,29 +7,35 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "schemas": "sanity schemas extract --watch",
+    "queries": "sanity typegen generate --watch",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.5",
+    "@portabletext/types": "^4.0.2",
     "@sanity/asset-utils": "^2.3.0",
     "@sanity/astro": "^3.4.0",
     "@sanity/client": "^7.22.0",
     "@sanity/icons": "^3.7.4",
+    "@sanity/image-url": "^2.1.1",
     "@sanity/locale-fr-fr": "^1.2.31",
     "@sanity/orderable-document-list": "^1.5.1",
     "@sanity/ui": "^3.2.0",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "astro": "^6.3.6",
+    "astro-portabletext": "^0.13.0",
+    "groq": "^5.27.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "react-is": "^19.2.6",
-    "sanity": "^5.26.0",
+    "sanity": "^5.27.0",
     "styled-components": "^6.4.2"
   },
   "devDependencies": {
-    "@sanity/types": "^5.26.0"
+    "@sanity/types": "^5.27.0"
   }
 }

@@ -5,8 +5,8 @@ import { schema, singltetonDocs } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
 
 export default defineConfig({
-  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID,
-  dataset: import.meta.env.PUBLIC_SANITY_DATASET,
+  projectId: "a7gwf3qs",
+  dataset: "production",
   plugins: [structureTool({ structure }), frFRLocale()],
   document: {
     newDocumentOptions: (prev, { creationContext }) => {

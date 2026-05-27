@@ -1,0 +1,52 @@
+---
+import { urlFor } from "../sanity/lib/image";
+
+interface Props {
+  image: {
+    src: string;
+    alt: string | null;
+    width?: number;
+    height?: number;
+  };
+  fullWidth?: boolean;
+  priority?: boolean;
+  sizes?: string;
+  class?: string;
+}
+
+const {
+  image,
+  fullWidth = false,
+  priority = false,
+  sizes,
+  class: className,
+} = Astro.props;
+
+const buildUrl = (w: number) => urlFor(image.src).width(w).auto("format").url();
+
+// sizes par défaut selon le mode
+const defaultSizes = fullWidth
+  ? "100vw"
+  : "(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px";
+
+const resolvedSizes = sizes ?? defaultSizes;
+---
+
+<img
+  src={buildUrl(800)}
+  srcset={[
+    `${buildUrl(400)} 400w`,
+    `${buildUrl(800)} 800w`,
+    `${buildUrl(1200)} 1200w`,
+    `${buildUrl(1800)} 1800w`,
+    `${buildUrl(2400)} 2400w`,
+  ].join(", ")}
+  sizes={resolvedSizes}
+  alt={image.alt ?? ""}
+  width={image.width}
+  height={image.height}
+  loading={priority ? "eager" : "lazy"}
+  decoding={priority ? "sync" : "async"}
+  fetchpriority={priority ? "high" : "auto"}
+  class={className}
+/>

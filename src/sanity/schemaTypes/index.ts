@@ -1,4 +1,4 @@
-import type { SchemaTypeDefinition } from "sanity";
+import type { SchemaPluginOptions } from "sanity";
 import { calendarSchema } from "./calendar";
 import { companySchema } from "./company";
 import { jobSchema } from "./job";
@@ -38,6 +38,6 @@ const objects = [
   eventsBySeason,
   customBlock,
 ];
-export const schema: { types: SchemaTypeDefinition[] } = {
+export const schema: SchemaPluginOptions = {
   types: [...singltetonDocs, ...listDocs, ...objects],
 };
