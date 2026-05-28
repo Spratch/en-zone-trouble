@@ -525,7 +525,7 @@ export type ShowsListQueryResult = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: showBySlugQuery
-// Query: *[_type == "show" && slug.current == $slug][0]{  title,  "slug": slug.current,  date,  "cover": cover{    "src": coalesce(asset->url, ""),    crop,    hotspot,  },  synopsis,  "excerpt": excerpt{    type,    "image": image{      "src": coalesce(asset->url, ""),      crop,      hotspot,      alt    },    text  },  infos,  supports,  production,  "credits": credits[]{    "title": title->title,    "value": value[]{      _type == "reference" => @->{        _type,        "name": name,        "slug": slug.current,        "link": link,      },      _type != "reference" => @{        _type,        "text": value,      },    },  },  "gallery": gallery[]{    "src": coalesce(asset->url, ""),    crop,    hotspot,    alt  },  links,  press}
+// Query: *[_type == "show" && slug.current == $slug][0]{  title,  "slug": slug.current,  date,  "cover": cover{    "src": coalesce(asset->url, ""),    crop,    hotspot,  },  synopsis,  "excerpt": excerpt{    type,    "image": image{      "src": coalesce(asset->url, ""),      crop,      hotspot,      alt    },    text  },  infos,  supports,  production,  "credits": credits[]{  "title": title->title,  "value": value[]{    _type == "reference" => @->{      _type,      "name": name,      "slug": slug.current,      "link": link,    },    _type != "reference" => @{      _type,      "text": value,    },  },},  "gallery": gallery[]{    "src": coalesce(asset->url, ""),    crop,    hotspot,    alt  },  links,  press}
 export type ShowBySlugQueryResult = {
   title: string;
   slug: string;
@@ -574,6 +574,65 @@ export type ShowBySlugQueryResult = {
   press: LinksArray | null;
 } | null;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: podcastsListQuery
+// Query: *[_type == "podcast"]{  title,  "slug": slug.current,  date,  "cover": cover{    "src": coalesce(asset->url, ""),    crop,    hotspot,  }} | order(date desc)
+export type PodcastsListQueryResult = Array<{
+  title: string;
+  slug: string;
+  date: string;
+  cover: {
+    src: string | "";
+    crop: SanityImageCrop | null;
+    hotspot: SanityImageHotspot | null;
+  };
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: podcastBySlugQuery
+// Query: *[_type == "podcast" && slug.current == $slug][0]{  title,  "slug": slug.current,  date,  "cover": cover{    "src": coalesce(asset->url, ""),    crop,    hotspot,  },  synopsis,  "episodes": episodes[]{    title,    "mp3": mp3.asset->url,  },  infos,  supports,  production,  "credits": credits[]{  "title": title->title,  "value": value[]{    _type == "reference" => @->{      _type,      "name": name,      "slug": slug.current,      "link": link,    },    _type != "reference" => @{      _type,      "text": value,    },  },},  "gallery": gallery[]{    "src": coalesce(asset->url, ""),    crop,    hotspot,    alt  },  links,  press}
+export type PodcastBySlugQueryResult = {
+  title: string;
+  slug: string;
+  date: string;
+  cover: {
+    src: string | "";
+    crop: SanityImageCrop | null;
+    hotspot: SanityImageHotspot | null;
+  };
+  synopsis: CustomBlock;
+  episodes: Array<{
+    title: string;
+    mp3: string | null;
+  }> | null;
+  infos: CustomBlock | null;
+  supports: string | null;
+  production: string | null;
+  credits: Array<{
+    title: string | null;
+    value: Array<
+      | {
+          _type: "member";
+          name: string;
+          slug: string;
+          link: string | null;
+        }
+      | {
+          _type: "personText";
+          text: CustomBlock;
+        }
+    > | null;
+  }> | null;
+  gallery: Array<{
+    src: string | "";
+    crop: SanityImageCrop | null;
+    hotspot: SanityImageHotspot | null;
+    alt: string;
+  }> | null;
+  links: LinksArray | null;
+  press: LinksArray | null;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -581,6 +640,8 @@ declare module "@sanity/client" {
     '*[_type == "settings"][0]{\n    title,\n    "navigation": navigation[]{\n      title,\n      "slug": slug.current\n    },\n    "navigationLogo": favicon.dark.asset->url,\n  }': FooterSettingsQueryResult;
     '*[\n    _type == "settings" &&\n    defined(homeImage.asset->url)\n  ][0].homeImage{\n    "src": coalesce(asset->url, ""),\n    alt,\n    crop,\n    hotspot\n  }': HomeImageQueryResult;
     '*[_type == "show"]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  }\n} | order(date desc)': ShowsListQueryResult;
-    '*[_type == "show" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  },\n  synopsis,\n  "excerpt": excerpt{\n    type,\n    "image": image{\n      "src": coalesce(asset->url, ""),\n      crop,\n      hotspot,\n      alt\n    },\n    text\n  },\n  infos,\n  supports,\n  production,\n  "credits": credits[]{\n    "title": title->title,\n    "value": value[]{\n      _type == "reference" => @->{\n        _type,\n        "name": name,\n        "slug": slug.current,\n        "link": link,\n      },\n      _type != "reference" => @{\n        _type,\n        "text": value,\n      },\n    },\n  },\n  "gallery": gallery[]{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n    alt\n  },\n  links,\n  press\n}': ShowBySlugQueryResult;
+    '*[_type == "show" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  },\n  synopsis,\n  "excerpt": excerpt{\n    type,\n    "image": image{\n      "src": coalesce(asset->url, ""),\n      crop,\n      hotspot,\n      alt\n    },\n    text\n  },\n  infos,\n  supports,\n  production,\n  "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n  "gallery": gallery[]{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n    alt\n  },\n  links,\n  press\n}': ShowBySlugQueryResult;
+    '*[_type == "podcast"]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  }\n} | order(date desc)': PodcastsListQueryResult;
+    '*[_type == "podcast" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  },\n  synopsis,\n  "episodes": episodes[]{\n    title,\n    "mp3": mp3.asset->url,\n  },\n  infos,\n  supports,\n  production,\n  "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n  "gallery": gallery[]{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n    alt\n  },\n  links,\n  press\n}': PodcastBySlugQueryResult;
   }
 }

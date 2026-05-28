@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const show = await sanityClient.fetch(showBySlugQuery, { slug });
-if (!show) throw new Error("Post not found");
+if (!show) throw new Error("Show not found");
 ---
 
 <Layout>
@@ -32,6 +32,38 @@ if (!show) throw new Error("Post not found");
             <div class="supports">
               <h2>Soutiens</h2>
               <p class="supports-content">{show.supports}</p>
+            </div>
+          )
+        }
+        {
+          show.links && (
+            <div class="links">
+              {show.links.map((link) => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="link-item"
+                >
+                  <span class="link-item-title">{link.title}</span>
+                </a>
+              ))}
+            </div>
+          )
+        }
+        {
+          show.press && (
+            <div class="press">
+              {show.press.map((link) => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="link-item"
+                >
+                  <span class="link-item-title">{link.title}</span>
+                </a>
+              ))}
             </div>
           )
         }
@@ -71,16 +103,15 @@ if (!show) throw new Error("Post not found");
         )
       }
     </aside>
-
-    {/* Galerie */}
-    {
-      show.gallery && (
-        <div class="gallery">
-          {show.gallery.map((image) => (
-            <Img class="gallery-item" image={image} />
-          ))}
-        </div>
-      )
-    }
   </main>
+  {/* Galerie */}
+  {
+    show.gallery && (
+      <div class="gallery">
+        {show.gallery.map((image) => (
+          <Img class="gallery-item" image={image} />
+        ))}
+      </div>
+    )
+  }
 </Layout>

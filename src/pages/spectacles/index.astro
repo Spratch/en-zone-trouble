@@ -3,36 +3,42 @@ import { sanityClient } from "sanity:client";
 import Img from "../../components/Img.astro";
 import Layout from "../../layouts/Layout.astro";
 import { showsListQuery } from "../../sanity/lib/queries";
-const posts = await sanityClient.fetch(showsListQuery);
+
+const shows = await sanityClient.fetch(showsListQuery);
+if (shows.length === 1) {
+  return Astro.redirect(`/spectacles/${shows[0].slug}`);
+}
 ---
 
 <Layout>
   <main class="list-page">
     <h1 class="hidden">Spectacles</h1>
     {
-      posts.length > 0 && (
-        <section class="content-list posts-list">
-          {posts.map((post) => (
-            <article class="list-item thumbnail post-thumbnail">
+      shows.length > 0 ? (
+        <section class="content-list shows-list">
+          {shows.map((show) => (
+            <article class="list-item thumbnail show-thumbnail">
               <a
-                id={`link-${post.slug}`}
-                aria-labelledby={`title-${post.slug}`}
+                id={`link-${show.slug}`}
+                aria-labelledby={`title-${show.slug}`}
                 class="thumbnail-link"
-                href={`/spectacles/${post.slug}`}
+                href={`/spectacles/${show.slug}`}
               >
                 <Img
                   class="thumbnail-image"
-                  image={post.cover}
-                  alt={post.title}
+                  image={show.cover}
+                  alt={show.title}
                 />
-                <h2 id={`title-${post.slug}`} class="thumbnail-title">
-                  {post.title}{" "}
-                  <span class="title-date">({post.date.split("-")[0]})</span>
+                <h2 id={`title-${show.slug}`} class="thumbnail-title">
+                  {show.title}{" "}
+                  <span class="title-date">({show.date.split("-")[0]})</span>
                 </h2>
               </a>
             </article>
           ))}
         </section>
+      ) : (
+        <p>Aucun spectacle trouvé.</p>
       )
     }
   </main>

@@ -17,6 +17,8 @@ footer {
   & .footer-title {
     text-fit: grow;
     text-box: trim-both cap alphabetic;
+    pointer-events: none;
+    user-select: none;
   }
 
   & nav.footer-navigation {
@@ -34,6 +36,7 @@ footer {
 
 main {
   padding-bottom: 3rem;
+  min-height: 100lvh;
 }
 
 .list-page {
@@ -66,7 +69,7 @@ main {
   }
 }
 
-.show-page {
+.item-page {
   display: grid;
   grid-template-columns: 2fr 1fr;
 
@@ -84,16 +87,40 @@ main {
     }
   }
 
-  & aside {
+  & .credits {
+    text-align: center;
+
+    & .credit-title {
+      text-transform: uppercase;
+    }
+  }
+}
+
+.gallery {
+  position: sticky;
+  bottom: 3rem;
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+
+  & .gallery-item {
+    max-height: 20rem;
+  }
+}
+
+.podcast-page {
+  & section.podcast-episodes {
+    & button.episode-trigger {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    & span.episode-title {
+      text-transform: uppercase;
+    }
   }
 
-  & .gallery {
-    position: sticky;
-    bottom: 3rem;
-    display: flex;
-
-    & .gallery-item {
-      max-height: 20rem;
-    }
+  & section.audio:not(:has(audio[src])) {
+    display: none;
   }
 }

@@ -1,0 +1,163 @@
+---
+import { sanityClient } from "sanity:client";
+import Img from "../../components/Img.astro";
+import PortableText from "../../components/PortableText.astro";
+import Layout from "../../layouts/Layout.astro";
+import {
+  podcastBySlugQuery,
+  podcastsListQuery,
+} from "../../sanity/lib/queries";
+
+export async function getStaticPaths() {
+  const podcasts = await sanityClient.fetch(podcastsListQuery);
+  return podcasts.map(({ slug }) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const podcast = await sanityClient.fetch(podcastBySlugQuery, { slug });
+if (!podcast) throw new Error("Podcast not found");
+---
+
+<Layout>
+  <main class="podcast-page item-page">
+    <div class="page-left">
+      <h1>{podcast.title}</h1>
+
+      {/* Synopsis */}
+      <PortableText class="synopsis" portableText={podcast.synopsis} />
+
+      {/* Épisodes */}
+      {
+        podcast.episodes && podcast.episodes.length > 0 && (
+          <section class="podcast-episodes">
+            {podcast.episodes.map((episode, index) => (
+              <p class="episode-item">
+                {episode.mp3 ? (
+                  <button
+                    class="episode-trigger"
+                    aria-label={`Écouter l'épisode ${index + 1}`}
+                    data-src={episode.mp3}
+                    data-title={episode.title}
+                  >
+                    épisode {index + 1}
+                  </button>
+                ) : (
+                  <span>épisode {index}</span>
+                )}
+                <span class="episode-title">{episode.title}</span>
+              </p>
+            ))}
+          </section>
+        )
+      }
+
+      <section class="details">
+        {
+          podcast.infos && (
+            <PortableText class="infos" portableText={podcast.infos} />
+          )
+        }
+        {podcast.production && <p class="production">{podcast.production}</p>}
+        {
+          podcast.supports && (
+            <div class="supports">
+              <h2>Soutiens</h2>
+              <p class="supports-content">{podcast.supports}</p>
+            </div>
+          )
+        }
+        {
+          podcast.links && (
+            <div class="links">
+              {podcast.links.map((link) => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="link-item"
+                >
+                  <span class="link-item-title">{link.title}</span>
+                </a>
+              ))}
+            </div>
+          )
+        }
+        {
+          podcast.press && (
+            <div class="press">
+              {podcast.press.map((link) => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="link-item"
+                >
+                  <span class="link-item-title">{link.title}</span>
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </section>
+    </div>
+
+    <aside>
+      {/* Player */}
+      <section class="audio">
+        <p class="audio-title"></p>
+        <audio controls class="audio-player"></audio>
+      </section>
+
+      {/* Crédits */}
+      {
+        podcast.credits && (
+          <div class="credits">
+            {podcast.credits.map((credit) => (
+              <>
+                <p class="credit-title">{credit.title}</p>
+                <div class="credit-value">
+                  {credit.value?.map((value) =>
+                    value?._type === "personText" ? (
+                      <PortableText portableText={value.text} />
+                    ) : (
+                      <p>{value.name}</p>
+                    ),
+                  )}
+                </div>
+              </>
+            ))}
+          </div>
+        )
+      }
+    </aside>
+  </main>
+  {/* Galerie */}
+  {
+    podcast.gallery && (
+      <div class="gallery">
+        {podcast.gallery.map((image) => (
+          <Img class="gallery-item" image={image} />
+        ))}
+      </div>
+    )
+  }
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll("button.episode-trigger");
+  const titleElement = document.querySelector(".audio-title");
+  const player = document.querySelector(".audio-player");
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const src = button.getAttribute("data-src");
+      const title = button.getAttribute("data-title");
+      if (src && player) {
+        player.setAttribute("src", src);
+      }
+      if (title && titleElement) {
+        titleElement.textContent = title;
+      }
+    });
+  });
+</script>

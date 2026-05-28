@@ -30,6 +30,22 @@ export const showsListQuery = defineQuery(`*[_type == "show"]{
   }
 } | order(date desc)`);
 
+const creditsFragment = `"credits": credits[]{
+  "title": title->title,
+  "value": value[]{
+    _type == "reference" => @->{
+      _type,
+      "name": name,
+      "slug": slug.current,
+      "link": link,
+    },
+    _type != "reference" => @{
+      _type,
+      "text": value,
+    },
+  },
+},`;
+
 export const showBySlugQuery =
   defineQuery(`*[_type == "show" && slug.current == $slug][0]{
   title,
@@ -54,21 +70,47 @@ export const showBySlugQuery =
   infos,
   supports,
   production,
-  "credits": credits[]{
-    "title": title->title,
-    "value": value[]{
-      _type == "reference" => @->{
-        _type,
-        "name": name,
-        "slug": slug.current,
-        "link": link,
-      },
-      _type != "reference" => @{
-        _type,
-        "text": value,
-      },
-    },
+  ${creditsFragment}
+  "gallery": gallery[]{
+    "src": coalesce(asset->url, ""),
+    crop,
+    hotspot,
+    alt
   },
+  links,
+  press
+}`);
+
+export const podcastsListQuery = defineQuery(`*[_type == "podcast"]{
+  title,
+  "slug": slug.current,
+  date,
+  "cover": cover{
+    "src": coalesce(asset->url, ""),
+    crop,
+    hotspot,
+  }
+} | order(date desc)`);
+
+export const podcastBySlugQuery =
+  defineQuery(`*[_type == "podcast" && slug.current == $slug][0]{
+  title,
+  "slug": slug.current,
+  date,
+  "cover": cover{
+    "src": coalesce(asset->url, ""),
+    crop,
+    hotspot,
+  },
+  synopsis,
+  "episodes": episodes[]{
+    title,
+    "mp3": mp3.asset->url,
+  },
+  infos,
+  supports,
+  production,
+  ${creditsFragment}
   "gallery": gallery[]{
     "src": coalesce(asset->url, ""),
     crop,
