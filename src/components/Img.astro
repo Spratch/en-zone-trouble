@@ -4,7 +4,7 @@ import { urlFor } from "../sanity/lib/image";
 interface Props {
   image: {
     src: string;
-    alt: string | null;
+    alt?: string;
     width?: number;
     height?: number;
   };
@@ -12,6 +12,8 @@ interface Props {
   priority?: boolean;
   sizes?: string;
   class?: string;
+  alt?: string;
+  style?: string;
 }
 
 const {
@@ -20,6 +22,8 @@ const {
   priority = false,
   sizes,
   class: className,
+  alt = "",
+  style,
 } = Astro.props;
 
 const buildUrl = (w: number) => urlFor(image.src).width(w).auto("format").url();
@@ -42,11 +46,12 @@ const resolvedSizes = sizes ?? defaultSizes;
     `${buildUrl(2400)} 2400w`,
   ].join(", ")}
   sizes={resolvedSizes}
-  alt={image.alt ?? ""}
+  alt={image.alt || alt}
   width={image.width}
   height={image.height}
   loading={priority ? "eager" : "lazy"}
   decoding={priority ? "sync" : "async"}
   fetchpriority={priority ? "high" : "auto"}
   class={className}
+  style={style}
 />

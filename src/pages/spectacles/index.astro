@@ -1,0 +1,39 @@
+---
+import { sanityClient } from "sanity:client";
+import Img from "../../components/Img.astro";
+import Layout from "../../layouts/Layout.astro";
+import { showsListQuery } from "../../sanity/lib/queries";
+const posts = await sanityClient.fetch(showsListQuery);
+---
+
+<Layout>
+  <main class="list-page">
+    <h1 class="hidden">Spectacles</h1>
+    {
+      posts.length > 0 && (
+        <section class="content-list posts-list">
+          {posts.map((post) => (
+            <article class="list-item thumbnail post-thumbnail">
+              <a
+                id={`link-${post.slug}`}
+                aria-labelledby={`title-${post.slug}`}
+                class="thumbnail-link"
+                href={`/spectacles/${post.slug}`}
+              >
+                <Img
+                  class="thumbnail-image"
+                  image={post.cover}
+                  alt={post.title}
+                />
+                <h2 id={`title-${post.slug}`} class="thumbnail-title">
+                  {post.title}{" "}
+                  <span class="title-date">({post.date.split("-")[0]})</span>
+                </h2>
+              </a>
+            </article>
+          ))}
+        </section>
+      )
+    }
+  </main>
+</Layout>

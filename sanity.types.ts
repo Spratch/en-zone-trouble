@@ -77,9 +77,9 @@ export type CustomBlock = Array<{
 }>;
 
 export type Seasons = Array<{
-  range?: string;
+  range: string;
   events?: Array<{
-    title?: string;
+    title: string;
     description?: string;
     date?: string;
     place?: string;
@@ -96,9 +96,9 @@ export type Seasons = Array<{
 }>;
 
 export type LinksArray = Array<{
-  title?: string;
+  title: string;
   subtitle?: string;
-  url?: string;
+  url: string;
   _key: string;
 }>;
 
@@ -116,7 +116,7 @@ export type Credits = Array<{
         _key: string;
       } & MemberReference)
     | {
-        value?: CustomBlock;
+        value: CustomBlock;
         _type: "personText";
         _key: string;
       }
@@ -137,7 +137,7 @@ export type ImageAlt = {
   media?: unknown;
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
-  alt?: string;
+  alt: string;
 };
 
 export type Favicon = {
@@ -154,14 +154,14 @@ export type Legal = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
-  content?: CustomBlock;
+  title: string;
+  slug: Slug;
+  content: CustomBlock;
 };
 
 export type Slug = {
   _type: "slug";
-  current?: string;
+  current: string;
   source?: string;
 };
 
@@ -171,9 +171,9 @@ export type Member = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
-  slug?: Slug;
-  role?: string;
+  name: string;
+  slug: Slug;
+  role: string;
   link?: string;
   presentation?: CustomBlock;
 };
@@ -184,7 +184,7 @@ export type Calendar = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
+  title: string;
   introduction?: CustomBlock;
   seasons?: Seasons;
 };
@@ -195,8 +195,8 @@ export type Company = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  presentation?: CustomBlock;
+  title: string;
+  presentation: CustomBlock;
   seasons?: Seasons;
 };
 
@@ -206,8 +206,8 @@ export type Transmission = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  introduction?: CustomBlock;
+  title: string;
+  introduction: CustomBlock;
   seasons?: Seasons;
 };
 
@@ -224,19 +224,19 @@ export type Podcast = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
-  date?: string;
-  cover?: {
+  title: string;
+  slug: Slug;
+  date: string;
+  cover: {
     asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
   };
-  synopsis?: CustomBlock;
+  synopsis: CustomBlock;
   episodes?: Array<{
-    title?: string;
+    title: string;
     mp3?: {
       asset?: SanityFileAssetReference;
       media?: unknown;
@@ -260,18 +260,18 @@ export type Podcast = {
 
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
 };
 
 export type SanityImageHotspot = {
   _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type Show = {
@@ -280,17 +280,17 @@ export type Show = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
-  date?: string;
-  cover?: {
+  title: string;
+  slug: Slug;
+  date: string;
+  cover: {
     asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "image";
   };
-  synopsis?: CustomBlock;
+  synopsis: CustomBlock;
   excerpt?: {
     type?: "text" | "image";
     text?: string;
@@ -315,8 +315,8 @@ export type Job = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  slug?: Slug;
+  title: string;
+  slug: Slug;
 };
 
 export type Research = {
@@ -325,8 +325,8 @@ export type Research = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  presentation?: CustomBlock;
+  title: string;
+  presentation: CustomBlock;
   notes?: CustomBlock;
   excerptTitle?: string;
   excerpt?: CustomBlock;
@@ -338,16 +338,16 @@ export type Settings = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
   favicon?: {
-    dark?: Favicon;
-    light?: Favicon;
+    dark: Favicon;
+    light: Favicon;
   };
-  homeImage?: ImageAlt;
-  navigation?: Array<{
-    title?: string;
-    slug?: Slug;
+  homeImage: ImageAlt;
+  navigation: Array<{
+    title: string;
+    slug: Slug;
     _type: "item";
     _key: string;
   }>;
@@ -374,9 +374,9 @@ export type SanityImagePalette = {
 
 export type SanityImageDimensions = {
   _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
+  height: number;
+  width: number;
+  aspectRatio: number;
 };
 
 export type SanityImageMetadata = {
@@ -402,14 +402,14 @@ export type SanityFileAsset = {
   title?: string;
   description?: string;
   altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
+  sha1hash: string;
+  extension: string;
+  mimeType: string;
+  size: number;
+  assetId: string;
   uploadId?: string;
-  path?: string;
-  url?: string;
+  path: string;
+  url: string;
   source?: SanityAssetSourceData;
 };
 
@@ -431,14 +431,14 @@ export type SanityImageAsset = {
   title?: string;
   description?: string;
   altText?: string;
-  sha1hash?: string;
-  extension?: string;
-  mimeType?: string;
-  size?: number;
-  assetId?: string;
+  sha1hash: string;
+  extension: string;
+  mimeType: string;
+  size: number;
+  assetId: string;
   uploadId?: string;
-  path?: string;
-  url?: string;
+  path: string;
+  url: string;
   metadata?: SanityImageMetadata;
   source?: SanityAssetSourceData;
 };
@@ -491,11 +491,11 @@ export type AllSanitySchemaTypes =
 // Variable: footerSettingsQuery
 // Query: *[_type == "settings"][0]{    title,    "navigation": navigation[]{      title,      "slug": slug.current    },    "navigationLogo": favicon.dark.asset->url,  }
 export type FooterSettingsQueryResult = {
-  title: string | null;
+  title: string;
   navigation: Array<{
-    title: string | null;
-    slug: string | null;
-  }> | null;
+    title: string;
+    slug: string;
+  }>;
   navigationLogo: string | null;
 } | null;
 
@@ -504,9 +504,74 @@ export type FooterSettingsQueryResult = {
 // Query: *[    _type == "settings" &&    defined(homeImage.asset->url)  ][0].homeImage{    "src": coalesce(asset->url, ""),    alt,    crop,    hotspot  }
 export type HomeImageQueryResult = {
   src: string | "";
-  alt: string | null;
+  alt: string;
   crop: SanityImageCrop | null;
   hotspot: SanityImageHotspot | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: showsListQuery
+// Query: *[_type == "show"]{  title,  "slug": slug.current,  date,  "cover": cover{    "src": coalesce(asset->url, ""),    crop,    hotspot,  }} | order(date desc)
+export type ShowsListQueryResult = Array<{
+  title: string;
+  slug: string;
+  date: string;
+  cover: {
+    src: string | "";
+    crop: SanityImageCrop | null;
+    hotspot: SanityImageHotspot | null;
+  };
+}>;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: showBySlugQuery
+// Query: *[_type == "show" && slug.current == $slug][0]{  title,  "slug": slug.current,  date,  "cover": cover{    "src": coalesce(asset->url, ""),    crop,    hotspot,  },  synopsis,  "excerpt": excerpt{    type,    "image": image{      "src": coalesce(asset->url, ""),      crop,      hotspot,      alt    },    text  },  infos,  supports,  production,  "credits": credits[]{    "title": title->title,    "value": value[]{      _type == "reference" => @->{        _type,        "name": name,        "slug": slug.current,        "link": link,      },      _type != "reference" => @{        _type,        "text": value,      },    },  },  "gallery": gallery[]{    "src": coalesce(asset->url, ""),    crop,    hotspot,    alt  },  links,  press}
+export type ShowBySlugQueryResult = {
+  title: string;
+  slug: string;
+  date: string;
+  cover: {
+    src: string | "";
+    crop: SanityImageCrop | null;
+    hotspot: SanityImageHotspot | null;
+  };
+  synopsis: CustomBlock;
+  excerpt: {
+    type: "image" | "text" | null;
+    image: {
+      src: string | "";
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+      alt: string;
+    } | null;
+    text: string | null;
+  } | null;
+  infos: CustomBlock | null;
+  supports: string | null;
+  production: string | null;
+  credits: Array<{
+    title: string | null;
+    value: Array<
+      | {
+          _type: "member";
+          name: string;
+          slug: string;
+          link: string | null;
+        }
+      | {
+          _type: "personText";
+          text: CustomBlock;
+        }
+    > | null;
+  }> | null;
+  gallery: Array<{
+    src: string | "";
+    crop: SanityImageCrop | null;
+    hotspot: SanityImageHotspot | null;
+    alt: string;
+  }> | null;
+  links: LinksArray | null;
+  press: LinksArray | null;
 } | null;
 
 // Query TypeMap
@@ -515,5 +580,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "settings"][0]{\n    title,\n    "navigation": navigation[]{\n      title,\n      "slug": slug.current\n    },\n    "navigationLogo": favicon.dark.asset->url,\n  }': FooterSettingsQueryResult;
     '*[\n    _type == "settings" &&\n    defined(homeImage.asset->url)\n  ][0].homeImage{\n    "src": coalesce(asset->url, ""),\n    alt,\n    crop,\n    hotspot\n  }': HomeImageQueryResult;
+    '*[_type == "show"]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  }\n} | order(date desc)': ShowsListQueryResult;
+    '*[_type == "show" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  },\n  synopsis,\n  "excerpt": excerpt{\n    type,\n    "image": image{\n      "src": coalesce(asset->url, ""),\n      crop,\n      hotspot,\n      alt\n    },\n    text\n  },\n  infos,\n  supports,\n  production,\n  "credits": credits[]{\n    "title": title->title,\n    "value": value[]{\n      _type == "reference" => @->{\n        _type,\n        "name": name,\n        "slug": slug.current,\n        "link": link,\n      },\n      _type != "reference" => @{\n        _type,\n        "text": value,\n      },\n    },\n  },\n  "gallery": gallery[]{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n    alt\n  },\n  links,\n  press\n}': ShowBySlugQueryResult;
   }
 }

@@ -10,7 +10,7 @@ const aboutItem = navigation?.find((item) => item.slug === "la-compagnie");
 ---
 
 <footer>
-  {siteTitle && <h1 class="footer-title">{siteTitle}</h1>}
+  {siteTitle && <p class="footer-title">{siteTitle}</p>}
   <nav class="footer-navigation">
     {
       navigationLogo && (
@@ -25,7 +25,7 @@ const aboutItem = navigation?.find((item) => item.slug === "la-compagnie");
             if (item.slug === "la-compagnie") return null;
             return (
               <li role="listitem" class="navigation-item">
-                <a class="navigation-link" href={item.slug}>
+                <a class="navigation-link" href={`/${item.slug}`}>
                   {item.title}
                 </a>
               </li>

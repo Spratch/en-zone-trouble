@@ -1,5 +1,7 @@
 ---
 import Footer from "../components/Footer.astro";
+import "./reset.css";
+import "./styles.css";
 ---
 
 <!doctype html>
@@ -13,8 +15,8 @@ import Footer from "../components/Footer.astro";
     <title>Astro Basics</title>
   </head>
   <body>
-    <slot />
     <Footer />
+    <slot />
   </body>
 </html>
 

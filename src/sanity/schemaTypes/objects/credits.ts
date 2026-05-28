@@ -25,7 +25,6 @@ export default defineType({
           type: "array",
           of: [
             {
-              name: "personRef",
               title: "Membre de l'équipe",
               type: "reference",
               to: [{ type: "member" }],
@@ -40,6 +39,7 @@ export default defineType({
                   name: "value",
                   title: "Valeur",
                   type: "customBlock",
+                  validation: (Rule) => Rule.required(),
                 },
               ],
               preview: {

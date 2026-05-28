@@ -12,6 +12,7 @@ export const memberSchema = defineType({
       title: "Nom",
       description: "Nom du membre de l'équipe",
       type: "string",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "slug",
@@ -23,12 +24,14 @@ export const memberSchema = defineType({
         source: "name",
         maxLength: 96,
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "role",
       title: "Rôle",
       description: "Rôle dans l'équipe",
       type: "string",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "link",
