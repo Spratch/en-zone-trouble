@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import Footer from "../components/Footer.astro";
 import "./reset.css";
 import "./styles.css";
@@ -12,7 +13,9 @@ import "./styles.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>En Zone Trouble</title>
+    <Font cssVariable="--font-serif" />
+    <Font cssVariable="--font-sans" />
   </head>
   <body>
     <Footer />

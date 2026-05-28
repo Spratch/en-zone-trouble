@@ -1,5 +1,8 @@
 :root {
   --color-bg: #ffffff;
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .hidden {
@@ -49,6 +52,16 @@ main {
           transparent 100%
         );
       }
+
+      & .thumbnail-title {
+        font-family: var(--font-sans);
+        font-weight: 400;
+        font-style: oblique;
+
+        & span.title-date {
+          font-style: normal;
+        }
+      }
     }
   }
 }
@@ -58,6 +71,13 @@ main {
   grid-template-columns: 2fr 1fr;
 
   & .page-left {
+    & h1 {
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-style: oblique;
+      font-size: 3rem;
+    }
+
     & .details {
       display: grid;
       grid-template-columns: 1fr 1fr;
