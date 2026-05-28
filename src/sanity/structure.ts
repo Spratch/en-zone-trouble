@@ -36,7 +36,8 @@ export const structure: StructureResolver = (S, context) => {
       S.divider(),
 
       li("company", "Compagnie", EmptyIcon, "singleton"),
-      li("member", "Équipe", UsersIcon, "list"),
+      li("team", "Équipe", UsersIcon, "singleton"),
+      // li("member", "Équipe", UsersIcon, "list"),
       // li("job", "Métiers", CaseIcon, "list"),
 
       S.divider(),

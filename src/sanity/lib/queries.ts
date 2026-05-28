@@ -128,3 +128,14 @@ export const researchQuery = defineQuery(`*[_type == "research"][0]{
     excerptTitle,
     excerpt
   }`);
+
+export const teamQuery = defineQuery(`*[_type == "team"][0]{
+  title,
+  "members": members[]->{
+    name,
+    slug,
+    role,
+    link,
+    presentation
+  }
+}`);

@@ -178,6 +178,20 @@ export type Member = {
   presentation?: CustomBlock;
 };
 
+export type Team = {
+  _id: string;
+  _type: "team";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  members?: Array<
+    {
+      _key: string;
+    } & MemberReference
+  >;
+};
+
 export type Calendar = {
   _id: string;
   _type: "calendar";
@@ -467,6 +481,7 @@ export type AllSanitySchemaTypes =
   | Legal
   | Slug
   | Member
+  | Team
   | Calendar
   | Company
   | Transmission
@@ -644,6 +659,20 @@ export type ResearchQueryResult = {
   excerpt: CustomBlock | null;
 } | null;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: teamQuery
+// Query: *[_type == "team"][0]{  title,  "members": members[]->{    name,    slug,    role,    link,    presentation  }}
+export type TeamQueryResult = {
+  title: string;
+  members: Array<{
+    name: string;
+    slug: Slug;
+    role: string;
+    link: string | null;
+    presentation: CustomBlock | null;
+  }> | null;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -655,5 +684,6 @@ declare module "@sanity/client" {
     '*[_type == "podcast"]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  }\n} | order(date desc)': PodcastsListQueryResult;
     '*[_type == "podcast" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  },\n  synopsis,\n  "episodes": episodes[]{\n    title,\n    "mp3": mp3.asset->url,\n  },\n  infos,\n  supports,\n  production,\n  "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n  "gallery": gallery[]{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n    alt\n  },\n  links,\n  press\n}': PodcastBySlugQueryResult;
     '*[_type == "research"][0]{\n    title,\n    presentation,\n    notes,\n    excerptTitle,\n    excerpt\n  }': ResearchQueryResult;
+    '*[_type == "team"][0]{\n  title,\n  "members": members[]->{\n    name,\n    slug,\n    role,\n    link,\n    presentation\n  }\n}': TeamQueryResult;
   }
 }

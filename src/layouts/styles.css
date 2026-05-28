@@ -157,3 +157,13 @@ main.research-page {
     }
   }
 }
+
+main.team-page {
+  & span.member-name {
+    text-transform: uppercase;
+  }
+
+  & span.member-role {
+    color: var(--color-accent);
+  }
+}

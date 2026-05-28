@@ -14,6 +14,7 @@ import { podcastSchema } from "./podcast";
 import { researchSchema } from "./research";
 import { settingsSchema } from "./settings";
 import { showSchema } from "./show";
+import { teamSchema } from "./team";
 import { transmissionSchema } from "./transmission";
 
 export const singltetonDocs = [
@@ -22,6 +23,7 @@ export const singltetonDocs = [
   companySchema,
   calendarSchema,
   transmissionSchema,
+  teamSchema,
 ];
 const listDocs = [
   showSchema,

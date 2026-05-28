@@ -6,7 +6,7 @@ const settings = await sanityClient.fetch(footerSettingsQuery);
 const siteTitle = settings?.title;
 const navigationLogo = settings?.navigationLogo;
 const navigation = settings?.navigation;
-const aboutItem = navigation?.find((item) => item.slug === "la-compagnie");
+const aboutItem = navigation?.at(-1);
 ---
 
 <footer>
@@ -21,8 +21,8 @@ const aboutItem = navigation?.find((item) => item.slug === "la-compagnie");
     {
       navigation && (
         <ul role="list" class="navigation-pages">
-          {navigation.map((item) => {
-            if (item.slug === "la-compagnie") return null;
+          {navigation.map((item, index) => {
+            if (index === navigation.length - 1) return null;
             return (
               <li role="listitem" class="navigation-item">
                 <a class="navigation-link" href={`/${item.slug}`}>
