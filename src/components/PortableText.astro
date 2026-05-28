@@ -1,6 +1,6 @@
 ---
 import { PortableText as PortableTextInternal } from "astro-portabletext";
-const { portableText } = Astro.props;
+const { portableText, class: className } = Astro.props;
 ---
 
-<PortableTextInternal value={portableText} />
+<div class={className}><PortableTextInternal value={portableText} /></div>

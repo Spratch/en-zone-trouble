@@ -1,0 +1,36 @@
+---
+import { sanityClient } from "sanity:client";
+import PortableText from "../../components/PortableText.astro";
+import Layout from "../../layouts/Layout.astro";
+import { researchQuery } from "../../sanity/lib/queries";
+
+const research = await sanityClient.fetch(researchQuery);
+if (!research) throw new Error("No research found");
+---
+
+<Layout>
+  <main class="research-page item-page">
+    <h1>{research.title}</h1>
+    <section class="page-grid">
+      <div class="page-left">
+        <PortableText portableText={research.presentation} />
+      </div>
+
+      <aside class="page-right">
+        <PortableText portableText={research.notes} />
+      </aside>
+    </section>
+
+    {
+      research.excerpt && (
+        <section class="excerpt">
+          {research.excerptTitle && <h2>{research.excerptTitle}</h2>}
+          <PortableText
+            class="research-excerpt"
+            portableText={research.excerpt}
+          />
+        </section>
+      )
+    }
+  </main>
+</Layout>

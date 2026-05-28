@@ -17,92 +17,98 @@ if (!show) throw new Error("Show not found");
 
 <Layout>
   <main class="show-page item-page">
-    <div class="page-left">
-      <h1>{show.title}</h1>
+    <section class="page-grid">
+      <div class="page-left">
+        <h1>{show.title}</h1>
 
-      {/* Synopsis */}
-      <PortableText class="synopsis" portableText={show.synopsis} />
+        {/* Synopsis */}
+        <PortableText class="synopsis" portableText={show.synopsis} />
 
-      {/* Infos */}
-      <section class="details">
-        {show.infos && <PortableText class="infos" portableText={show.infos} />}
-        {show.production && <p class="production">{show.production}</p>}
+        {/* Infos */}
+        <section class="details">
+          {
+            show.infos && (
+              <PortableText class="infos" portableText={show.infos} />
+            )
+          }
+          {show.production && <p class="production">{show.production}</p>}
+          {
+            show.supports && (
+              <div class="supports">
+                <h2>Soutiens</h2>
+                <p class="supports-content">{show.supports}</p>
+              </div>
+            )
+          }
+          {
+            show.links && (
+              <div class="links">
+                {show.links.map((link) => (
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="link-item"
+                  >
+                    <span class="link-item-title">{link.title}</span>
+                  </a>
+                ))}
+              </div>
+            )
+          }
+          {
+            show.press && (
+              <div class="press">
+                {show.press.map((link) => (
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="link-item"
+                  >
+                    <span class="link-item-title">{link.title}</span>
+                  </a>
+                ))}
+              </div>
+            )
+          }
+        </section>
+      </div>
+
+      <aside class="page-right">
+        {/* Extrait */}
         {
-          show.supports && (
-            <div class="supports">
-              <h2>Soutiens</h2>
-              <p class="supports-content">{show.supports}</p>
-            </div>
-          )
+          show.excerpt &&
+            (show.excerpt.type === "text" ? (
+              <p class="excerpt">{show.excerpt.text!}</p>
+            ) : (
+              <Img class="excerpt" image={show.excerpt.image!} />
+            ))
         }
+
+        {/* Crédits */}
         {
-          show.links && (
-            <div class="links">
-              {show.links.map((link) => (
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="link-item"
-                >
-                  <span class="link-item-title">{link.title}</span>
-                </a>
+          show.credits && (
+            <div class="credits">
+              {show.credits.map((credit) => (
+                <>
+                  <p class="credit-title">{credit.title}</p>
+                  <div class="credit-value">
+                    {credit.value?.map((value) =>
+                      value?._type === "personText" ? (
+                        <PortableText portableText={value.text} />
+                      ) : (
+                        <p>{value.name}</p>
+                      ),
+                    )}
+                  </div>
+                </>
               ))}
             </div>
           )
         }
-        {
-          show.press && (
-            <div class="press">
-              {show.press.map((link) => (
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="link-item"
-                >
-                  <span class="link-item-title">{link.title}</span>
-                </a>
-              ))}
-            </div>
-          )
-        }
-      </section>
-    </div>
-
-    <aside>
-      {/* Extrait */}
-      {
-        show.excerpt &&
-          (show.excerpt.type === "text" ? (
-            <p class="excerpt">{show.excerpt.text!}</p>
-          ) : (
-            <Img class="excerpt" image={show.excerpt.image!} />
-          ))
-      }
-
-      {/* Crédits */}
-      {
-        show.credits && (
-          <div class="credits">
-            {show.credits.map((credit) => (
-              <>
-                <p class="credit-title">{credit.title}</p>
-                <div class="credit-value">
-                  {credit.value?.map((value) =>
-                    value?._type === "personText" ? (
-                      <PortableText portableText={value.text} />
-                    ) : (
-                      <p>{value.name}</p>
-                    ),
-                  )}
-                </div>
-              </>
-            ))}
-          </div>
-        )
-      }
-    </aside>
+      </aside>
+    </section>
   </main>
   {/* Galerie */}
   {

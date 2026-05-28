@@ -120,3 +120,11 @@ export const podcastBySlugQuery =
   links,
   press
 }`);
+
+export const researchQuery = defineQuery(`*[_type == "research"][0]{
+    title,
+    presentation,
+    notes,
+    excerptTitle,
+    excerpt
+  }`);

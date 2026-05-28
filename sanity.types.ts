@@ -633,6 +633,17 @@ export type PodcastBySlugQueryResult = {
   press: LinksArray | null;
 } | null;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: researchQuery
+// Query: *[_type == "research"][0]{    title,    presentation,    notes,    excerptTitle,    excerpt  }
+export type ResearchQueryResult = {
+  title: string;
+  presentation: CustomBlock;
+  notes: CustomBlock | null;
+  excerptTitle: string | null;
+  excerpt: CustomBlock | null;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -643,5 +654,6 @@ declare module "@sanity/client" {
     '*[_type == "show" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  },\n  synopsis,\n  "excerpt": excerpt{\n    type,\n    "image": image{\n      "src": coalesce(asset->url, ""),\n      crop,\n      hotspot,\n      alt\n    },\n    text\n  },\n  infos,\n  supports,\n  production,\n  "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n  "gallery": gallery[]{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n    alt\n  },\n  links,\n  press\n}': ShowBySlugQueryResult;
     '*[_type == "podcast"]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  }\n} | order(date desc)': PodcastsListQueryResult;
     '*[_type == "podcast" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  },\n  synopsis,\n  "episodes": episodes[]{\n    title,\n    "mp3": mp3.asset->url,\n  },\n  infos,\n  supports,\n  production,\n  "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n  "gallery": gallery[]{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n    alt\n  },\n  links,\n  press\n}': PodcastBySlugQueryResult;
+    '*[_type == "research"][0]{\n    title,\n    presentation,\n    notes,\n    excerptTitle,\n    excerpt\n  }': ResearchQueryResult;
   }
 }

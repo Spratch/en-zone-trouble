@@ -24,6 +24,11 @@ export default defineConfig({
       options: {
         variants: [
           {
+            src: ["./src/assets/fonts/Garabosse-Parangonne.woff2"],
+            weight: 300,
+            style: "normal",
+          },
+          {
             src: ["./src/assets/fonts/Garabosse-Gaillarde.woff2"],
             weight: 400,
             style: "normal",
