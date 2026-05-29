@@ -1,0 +1,26 @@
+---
+import { sanityClient } from "sanity:client";
+import SeasonList from "../../components/SeasonList.astro";
+import Layout from "../../layouts/Layout.astro";
+import { transmissionQuery } from "../../sanity/lib/queries";
+import PortableText from "../../components/PortableText.astro";
+
+const transmission = await sanityClient.fetch(transmissionQuery);
+if (!transmission) throw new Error("Team not found");
+---
+
+<Layout>
+  <main class="transmission-page item-page events-page">
+    <h1>{transmission.title}</h1>
+
+    {
+      transmission.introduction && (
+        <section class="introduction transmission-introduction">
+          <PortableText portableText={transmission.introduction} />
+        </section>
+      )
+    }
+
+    {transmission.seasons && <SeasonList seasons={transmission.seasons} />}
+  </main>
+</Layout>

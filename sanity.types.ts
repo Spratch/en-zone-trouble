@@ -78,7 +78,7 @@ export type CustomBlock = Array<{
 
 export type Seasons = Array<{
   range: string;
-  events?: Array<{
+  events: Array<{
     title: string;
     description?: string;
     date?: string;
@@ -673,6 +673,86 @@ export type TeamQueryResult = {
   }> | null;
 } | null;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: calendarQuery
+// Query: *[_type == "calendar"][0]{  title,  introduction,    "seasons": seasons[]{    range,    "events": events[]{      title,      description,      date,      place,      link,      "project": project->{        title,        "slug": slug.current,        _type,      }    }  }}
+export type CalendarQueryResult = {
+  title: string;
+  introduction: CustomBlock | null;
+  seasons: Array<{
+    range: string;
+    events: Array<{
+      title: string;
+      description: string | null;
+      date: string | null;
+      place: string | null;
+      link: string | null;
+      project:
+        | {
+            title: string;
+            slug: string;
+            _type: "podcast";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "research";
+          }
+        | {
+            title: string;
+            slug: string;
+            _type: "show";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "transmission";
+          }
+        | null;
+    }>;
+  }> | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: transmissionQuery
+// Query: *[_type == "transmission"][0]{  title,  introduction,    "seasons": seasons[]{    range,    "events": events[]{      title,      description,      date,      place,      link,      "project": project->{        title,        "slug": slug.current,        _type,      }    }  }}
+export type TransmissionQueryResult = {
+  title: string;
+  introduction: CustomBlock;
+  seasons: Array<{
+    range: string;
+    events: Array<{
+      title: string;
+      description: string | null;
+      date: string | null;
+      place: string | null;
+      link: string | null;
+      project:
+        | {
+            title: string;
+            slug: string;
+            _type: "podcast";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "research";
+          }
+        | {
+            title: string;
+            slug: string;
+            _type: "show";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "transmission";
+          }
+        | null;
+    }>;
+  }> | null;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -685,5 +765,7 @@ declare module "@sanity/client" {
     '*[_type == "podcast" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n  },\n  synopsis,\n  "episodes": episodes[]{\n    title,\n    "mp3": mp3.asset->url,\n  },\n  infos,\n  supports,\n  production,\n  "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n  "gallery": gallery[]{\n    "src": coalesce(asset->url, ""),\n    crop,\n    hotspot,\n    alt\n  },\n  links,\n  press\n}': PodcastBySlugQueryResult;
     '*[_type == "research"][0]{\n    title,\n    presentation,\n    notes,\n    excerptTitle,\n    excerpt\n  }': ResearchQueryResult;
     '*[_type == "team"][0]{\n  title,\n  "members": members[]->{\n    name,\n    slug,\n    role,\n    link,\n    presentation\n  }\n}': TeamQueryResult;
+    '*[_type == "calendar"][0]{\n  title,\n  introduction,\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': CalendarQueryResult;
+    '*[_type == "transmission"][0]{\n  title,\n  introduction,\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': TransmissionQueryResult;
   }
 }

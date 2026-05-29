@@ -1,4 +1,9 @@
 import { defineQuery } from "groq";
+import {
+  creditsFragment,
+  imageSrcFragment,
+  seasonsFragment,
+} from "./fragments";
 
 export const footerSettingsQuery = defineQuery(`*[_type == "settings"][0]{
     title,
@@ -13,7 +18,7 @@ export const homeImageQuery = defineQuery(`*[
     _type == "settings" &&
     defined(homeImage.asset->url)
   ][0].homeImage{
-    "src": coalesce(asset->url, ""),
+    ${imageSrcFragment}
     alt,
     crop,
     hotspot
@@ -24,27 +29,11 @@ export const showsListQuery = defineQuery(`*[_type == "show"]{
   "slug": slug.current,
   date,
   "cover": cover{
-    "src": coalesce(asset->url, ""),
+    ${imageSrcFragment}
     crop,
     hotspot,
   }
 } | order(date desc)`);
-
-const creditsFragment = `"credits": credits[]{
-  "title": title->title,
-  "value": value[]{
-    _type == "reference" => @->{
-      _type,
-      "name": name,
-      "slug": slug.current,
-      "link": link,
-    },
-    _type != "reference" => @{
-      _type,
-      "text": value,
-    },
-  },
-},`;
 
 export const showBySlugQuery =
   defineQuery(`*[_type == "show" && slug.current == $slug][0]{
@@ -52,7 +41,7 @@ export const showBySlugQuery =
   "slug": slug.current,
   date,
   "cover": cover{
-    "src": coalesce(asset->url, ""),
+    ${imageSrcFragment}
     crop,
     hotspot,
   },
@@ -60,7 +49,7 @@ export const showBySlugQuery =
   "excerpt": excerpt{
     type,
     "image": image{
-      "src": coalesce(asset->url, ""),
+      ${imageSrcFragment}
       crop,
       hotspot,
       alt
@@ -72,7 +61,7 @@ export const showBySlugQuery =
   production,
   ${creditsFragment}
   "gallery": gallery[]{
-    "src": coalesce(asset->url, ""),
+    ${imageSrcFragment}
     crop,
     hotspot,
     alt
@@ -86,7 +75,7 @@ export const podcastsListQuery = defineQuery(`*[_type == "podcast"]{
   "slug": slug.current,
   date,
   "cover": cover{
-    "src": coalesce(asset->url, ""),
+    ${imageSrcFragment}
     crop,
     hotspot,
   }
@@ -98,7 +87,7 @@ export const podcastBySlugQuery =
   "slug": slug.current,
   date,
   "cover": cover{
-    "src": coalesce(asset->url, ""),
+    ${imageSrcFragment}
     crop,
     hotspot,
   },
@@ -112,7 +101,7 @@ export const podcastBySlugQuery =
   production,
   ${creditsFragment}
   "gallery": gallery[]{
-    "src": coalesce(asset->url, ""),
+    ${imageSrcFragment}
     crop,
     hotspot,
     alt
@@ -138,4 +127,16 @@ export const teamQuery = defineQuery(`*[_type == "team"][0]{
     link,
     presentation
   }
+}`);
+
+export const calendarQuery = defineQuery(`*[_type == "calendar"][0]{
+  title,
+  introduction,
+  ${seasonsFragment}
+}`);
+
+export const transmissionQuery = defineQuery(`*[_type == "transmission"][0]{
+  title,
+  introduction,
+  ${seasonsFragment}
 }`);

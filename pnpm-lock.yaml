@@ -4,9 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@sanity/types': 5.27.0
-
 importers:
 
   .:
@@ -73,7 +70,7 @@ importers:
         version: 6.4.2(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
     devDependencies:
       '@sanity/types':
-        specifier: 5.27.0
+        specifier: ^5.27.0
         version: 5.27.0(@types/react@19.2.15)
 
 packages:
@@ -2143,7 +2140,7 @@ packages:
     resolution: {integrity: sha512-PiiDvD8uCZMwTpFXMd3dlYs2NjygI3a7S70kD5VoYrFbdWcZOXnAw4m6CIbw43z49tkht+Xv6RXCJkpt20MWGA==}
     engines: {node: '>=20.19 <22 || >=22.12'}
     peerDependencies:
-      '@sanity/types': 5.27.0
+      '@sanity/types': '*'
       react: ^19.2
 
   '@sanity/json-match@1.0.5':
@@ -2289,7 +2286,7 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       '@sanity/client': ^7.11.2
-      '@sanity/types': 5.27.0
+      '@sanity/types': '*'
     peerDependenciesMeta:
       '@sanity/types':
         optional: true
@@ -2299,7 +2296,7 @@ packages:
     engines: {node: '>=20.19 <22 || >=22.12'}
     peerDependencies:
       '@sanity/client': ^7.22.0
-      '@sanity/types': 5.27.0
+      '@sanity/types': '*'
     peerDependenciesMeta:
       '@sanity/types':
         optional: true

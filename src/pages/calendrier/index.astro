@@ -1,0 +1,26 @@
+---
+import { sanityClient } from "sanity:client";
+import Layout from "../../layouts/Layout.astro";
+import { calendarQuery } from "../../sanity/lib/queries";
+import SeasonList from "../../components/SeasonList.astro";
+import PortableText from "../../components/PortableText.astro";
+
+const calendar = await sanityClient.fetch(calendarQuery);
+if (!calendar) throw new Error("Team not found");
+---
+
+<Layout>
+  <main class="calendar-page item-page events-page">
+    <h1>{calendar.title}</h1>
+
+    {
+      calendar.introduction && (
+        <section class="introduction calendar-introduction">
+          <PortableText portableText={calendar.introduction} />
+        </section>
+      )
+    }
+
+    {calendar.seasons && <SeasonList seasons={calendar.seasons} />}
+  </main>
+</Layout>

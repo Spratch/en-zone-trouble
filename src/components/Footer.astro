@@ -2,6 +2,7 @@
 import { sanityClient } from "sanity:client";
 import { footerSettingsQuery } from "../sanity/lib/queries";
 
+const { pathname } = Astro.url;
 const settings = await sanityClient.fetch(footerSettingsQuery);
 const siteTitle = settings?.title;
 const navigationLogo = settings?.navigationLogo;
@@ -14,7 +15,9 @@ const aboutItem = navigation?.at(-1);
   <nav class="footer-navigation">
     {
       navigationLogo && (
-        <img class="navigation-logo" src={navigationLogo} alt="Logo" />
+        <a href="/">
+          <img class="navigation-logo" src={navigationLogo} alt="Logo" />
+        </a>
       )
     }
 
@@ -25,7 +28,13 @@ const aboutItem = navigation?.at(-1);
             if (index === navigation.length - 1) return null;
             return (
               <li role="listitem" class="navigation-item">
-                <a class="navigation-link" href={`/${item.slug}`}>
+                <a
+                  class={
+                    "navigation-link " +
+                    (pathname === `/${item.slug}` ? "active" : "")
+                  }
+                  href={`/${item.slug}`}
+                >
                   {item.title}
                 </a>
               </li>

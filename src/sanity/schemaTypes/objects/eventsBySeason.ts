@@ -82,7 +82,10 @@ export default defineType({
                   ],
                   options: {
                     creationTypeFilter: ({ document }, toTypes) => {
-                      return toTypes.filter((t) => t.type !== "research" && t.type !== "transmission");
+                      return toTypes.filter(
+                        (t) =>
+                          t.type !== "research" && t.type !== "transmission",
+                      );
                     },
                   },
                 }),
@@ -109,6 +112,7 @@ export default defineType({
               },
             },
           ],
+          validation: (Rule) => Rule.required(),
         }),
       ],
       preview: {
