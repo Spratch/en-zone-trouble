@@ -753,6 +753,46 @@ export type TransmissionQueryResult = {
   }> | null;
 } | null;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: companyQuery
+// Query: *[_type == "company"][0]{  title,  presentation,    "seasons": seasons[]{    range,    "events": events[]{      title,      description,      date,      place,      link,      "project": project->{        title,        "slug": slug.current,        _type,      }    }  }}
+export type CompanyQueryResult = {
+  title: string;
+  presentation: CustomBlock;
+  seasons: Array<{
+    range: string;
+    events: Array<{
+      title: string;
+      description: string | null;
+      date: string | null;
+      place: string | null;
+      link: string | null;
+      project:
+        | {
+            title: string;
+            slug: string;
+            _type: "podcast";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "research";
+          }
+        | {
+            title: string;
+            slug: string;
+            _type: "show";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "transmission";
+          }
+        | null;
+    }>;
+  }> | null;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -767,5 +807,6 @@ declare module "@sanity/client" {
     '*[_type == "team"][0]{\n  title,\n  "members": members[]->{\n    name,\n    slug,\n    role,\n    link,\n    presentation\n  }\n}': TeamQueryResult;
     '*[_type == "calendar"][0]{\n  title,\n  introduction,\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': CalendarQueryResult;
     '*[_type == "transmission"][0]{\n  title,\n  introduction,\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': TransmissionQueryResult;
+    '*[_type == "company"][0]{\n  title,\n  presentation,\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': CompanyQueryResult;
   }
 }

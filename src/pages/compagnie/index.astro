@@ -1,0 +1,26 @@
+---
+import { sanityClient } from "sanity:client";
+import PortableText from "../../components/PortableText.astro";
+import SeasonList from "../../components/SeasonList.astro";
+import Layout from "../../layouts/Layout.astro";
+import { companyQuery } from "../../sanity/lib/queries";
+
+const company = await sanityClient.fetch(companyQuery);
+if (!company) throw new Error("Team not found");
+---
+
+<Layout>
+  <main class="company-page item-page events-page">
+    <h1>{company.title}</h1>
+
+    {
+      company.presentation && (
+        <section class="introduction company-introduction">
+          <PortableText portableText={company.presentation} />
+        </section>
+      )
+    }
+
+    {company.seasons && <SeasonList seasons={company.seasons} />}
+  </main>
+</Layout>

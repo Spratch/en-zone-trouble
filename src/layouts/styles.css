@@ -48,12 +48,12 @@ footer {
     & ul.navigation-pages {
       flex-grow: 1;
       display: flex;
+    }
 
-      & a.active {
-        pointer-events: none;
-        text-decoration: underline;
-        text-underline-offset: 2px;
-      }
+    & a.active {
+      pointer-events: none;
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
   }
 }

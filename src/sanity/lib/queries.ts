@@ -140,3 +140,9 @@ export const transmissionQuery = defineQuery(`*[_type == "transmission"][0]{
   introduction,
   ${seasonsFragment}
 }`);
+
+export const companyQuery = defineQuery(`*[_type == "company"][0]{
+  title,
+  presentation,
+  ${seasonsFragment}
+}`);

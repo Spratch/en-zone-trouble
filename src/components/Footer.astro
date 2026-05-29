@@ -46,7 +46,13 @@ const aboutItem = navigation?.at(-1);
 
     {
       aboutItem && (
-        <a class="navigation-about" href={aboutItem.slug}>
+        <a
+          class={
+            "navigation-about " +
+            (pathname === `/${aboutItem.slug}` ? "active" : "")
+          }
+          href={`/${aboutItem.slug}`}
+        >
           {aboutItem.title}
         </a>
       )
