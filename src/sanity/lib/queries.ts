@@ -16,10 +16,8 @@ export const footerSettingsQuery = defineQuery(`*[_type == "settings"][0]{
     "navigationLogo": favicon.dark.asset->url,
   }`);
 
-export const homeImageQuery = defineQuery(`*[
-    _type == "settings" &&
-    defined(homeImage.asset->url)
-  ][0].homeImage${imageAltFragment}`);
+export const homeImageQuery = defineQuery(`*[_type == "settings"
+  && defined(homeImage.asset->url)][0].homeImage${imageAltFragment}`);
 
 export const showsListQuery = defineQuery(`*[_type == "show"]{
   title,
@@ -30,24 +28,24 @@ export const showsListQuery = defineQuery(`*[_type == "show"]{
 
 export const showBySlugQuery =
   defineQuery(`*[_type == "show" && slug.current == $slug][0]{
-  title,
-  ${slugFragment},
-  date,
-  "cover": cover${imageAltFragment},
-  "synopsis": synopsis${customBlockFragment},
-  "excerpt": excerpt{
-    type,
-    "image": image${imageAltFragment},
-    text
-  },
-  "infos": infos${customBlockFragment},
-  supports,
-  production,
-  ${creditsFragment}
-  "gallery": gallery[]${imageAltFragment},
-  links,
-  press
-}`);
+    title,
+    ${slugFragment},
+    date,
+    "synopsis": synopsis${customBlockFragment},
+    "excerpt": excerpt{
+      type,
+      "image": image${imageAltFragment},
+      text
+    },
+    "infos": infos${customBlockFragment},
+    supports,
+    production,
+    ${creditsFragment}
+    "gallery": gallery[]${imageAltFragment},
+    links,
+    press
+  }
+`);
 
 export const podcastsListQuery = defineQuery(`*[_type == "podcast"]{
   title,
@@ -58,31 +56,31 @@ export const podcastsListQuery = defineQuery(`*[_type == "podcast"]{
 
 export const podcastBySlugQuery =
   defineQuery(`*[_type == "podcast" && slug.current == $slug][0]{
-  title,
-  ${slugFragment},
-  date,
-  "cover": cover${imageAltFragment},
-  "synopsis": synopsis${customBlockFragment},
-  "episodes": episodes[]{
     title,
-    "mp3": mp3.asset->url,
-  },
-  "infos": infos${customBlockFragment},
-  supports,
-  production,
-  ${creditsFragment}
-  "gallery": gallery[]${imageAltFragment},
-  links,
-  press
-}`);
+    ${slugFragment},
+    date,
+    "synopsis": synopsis${customBlockFragment},
+    "episodes": episodes[]{
+      title,
+      "mp3": mp3.asset->url,
+    },
+    "infos": infos${customBlockFragment},
+    supports,
+    production,
+    ${creditsFragment}
+    "gallery": gallery[]${imageAltFragment},
+    links,
+    press
+  }
+`);
 
 export const researchQuery = defineQuery(`*[_type == "research"][0]{
-    title,
-    "presentation": presentation${customBlockFragment},
-    "notes": notes${customBlockFragment},
-    excerptTitle,
-    "excerpt": excerpt${customBlockFragment}
-  }`);
+  title,
+  "presentation": presentation${customBlockFragment},
+  "notes": notes${customBlockFragment},
+  excerptTitle,
+  "excerpt": excerpt${customBlockFragment}
+}`);
 
 export const teamQuery = defineQuery(`*[_type == "team"][0]{
   title,
