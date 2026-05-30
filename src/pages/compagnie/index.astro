@@ -7,6 +7,7 @@ import { companyQuery } from "../../sanity/lib/queries";
 
 const company = await sanityClient.fetch(companyQuery);
 if (!company) throw new Error("Team not found");
+console.log(company.presentation[0].markDefs);
 ---
 
 <Layout>
@@ -16,7 +17,7 @@ if (!company) throw new Error("Team not found");
     {
       company.presentation && (
         <section class="introduction company-introduction">
-          <PortableText portableText={company.presentation} />
+          <PortableText value={company.presentation} />
         </section>
       )
     }

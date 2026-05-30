@@ -16,7 +16,7 @@ if (!calendar) throw new Error("Team not found");
     {
       calendar.introduction && (
         <section class="introduction calendar-introduction">
-          <PortableText portableText={calendar.introduction} />
+          <PortableText value={calendar.introduction} />
         </section>
       )
     }

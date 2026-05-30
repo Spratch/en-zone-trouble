@@ -203,3 +203,30 @@ ul.seasons {
     }
   }
 }
+
+.portable-text {
+  strong {
+    font-weight: 400;
+    color: var(--color-accent);
+  }
+
+  a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover,
+    &:focus {
+      color: var(--color-accent);
+    }
+
+    /*&[href^="https://"]::after {
+      content: "";
+      display: inline-block;
+      margin-left: 0.25rem;
+      margin-bottom: -3px;
+      width: 1ch;
+      height: 0.75lh;
+      background-color: var(--color-accent);
+    }*/
+  }
+}

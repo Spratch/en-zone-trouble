@@ -13,11 +13,11 @@ if (!research) throw new Error("No research found");
     <h1>{research.title}</h1>
     <section class="page-grid">
       <div class="page-left">
-        <PortableText portableText={research.presentation} />
+        <PortableText value={research.presentation} />
       </div>
 
       <aside class="page-right">
-        <PortableText portableText={research.notes} />
+        <PortableText value={research.notes} />
       </aside>
     </section>
 
@@ -25,10 +25,7 @@ if (!research) throw new Error("No research found");
       research.excerpt && (
         <section class="excerpt">
           {research.excerptTitle && <h2>{research.excerptTitle}</h2>}
-          <PortableText
-            class="research-excerpt"
-            portableText={research.excerpt}
-          />
+          <PortableText class="research-excerpt" value={research.excerpt} />
         </section>
       )
     }

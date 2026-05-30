@@ -3,5 +3,5 @@ export const contentRoutes = {
   podcast: "/podcasts",
   research: "",
   transmission: "",
-  team: "",
+  member: "/equipe",
 };

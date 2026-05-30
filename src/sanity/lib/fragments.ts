@@ -1,4 +1,12 @@
-export const imageSrcFragment = `"src": coalesce(asset->url, ""),`;
+export const slugFragment = `"slug": slug.current`;
+export const imageSrcFragment = `"src": coalesce(asset->url, "")`;
+
+export const imageAltFragment = `{
+  ${imageSrcFragment},
+  "alt": coalesce(alt, ^.title, ""),
+  crop,
+  hotspot,
+}`;
 
 export const creditsFragment = `"credits": credits[]{
   "title": title->title,
@@ -6,7 +14,7 @@ export const creditsFragment = `"credits": credits[]{
     _type == "reference" => @->{
       _type,
       "name": name,
-      "slug": slug.current,
+      ${slugFragment},
       "link": link,
     },
     _type != "reference" => @{
@@ -27,9 +35,21 @@ export const seasonsFragment = `
       link,
       "project": project->{
         title,
-        "slug": slug.current,
+        ${slugFragment},
         _type,
       }
     }
   }
 `;
+
+export const customBlockFragment = `[]{
+  ...,
+  markDefs[]{
+    ...,
+    _type == "internalLink" => {
+      ...,
+      "slug": *[_id == ^._ref][0].slug.current,
+      "refType": *[_id == ^._ref][0]._type
+    }
+  }
+}`;

@@ -1,15 +1,17 @@
 import { defineQuery } from "groq";
 import {
   creditsFragment,
-  imageSrcFragment,
+  customBlockFragment,
+  imageAltFragment,
   seasonsFragment,
+  slugFragment,
 } from "./fragments";
 
 export const footerSettingsQuery = defineQuery(`*[_type == "settings"][0]{
     title,
     "navigation": navigation[]{
       title,
-      "slug": slug.current
+      ${slugFragment}
     },
     "navigationLogo": favicon.dark.asset->url,
   }`);
@@ -17,105 +19,69 @@ export const footerSettingsQuery = defineQuery(`*[_type == "settings"][0]{
 export const homeImageQuery = defineQuery(`*[
     _type == "settings" &&
     defined(homeImage.asset->url)
-  ][0].homeImage{
-    ${imageSrcFragment}
-    alt,
-    crop,
-    hotspot
-  }`);
+  ][0].homeImage${imageAltFragment}`);
 
 export const showsListQuery = defineQuery(`*[_type == "show"]{
   title,
-  "slug": slug.current,
+  ${slugFragment},
   date,
-  "cover": cover{
-    ${imageSrcFragment}
-    crop,
-    hotspot,
-  }
+  "cover": cover${imageAltFragment},
 } | order(date desc)`);
 
 export const showBySlugQuery =
   defineQuery(`*[_type == "show" && slug.current == $slug][0]{
   title,
-  "slug": slug.current,
+  ${slugFragment},
   date,
-  "cover": cover{
-    ${imageSrcFragment}
-    crop,
-    hotspot,
-  },
-  synopsis,
+  "cover": cover${imageAltFragment},
+  "synopsis": synopsis${customBlockFragment},
   "excerpt": excerpt{
     type,
-    "image": image{
-      ${imageSrcFragment}
-      crop,
-      hotspot,
-      alt
-    },
+    "image": image${imageAltFragment},
     text
   },
-  infos,
+  "infos": infos${customBlockFragment},
   supports,
   production,
   ${creditsFragment}
-  "gallery": gallery[]{
-    ${imageSrcFragment}
-    crop,
-    hotspot,
-    alt
-  },
+  "gallery": gallery[]${imageAltFragment},
   links,
   press
 }`);
 
 export const podcastsListQuery = defineQuery(`*[_type == "podcast"]{
   title,
-  "slug": slug.current,
+  ${slugFragment},
   date,
-  "cover": cover{
-    ${imageSrcFragment}
-    crop,
-    hotspot,
-  }
+  "cover": cover${imageAltFragment}
 } | order(date desc)`);
 
 export const podcastBySlugQuery =
   defineQuery(`*[_type == "podcast" && slug.current == $slug][0]{
   title,
-  "slug": slug.current,
+  ${slugFragment},
   date,
-  "cover": cover{
-    ${imageSrcFragment}
-    crop,
-    hotspot,
-  },
-  synopsis,
+  "cover": cover${imageAltFragment},
+  "synopsis": synopsis${customBlockFragment},
   "episodes": episodes[]{
     title,
     "mp3": mp3.asset->url,
   },
-  infos,
+  "infos": infos${customBlockFragment},
   supports,
   production,
   ${creditsFragment}
-  "gallery": gallery[]{
-    ${imageSrcFragment}
-    crop,
-    hotspot,
-    alt
-  },
+  "gallery": gallery[]${imageAltFragment},
   links,
   press
 }`);
 
 export const researchQuery = defineQuery(`*[_type == "research"][0]{
     title,
-    presentation,
-    notes,
+    "presentation": presentation${customBlockFragment},
+    "notes": notes${customBlockFragment},
     excerptTitle,
-    excerpt
+    "excerpt": excerpt${customBlockFragment}
   }`);
 
 export const teamQuery = defineQuery(`*[_type == "team"][0]{
@@ -125,24 +91,24 @@ export const teamQuery = defineQuery(`*[_type == "team"][0]{
     slug,
     role,
     link,
-    presentation
+    "presentation": presentation${customBlockFragment}
   }
 }`);
 
 export const calendarQuery = defineQuery(`*[_type == "calendar"][0]{
   title,
-  introduction,
+  "introduction": introduction${customBlockFragment},
   ${seasonsFragment}
 }`);
 
 export const transmissionQuery = defineQuery(`*[_type == "transmission"][0]{
   title,
-  introduction,
+  "introduction": introduction${customBlockFragment},
   ${seasonsFragment}
 }`);
 
 export const companyQuery = defineQuery(`*[_type == "company"][0]{
   title,
-  presentation,
+  "presentation": presentation${customBlockFragment},
   ${seasonsFragment}
 }`);

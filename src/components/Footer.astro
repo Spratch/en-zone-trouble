@@ -29,10 +29,10 @@ const aboutItem = navigation?.at(-1);
             return (
               <li role="listitem" class="navigation-item">
                 <a
-                  class={
-                    "navigation-link " +
-                    (pathname === `/${item.slug}` ? "active" : "")
-                  }
+                  class:list={[
+                    "navigation-link",
+                    { active: pathname === `/${item.slug}` },
+                  ]}
                   href={`/${item.slug}`}
                 >
                   {item.title}
@@ -47,10 +47,10 @@ const aboutItem = navigation?.at(-1);
     {
       aboutItem && (
         <a
-          class={
-            "navigation-about " +
-            (pathname === `/${aboutItem.slug}` ? "active" : "")
-          }
+          class:list={[
+            "navigation-about",
+            { active: pathname === `/${aboutItem.slug}` },
+          ]}
           href={`/${aboutItem.slug}`}
         >
           {aboutItem.title}

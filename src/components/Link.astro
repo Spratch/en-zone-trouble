@@ -1,0 +1,48 @@
+---
+import {
+  ArrowTopRightIcon,
+  AsteriskIcon,
+  EyeOpenIcon,
+  MicrophoneIcon,
+  SearchIcon,
+  UserIcon,
+} from "@sanity/icons";
+import type { Props as $, Mark } from "astro-portabletext/types";
+import { contentRoutes } from "../utils";
+
+type MarkDef = { slug?: string; refType?: string; href?: string };
+export type Props = $<Mark<MarkDef>>;
+
+const iconMap = {
+  show: EyeOpenIcon,
+  podcast: MicrophoneIcon,
+  research: SearchIcon,
+  transmission: AsteriskIcon,
+  member: UserIcon,
+  externalLink: ArrowTopRightIcon,
+};
+
+const { node } = Astro.props;
+const { slug, refType, href } = node.markDef;
+
+const url =
+  href ??
+  `${contentRoutes[refType as keyof typeof contentRoutes]}/${refType === "member" ? "" : slug}`;
+const Icon =
+  node.markType === "internalLink"
+    ? iconMap[refType as keyof typeof iconMap]
+    : iconMap.externalLink;
+---
+
+<a href={url}><slot /></a>
+{
+  Icon && (
+    <Icon
+      style={{
+        display: "inline-block",
+        marginBottom: "0.25em",
+        marginLeft: "-0.25em",
+      }}
+    />
+  )
+}

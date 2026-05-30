@@ -22,15 +22,11 @@ if (!show) throw new Error("Show not found");
         <h1>{show.title}</h1>
 
         {/* Synopsis */}
-        <PortableText class="synopsis" portableText={show.synopsis} />
+        <PortableText class="synopsis" value={show.synopsis} />
 
         {/* Infos */}
         <section class="details">
-          {
-            show.infos && (
-              <PortableText class="infos" portableText={show.infos} />
-            )
-          }
+          {show.infos && <PortableText class="infos" value={show.infos} />}
           {show.production && <p class="production">{show.production}</p>}
           {
             show.supports && (
@@ -96,7 +92,7 @@ if (!show) throw new Error("Show not found");
                   <div class="credit-value">
                     {credit.value?.map((value) =>
                       value?._type === "personText" ? (
-                        <PortableText portableText={value.text} />
+                        <PortableText value={value.text} />
                       ) : (
                         <p>{value.name}</p>
                       ),

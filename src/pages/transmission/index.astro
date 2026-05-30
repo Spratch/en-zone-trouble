@@ -16,7 +16,7 @@ if (!transmission) throw new Error("Team not found");
     {
       transmission.introduction && (
         <section class="introduction transmission-introduction">
-          <PortableText portableText={transmission.introduction} />
+          <PortableText value={transmission.introduction} />
         </section>
       )
     }
