@@ -3,12 +3,13 @@ import { frFRLocale } from "@sanity/locale-fr-fr";
 import { defineConfig } from "sanity";
 import { muxInput } from "sanity-plugin-mux-input";
 import { structureTool } from "sanity/structure";
-import { schema, singltetonDocs } from "./src/sanity/schemaTypes";
+import { listDocs, schema } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
 
 export default defineConfig({
   projectId: "a7gwf3qs",
   dataset: "production",
+  title: "En zone trouble",
   plugins: [
     structureTool({ structure }),
     frFRLocale(),
@@ -23,9 +24,9 @@ export default defineConfig({
   document: {
     newDocumentOptions: (prev, { creationContext }) => {
       if (creationContext.type === "global") {
-        const singletonDocuments = singltetonDocs.map((doc) => doc.name);
-        return prev.filter(
-          (item) => !(singletonDocuments as string[]).includes(item.templateId),
+        const listDocuments = listDocs.map((doc) => doc.name);
+        return prev.filter((item) =>
+          (listDocuments as string[]).includes(item.templateId),
         );
       }
       return prev;

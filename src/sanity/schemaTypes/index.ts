@@ -18,7 +18,7 @@ import { showSchema } from "./show";
 import { teamSchema } from "./team";
 import { transmissionSchema } from "./transmission";
 
-export const singltetonDocs = [
+const singltetonDocs = [
   settingsSchema,
   researchSchema,
   companySchema,
@@ -26,7 +26,7 @@ export const singltetonDocs = [
   transmissionSchema,
   teamSchema,
 ];
-const listDocs = [
+export const listDocs = [
   showSchema,
   podcastSchema,
   memberSchema,
