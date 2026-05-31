@@ -28,25 +28,27 @@ export const structure: StructureResolver = (S, context) => {
   };
 
   return S.list()
-    .title("Content")
+    .title("Contenus")
     .items([
+      S.divider().title("Projets"),
+
       li("show", "Spectacles", EyeOpenIcon, "list"),
       li("podcast", "Podcasts", MicrophoneIcon, "list"),
 
-      S.divider(),
+      S.divider().title("Compagnie"),
 
       li("company", "Compagnie", EmptyIcon, "singleton"),
       li("team", "Équipe", UsersIcon, "singleton"),
       // li("member", "Équipe", UsersIcon, "list"),
       // li("job", "Métiers", CaseIcon, "list"),
 
-      S.divider(),
+      S.divider().title("Ressources"),
 
       li("calendar", "Calendrier", CalendarIcon, "singleton"),
       li("research", "Recherche", ComposeIcon, "singleton"),
       li("transmission", "Transmission", AsteriskIcon, "singleton"),
 
-      S.divider(),
+      S.divider().title("Paramètres"),
 
       li("settings", "Paramètres", ControlsIcon, "singleton"),
       li("legal", "Pages légales", DocumentsIcon, "list"),

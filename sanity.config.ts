@@ -12,7 +12,7 @@ export default defineConfig({
   dataset: "production",
   title: "En zone trouble",
   plugins: [
-    structureTool({ structure }),
+    structureTool({ structure, title: "Contenus" }),
     frFRLocale(),
     muxInput({
       disableUploadConfig: true,
