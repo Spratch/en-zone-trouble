@@ -3,6 +3,7 @@ import { Font } from "astro:assets";
 import Footer from "../components/Footer.astro";
 import "./reset.css";
 import "./styles.css";
+import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -14,8 +15,9 @@ import "./styles.css";
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>En Zone Trouble</title>
-    <Font cssVariable="--font-serif" />
-    <Font cssVariable="--font-sans" />
+    <Font cssVariable="--font-serif" preload />
+    <Font cssVariable="--font-sans" preload />
+    <ClientRouter />
   </head>
   <body>
     <Footer />

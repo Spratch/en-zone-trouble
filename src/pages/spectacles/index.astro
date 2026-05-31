@@ -6,7 +6,7 @@ import { showsListQuery } from "../../sanity/lib/queries";
 
 const shows = await sanityClient.fetch(showsListQuery);
 if (shows.length === 1) {
-  return Astro.redirect(`/spectacles/${shows[0].slug}`);
+  return Astro.rewrite(`/spectacles/${shows[0].slug}`);
 }
 ---
 

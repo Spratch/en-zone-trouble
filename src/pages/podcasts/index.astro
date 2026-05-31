@@ -6,7 +6,7 @@ import { podcastsListQuery } from "../../sanity/lib/queries";
 
 const podcasts = await sanityClient.fetch(podcastsListQuery);
 if (podcasts.length === 1) {
-  return Astro.redirect(`/podcasts/${podcasts[0].slug}`);
+  return Astro.rewrite(`/podcasts/${podcasts[0].slug}`);
 }
 ---
 
