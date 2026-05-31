@@ -1,46 +1,54 @@
-# Astro Starter Kit: Basics
+# En Zone Trouble
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Site web pour la compagnie de théatre "En Zone Trouble".
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Technologie principale (rapide)
+- Astro (site/front-end)
+- Sanity (headless CMS, studio intégré via `@sanity/astro` et `@astrojs/react`)
+- Mux (support audio/vidéo) via plugin Sanity
 
-## 🚀 Project Structure
+## Prérequis
+- Node.js >= 22.12.0
+- pnpm
 
-Inside of your Astro project, you'll see the following folders and files:
+## Installation et démarrage (local)
+1. Installer les dépendances :
+     ```
+     pnpm install
+     ```
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+2. Lancer le serveur de développement :
+   ```
+   pnpm dev
+   ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+3. Ouvrez votre navigateur :
+   - Site : http://localhost:4321 (port par défaut)
+   - Administration : http://localhost:4321/admin
 
-## 🧞 Commands
+## Commandes utiles
+- Développement : `pnpm dev`
+- Générer le site (build) : `pnpm build`
+- Tester le build localement : `pnpm preview`
+- Extraction des schémas Sanity (watch) : `pnpm run schemas` (exécute `sanity schemas extract --watch`)
+- Génération des types/query typegen (watch) : `pnpm run queries` (exécute `sanity typegen generate --watch`)
 
-All commands are run from the root of the project, from a terminal:
+Les deux dernières commandes nécessitent la CLI Sanity (ou `npx sanity ...`).
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+## Structure rapide du projet
+- `src/`
+  - `layouts/` — styles et layout principal
+  - `pages/` — pages publiques
+  - `components/` — composants réutilisables
+  - `assets/fonts/` — polices locales
+  - `sanity/` — schémas, structure et utilitaires Sanity
+- `astro.config.mjs`: 
+  - configuration Astro
+  - intégration Sanity
+  - fontes locales
+- `package.json` — scripts et dépendances
+- `sanity.config.ts` & `sanity.cli.ts` — configuration Sanity (studio & CLI)
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Ressources utiles
+- [Documentation Astro](https://docs.astro.build/fr/getting-started/)
+- [Documentation Sanity](https://www.sanity.io/docs)
