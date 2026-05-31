@@ -8,6 +8,15 @@ import {
   slugFragment,
 } from "./fragments";
 
+export const layoutSettingsQuery = defineQuery(`*[_type == "settings"][0]{
+    title,
+    description,
+    "favicons": favicon{
+      "light": light.asset->url,
+      "dark": dark.asset->url,
+    }
+  }`);
+
 export const footerSettingsQuery = defineQuery(`*[_type == "settings"][0]{
     title,
     "navigation": navigation[]{

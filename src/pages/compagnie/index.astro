@@ -9,7 +9,7 @@ const company = await sanityClient.fetch(companyQuery);
 if (!company) throw new Error("Team not found");
 ---
 
-<Layout>
+<Layout title={company.title}>
   <main class="company-page item-page events-page">
     <h1>{company.title}</h1>
 

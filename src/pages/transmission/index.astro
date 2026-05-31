@@ -9,7 +9,7 @@ const transmission = await sanityClient.fetch(transmissionQuery);
 if (!transmission) throw new Error("Team not found");
 ---
 
-<Layout>
+<Layout title={transmission.title}>
   <main class="transmission-page item-page events-page">
     <h1>{transmission.title}</h1>
 

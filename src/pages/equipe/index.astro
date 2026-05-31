@@ -7,7 +7,7 @@ const team = await sanityClient.fetch(teamQuery);
 if (!team) throw new Error("Team not found");
 ---
 
-<Layout>
+<Layout title={team.title}>
   <main class="team-page item-page">
     <h1>{team.title}</h1>
 

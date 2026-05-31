@@ -19,7 +19,7 @@ const podcast = await sanityClient.fetch(podcastBySlugQuery, { slug });
 if (!podcast) throw new Error("Podcast not found");
 ---
 
-<Layout>
+<Layout title={podcast.title}>
   <main class="podcast-page item-page">
     <section class="page-grid">
       <div class="page-left">

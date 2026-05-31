@@ -4,17 +4,25 @@ import Footer from "../components/Footer.astro";
 import "./reset.css";
 import "./styles.css";
 import { ClientRouter } from "astro:transitions";
+import { sanityClient } from "sanity:client";
+import { layoutSettingsQuery } from "../sanity/lib/queries";
+import Meta from "../components/Meta.astro";
+
+const settings = await sanityClient.fetch(layoutSettingsQuery);
+
+const { ...seo } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="generator" content={Astro.generator} />
-    <title>En Zone Trouble</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <Meta
+      siteTitle={settings?.title || "En Zone Trouble"}
+      siteDescription={settings?.description || ""}
+      {...seo}
+    />
     <Font cssVariable="--font-serif" preload />
     <Font cssVariable="--font-sans" preload />
     <ClientRouter />

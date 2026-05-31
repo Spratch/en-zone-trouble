@@ -15,7 +15,7 @@ const show = await sanityClient.fetch(showBySlugQuery, { slug });
 if (!show) throw new Error("Show not found");
 ---
 
-<Layout>
+<Layout title={show.title}>
   <main class="show-page item-page">
     <section class="page-grid">
       <div class="page-left">

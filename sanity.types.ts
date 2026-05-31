@@ -604,6 +604,18 @@ export type AllSanitySchemaTypes =
   | Geopoint;
 
 // Source: src/sanity/lib/queries.ts
+// Variable: layoutSettingsQuery
+// Query: *[_type == "settings"][0]{    title,    description,    "favicons": favicon{      "light": light.asset->url,      "dark": dark.asset->url,    }  }
+export type LayoutSettingsQueryResult = {
+  title: string;
+  description: string;
+  favicons: {
+    light: string | null;
+    dark: string | null;
+  } | null;
+} | null;
+
+// Source: src/sanity/lib/queries.ts
 // Variable: footerSettingsQuery
 // Query: *[_type == "settings"][0]{    title,    "navigation": navigation[]{      title,      "slug": slug.current    },    "navigationLogo": favicon.dark.asset->url,  }
 export type FooterSettingsQueryResult = {
@@ -1168,6 +1180,7 @@ export type CompanyQueryResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    '*[_type == "settings"][0]{\n    title,\n    description,\n    "favicons": favicon{\n      "light": light.asset->url,\n      "dark": dark.asset->url,\n    }\n  }': LayoutSettingsQueryResult;
     '*[_type == "settings"][0]{\n    title,\n    "navigation": navigation[]{\n      title,\n      "slug": slug.current\n    },\n    "navigationLogo": favicon.dark.asset->url,\n  }': FooterSettingsQueryResult;
     '*[_type == "settings"\n  && defined(homeImage.asset->url)][0].homeImage{\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n}': HomeImageQueryResult;
     '*[_type == "show"]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n},\n} | order(date desc)': ShowsListQueryResult;

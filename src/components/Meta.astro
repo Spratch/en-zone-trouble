@@ -1,0 +1,41 @@
+---
+export interface Props {
+  siteTitle: string;
+  siteDescription: string;
+  title?: string;
+  description?: string;
+  type?: string;
+  seoImage?: string;
+}
+
+const { siteTitle, siteDescription, title, description, type, seoImage } =
+  Astro.props;
+
+const seoTitle = `${siteTitle}${title ? ` | ${title}` : ""}`;
+const seoDescription = description || siteDescription;
+---
+
+<meta name="generator" content={Astro.generator} />
+<title>{seoTitle}</title>
+<meta name="description" content={seoDescription} />
+
+{/* Open Graph tags */}
+<meta property="og:title" content={seoTitle} />
+<meta property="og:type" content={type || "website"} />
+<meta property="og:description" content={seoDescription} />
+{seoImage && <meta property="og:image" content={seoImage} />}
+<meta property="og:image:alt" content={title} />
+
+{/* Twitter tags */}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={seoTitle} />
+<meta name="twitter:description" content={seoDescription} />
+{
+  seoImage && (
+    <meta
+      name="twitter:image"
+      content={seoImage?.replace("/og/", "/og/twitter-")}
+    />
+  )
+}
+<meta name="twitter:image:alt" content={title} />

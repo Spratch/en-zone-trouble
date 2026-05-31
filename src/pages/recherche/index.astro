@@ -8,7 +8,7 @@ const research = await sanityClient.fetch(researchQuery);
 if (!research) throw new Error("No research found");
 ---
 
-<Layout>
+<Layout title={research.title}>
   <main class="research-page item-page">
     <h1>{research.title}</h1>
     <section class="page-grid">

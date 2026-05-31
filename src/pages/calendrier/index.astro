@@ -9,7 +9,7 @@ const calendar = await sanityClient.fetch(calendarQuery);
 if (!calendar) throw new Error("Team not found");
 ---
 
-<Layout>
+<Layout title={calendar.title}>
   <main class="calendar-page item-page events-page">
     <h1>{calendar.title}</h1>
 
