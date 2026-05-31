@@ -2,7 +2,7 @@
 
 Site web pour la compagnie de théatre "En Zone Trouble".
 
-## Technologie principale (rapide)
+## Stack
 - Astro (site/front-end)
 - Sanity (headless CMS, studio intégré via `@sanity/astro` et `@astrojs/react`)
 - Mux (support audio/vidéo) via plugin Sanity
@@ -49,6 +49,6 @@ Les deux dernières commandes nécessitent la CLI Sanity (ou `npx sanity ...`).
 - `package.json` — scripts et dépendances
 - `sanity.config.ts` & `sanity.cli.ts` — configuration Sanity (studio & CLI)
 
-## Ressources utiles
+## Ressources
 - [Documentation Astro](https://docs.astro.build/fr/getting-started/)
 - [Documentation Sanity](https://www.sanity.io/docs)
