@@ -7,6 +7,7 @@ import {
   podcastBySlugQuery,
   podcastsListQuery,
 } from "../../sanity/lib/queries";
+import Gallery from "../../components/Gallery.astro";
 
 export async function getStaticPaths() {
   const podcasts = await sanityClient.fetch(podcastsListQuery);
@@ -33,11 +34,11 @@ if (!podcast) throw new Error("Podcast not found");
             <section class="podcast-episodes">
               {podcast.episodes.map((episode, index) => (
                 <p class="episode-item">
-                  {episode.mp3 ? (
+                  {episode.playbackId ? (
                     <button
                       class="episode-trigger"
                       aria-label={`Écouter l'épisode ${index + 1}`}
-                      data-src={episode.mp3}
+                      data-playback-id={episode.playbackId}
                       data-title={episode.title}
                     >
                       épisode {index + 1}
@@ -134,15 +135,7 @@ if (!podcast) throw new Error("Podcast not found");
     </section>
   </main>
   {/* Galerie */}
-  {
-    podcast.gallery && (
-      <div class="gallery">
-        {podcast.gallery.map((image) => (
-          <Img class="gallery-item" image={image} />
-        ))}
-      </div>
-    )
-  }
+  {podcast.gallery && <Gallery gallery={podcast.gallery} />}
 </Layout>
 
 <script>
@@ -152,13 +145,14 @@ if (!podcast) throw new Error("Podcast not found");
 
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      const src = button.getAttribute("data-src");
+      const playbackId = button.getAttribute("data-playback-id");
       const title = button.getAttribute("data-title");
-      if (src && player) {
-        player.setAttribute("src", src);
-      }
-      if (title && titleElement) {
-        titleElement.textContent = title;
+
+      if (playbackId && player) {
+        player.setAttribute("src", `https://stream.mux.com/${playbackId}.m3u8`);
+        if (title && titleElement) {
+          titleElement.textContent = title;
+        }
       }
     });
   });

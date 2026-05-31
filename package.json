@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^5.0.5",
+    "@mux/mux-video": "^0.31.0",
     "@portabletext/types": "^4.0.2",
     "@sanity/asset-utils": "^2.3.0",
     "@sanity/astro": "^3.4.0",
@@ -33,6 +34,7 @@
     "react-dom": "^19.2.6",
     "react-is": "^19.2.6",
     "sanity": "^5.28.0",
+    "sanity-plugin-mux-input": "^2.19.0",
     "styled-components": "^6.4.2"
   },
   "devDependencies": {

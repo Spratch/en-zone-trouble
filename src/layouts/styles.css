@@ -129,9 +129,10 @@ main {
   width: 100%;
   flex-shrink: 0;
   overflow-x: scroll;
+  align-items: end;
 
   & .gallery-item {
-    max-height: 20rem;
+    height: 20rem;
   }
 }
 
@@ -229,4 +230,10 @@ ul.seasons {
       background-color: var(--color-accent);
     }*/
   }
+}
+
+.video-player {
+  flex-shrink: 0;
+  display: block;
+  height: 100%;
 }

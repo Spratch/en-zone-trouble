@@ -2,6 +2,7 @@ import { defineQuery } from "groq";
 import {
   creditsFragment,
   customBlockFragment,
+  galleryFragment,
   imageAltFragment,
   seasonsFragment,
   slugFragment,
@@ -41,7 +42,7 @@ export const showBySlugQuery =
     supports,
     production,
     ${creditsFragment}
-    "gallery": gallery[]${imageAltFragment},
+    "gallery": gallery[]${galleryFragment},
     links,
     press
   }
@@ -62,13 +63,13 @@ export const podcastBySlugQuery =
     "synopsis": synopsis${customBlockFragment},
     "episodes": episodes[]{
       title,
-      "mp3": mp3.asset->url,
+      "playbackId": mp3.asset->playbackId,
     },
     "infos": infos${customBlockFragment},
     supports,
     production,
     ${creditsFragment}
-    "gallery": gallery[]${imageAltFragment},
+    "gallery": gallery[]${galleryFragment},
     links,
     press
   }

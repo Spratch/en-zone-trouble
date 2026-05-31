@@ -8,6 +8,7 @@ import credits from "./objects/credits";
 import customBlock from "./objects/customBlock";
 import eventsBySeason from "./objects/eventsBySeason";
 import favicon from "./objects/favicon";
+import gallery from "./objects/gallery";
 import imageAlt from "./objects/imageAlt";
 import linksArray from "./objects/linksArray";
 import { podcastSchema } from "./podcast";
@@ -39,6 +40,7 @@ const objects = [
   linksArray,
   eventsBySeason,
   customBlock,
+  gallery,
 ];
 export const schema: SchemaPluginOptions = {
   types: [...singltetonDocs, ...listDocs, ...objects],

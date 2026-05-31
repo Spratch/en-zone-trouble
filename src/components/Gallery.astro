@@ -1,0 +1,36 @@
+---
+import type { ShowBySlugQueryResult } from "../../sanity.types";
+import Img from "./Img.astro";
+import VideoPlayer from "./VideoPlayer.astro";
+
+type Props = {
+  gallery: NonNullable<NonNullable<ShowBySlugQueryResult>["gallery"]>;
+};
+
+const { gallery } = Astro.props;
+---
+
+<div class="gallery">
+  {
+    gallery.map((item) => {
+      if (item._type === "imageAlt") {
+        return <Img class="gallery-item" image={item} />;
+      }
+      if (item._type === "mux.video") {
+        return (
+          <VideoPlayer
+            class="gallery-item"
+            playbackId={item.playbackId}
+            autoplay
+            loop
+            muted={true}
+          />
+        );
+      }
+    })
+  }
+</div>
+
+<script>
+  import "@mux/mux-video";
+</script>

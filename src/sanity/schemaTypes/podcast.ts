@@ -69,11 +69,12 @@ export const podcastSchema = defineType({
             }),
             defineField({
               name: "mp3",
-              title: "MP3",
-              description: "Fichier MP3 de l'épisode",
-              type: "file",
+              title: "Audio",
+              icon: MicrophoneIcon,
+              description: "Audio de l'épisode",
+              type: "mux.video",
               options: {
-                accept: ".mp3",
+                acceptedMimeTypes: ["audio/*"],
               },
             }),
           ],
@@ -109,11 +110,7 @@ export const podcastSchema = defineType({
       name: "gallery",
       title: "Galerie",
       description: "Images liées au podcast",
-      type: "array",
-      of: [{ type: "imageAlt" }],
-      options: {
-        layout: "grid",
-      },
+      type: "gallery",
     }),
     defineField({
       name: "links",

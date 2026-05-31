@@ -53,3 +53,11 @@ export const customBlockFragment = `[]{
     }
   }
 }`;
+
+export const galleryFragment = `{
+  _type,
+  _type == "imageAlt" => ${imageAltFragment},
+  _type == "mux.video" => {
+    "playbackId": coalesce(asset->playbackId, ""),
+  }
+}`;

@@ -117,11 +117,7 @@ export const showSchema = defineType({
       name: "gallery",
       title: "Galerie",
       description: "Images liées au spectacle",
-      type: "array",
-      of: [{ type: "imageAlt" }],
-      options: {
-        layout: "grid",
-      },
+      type: "gallery",
     }),
     defineField({
       name: "links",

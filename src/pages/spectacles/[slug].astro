@@ -1,10 +1,10 @@
 ---
 import { sanityClient } from "sanity:client";
+import Gallery from "../../components/Gallery.astro";
 import Img from "../../components/Img.astro";
 import PortableText from "../../components/PortableText.astro";
 import Layout from "../../layouts/Layout.astro";
 import { showBySlugQuery, showsListQuery } from "../../sanity/lib/queries";
-
 export async function getStaticPaths() {
   const shows = await sanityClient.fetch(showsListQuery);
   return shows.map(({ slug }) => ({ params: { slug } }));
@@ -107,13 +107,5 @@ if (!show) throw new Error("Show not found");
     </section>
   </main>
   {/* Galerie */}
-  {
-    show.gallery && (
-      <div class="gallery">
-        {show.gallery.map((image) => (
-          <Img class="gallery-item" image={image} />
-        ))}
-      </div>
-    )
-  }
+  {show.gallery && <Gallery gallery={show.gallery} />}
 </Layout>
