@@ -8,6 +8,7 @@ const homeImage = await sanityClient.fetch(homeImageQuery);
 ---
 
 <Layout>
+  <h1 class="sr-only">En Zone Trouble</h1>
   {
     homeImage?.src && (
       <Img
