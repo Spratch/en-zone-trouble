@@ -40,5 +40,11 @@
   },
   "devDependencies": {
     "@sanity/types": "^5.28.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   }
 }
