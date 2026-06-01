@@ -37,14 +37,40 @@ footer {
   bottom: 0;
   width: 100%;
 
-  & .footer-titlewraper{
-    position: relative;
-  }
-
   & .footer-title {
-    position: absolute;
-    bottom: 0;
-    overflow: visible;
+    pointer-events: none;
+    user-select: none;
+    color: var(--color-footer);
+    font-weight: 300;
+
+    &.flou {
+      position: absolute;
+      bottom: 3rem;
+      inset-inline: 0;
+
+      --padding-top: 2.5vw;
+      padding-top: var(
+        --padding-top
+      ); /* Pour laisser de l'espace au masque de flou */
+      filter: blur(0.75vw);
+
+      --mask-size: 45%;
+      mask-image: linear-gradient(
+        black 0,
+        black calc(var(--mask-size) + var(--padding-top)),
+        transparent 100%
+      );
+    }
+
+    &.net {
+      --mask-size: 50%;
+      mask-image: linear-gradient(
+        transparent 0,
+        transparent var(--mask-size),
+        black 100%
+      );
+    }
+
     /* Largeur du titre */
     text-fit: grow; /* Chrome */
     @supports not (text-fit: grow) {
@@ -58,23 +84,6 @@ footer {
       /* Firefox */
       margin-bottom: -6.5vw;
     }
-
-    pointer-events: none;
-    user-select: none;
-    color: var(--color-footer);
-    font-weight: 300;
-
-    &.flou{filter: blur(8px);
-    }
-    
-    &.net{
-        --mask-size: 20%;
-        mask-image: linear-gradient(
-          transparent 0,
-          transparent var(--mask-size),
-          black 100%
-        );
-      }
   }
 
   & nav.footer-navigation {

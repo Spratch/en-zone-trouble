@@ -11,30 +11,44 @@ const aboutItem = navigation?.at(-1);
 ---
 
 <footer>
-  {siteTitle && <div class="footer-titlewraper">
-    <p class="footer-title flou">{siteTitle}</p>
-    <p class="footer-title net">{siteTitle}</p>
-  </div>}
+  {
+    siteTitle && (
+      <>
+        <p class="footer-title flou">{siteTitle}</p>
+        <p class="footer-title net">{siteTitle}</p>
+      </>
+    )
+  }
   <nav class="footer-navigation">
     {
       navigationLogo && (
         <a href="/">
-          <img class="navigation-logo" src={navigationLogo} alt="Logo" />
+          <img
+            class="navigation-logo"
+            src={navigationLogo}
+            alt="Logo"
+          />
         </a>
       )
     }
 
     {
       navigation && (
-        <ul role="list" class="navigation-pages">
+        <ul
+          role="list"
+          class="navigation-pages"
+        >
           {navigation.map((item, index) => {
             if (index === navigation.length - 1) return null;
             return (
-              <li role="listitem" class="navigation-item">
+              <li
+                role="listitem"
+                class="navigation-item"
+              >
                 <a
                   class:list={[
                     "navigation-link",
-                    { active: pathname === `/${item.slug}` },
+                    { active: pathname === `/${item.slug}` }
                   ]}
                   href={`/${item.slug}`}
                 >
@@ -52,7 +66,7 @@ const aboutItem = navigation?.at(-1);
         <a
           class:list={[
             "navigation-about",
-            { active: pathname === `/${aboutItem.slug}` },
+            { active: pathname === `/${aboutItem.slug}` }
           ]}
           href={`/${aboutItem.slug}`}
         >
