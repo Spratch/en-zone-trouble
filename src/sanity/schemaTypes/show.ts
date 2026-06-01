@@ -122,13 +122,13 @@ export const showSchema = defineType({
     defineField({
       name: "links",
       title: "Liens",
-      description: "Liste des liens liés au podcast",
+      description: "Liste des liens liés au spectacle",
       type: "linksArray",
     }),
     defineField({
       name: "press",
       title: "Presse et récompenses",
-      description: "Liste des liens de presse liés au podcast",
+      description: "Liste des liens de presse liés au spectacle",
       type: "linksArray",
     }),
   ],
