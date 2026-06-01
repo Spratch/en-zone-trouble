@@ -179,6 +179,13 @@ main {
   overflow-x: scroll;
   align-items: end;
 
+  /* no scrollbar */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
   & .gallery-item {
     height: 20rem;
 

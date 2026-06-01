@@ -14,7 +14,12 @@ const aboutItem = navigation?.at(-1);
   {
     siteTitle && (
       <>
-        <p class="footer-title flou">{siteTitle}</p>
+        <p
+          class="footer-title flou"
+          aria-hidden="true"
+        >
+          {siteTitle}
+        </p>
         <p class="footer-title net">{siteTitle}</p>
       </>
     )

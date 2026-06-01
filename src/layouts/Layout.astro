@@ -38,7 +38,7 @@ const { ...seo } = Astro.props;
     <Font cssVariable="--font-sans" preload />
     <ClientRouter />
   </head>
-  <body>
+  <body transition:animate="none">
     <Footer />
     <slot />
   </body>
