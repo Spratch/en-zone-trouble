@@ -11,7 +11,10 @@ const aboutItem = navigation?.at(-1);
 ---
 
 <footer>
-  {siteTitle && <p class="footer-title">{siteTitle}</p>}
+  {siteTitle && <div class="footer-titlewraper">
+    <p class="footer-title flou">{siteTitle}</p>
+    <p class="footer-title net">{siteTitle}</p>
+  </div>}
   <nav class="footer-navigation">
     {
       navigationLogo && (
