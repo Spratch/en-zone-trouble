@@ -37,7 +37,14 @@ footer {
   bottom: 0;
   width: 100%;
 
+  & .footer-titlewraper{
+    position: relative;
+  }
+
   & .footer-title {
+    position: absolute;
+    bottom: 0;
+    overflow: visible;
     /* Largeur du titre */
     text-fit: grow; /* Chrome */
     @supports not (text-fit: grow) {
@@ -56,6 +63,18 @@ footer {
     user-select: none;
     color: var(--color-footer);
     font-weight: 300;
+
+    &.flou{filter: blur(8px);
+    }
+    
+    &.net{
+        --mask-size: 20%;
+        mask-image: linear-gradient(
+          transparent 0,
+          transparent var(--mask-size),
+          black 100%
+        );
+      }
   }
 
   & nav.footer-navigation {
