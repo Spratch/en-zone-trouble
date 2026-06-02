@@ -7,7 +7,7 @@ import {
   EmptyIcon,
   EyeOpenIcon,
   MicrophoneIcon,
-  UsersIcon,
+  UsersIcon
 } from "@sanity/icons";
 import type { StructureResolver } from "sanity/structure";
 
@@ -17,7 +17,7 @@ export const structure: StructureResolver = (S, context) => {
     id: string,
     title: string,
     Icon: React.ComponentType,
-    type: "singleton" | "list",
+    type: "singleton" | "list"
   ) => {
     return type === "list"
       ? S.documentTypeListItem(id).icon(Icon).title(title)
@@ -30,27 +30,25 @@ export const structure: StructureResolver = (S, context) => {
   return S.list()
     .title("Contenus")
     .items([
-      S.divider().title("Projets"),
-
       li("show", "Spectacles", EyeOpenIcon, "list"),
       li("podcast", "Podcasts", MicrophoneIcon, "list"),
 
-      S.divider().title("Compagnie"),
+      S.divider(),
 
       li("company", "Compagnie", EmptyIcon, "singleton"),
       li("team", "Équipe", UsersIcon, "singleton"),
       // li("member", "Équipe", UsersIcon, "list"),
       // li("job", "Métiers", CaseIcon, "list"),
 
-      S.divider().title("Ressources"),
+      S.divider(),
 
       li("calendar", "Calendrier", CalendarIcon, "singleton"),
       li("research", "Recherche", ComposeIcon, "singleton"),
       li("transmission", "Transmission", AsteriskIcon, "singleton"),
 
-      S.divider().title("Paramètres"),
+      S.divider(),
 
       li("settings", "Paramètres", ControlsIcon, "singleton"),
-      li("legal", "Pages légales", DocumentsIcon, "list"),
+      li("legal", "Pages légales", DocumentsIcon, "list")
     ]);
 };

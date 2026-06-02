@@ -8,6 +8,11 @@ const siteTitle = settings?.title;
 const navigationLogo = settings?.navigationLogo;
 const navigation = settings?.navigation;
 const aboutItem = navigation?.at(-1);
+
+function isActive(pathname: string, slug: string): boolean {
+  const normalized = pathname.replace(/\/$/, "");
+  return normalized === `/${slug}`;
+}
 ---
 
 <footer>
@@ -53,7 +58,7 @@ const aboutItem = navigation?.at(-1);
                 <a
                   class:list={[
                     "navigation-link",
-                    { active: pathname === `/${item.slug}` }
+                    { active: isActive(pathname, item.slug) }
                   ]}
                   href={`/${item.slug}`}
                 >
@@ -71,7 +76,7 @@ const aboutItem = navigation?.at(-1);
         <a
           class:list={[
             "navigation-about",
-            { active: pathname === `/${aboutItem.slug}` }
+            { active: isActive(pathname, aboutItem.slug) }
           ]}
           href={`/${aboutItem.slug}`}
         >

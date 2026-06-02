@@ -12,9 +12,9 @@ export default defineConfig({
       dataset: "production",
       useCdn: false,
       apiVersion: "2026-05-26",
-      studioBasePath: "/admin",
+      studioBasePath: "/admin"
     }),
-    react(),
+    react()
   ],
   fonts: [
     {
@@ -26,15 +26,15 @@ export default defineConfig({
           {
             src: ["./src/assets/fonts/Garabosse-Parangonne.woff2"],
             weight: 300,
-            style: "normal",
+            style: "normal"
           },
           {
             src: ["./src/assets/fonts/Garabosse-Gaillarde.woff2"],
             weight: 400,
-            style: "normal",
-          },
-        ],
-      },
+            style: "normal"
+          }
+        ]
+      }
     },
     {
       provider: fontProviders.local(),
@@ -45,25 +45,25 @@ export default defineConfig({
           {
             src: ["./src/assets/fonts/Ronzino-Regular.woff2"],
             weight: 400,
-            style: "normal",
+            style: "normal"
           },
           {
             src: ["./src/assets/fonts/Ronzino-Oblique.woff2"],
             weight: 400,
-            style: "oblique",
+            style: "oblique"
           },
           {
             src: ["./src/assets/fonts/Ronzino-Medium.woff2"],
             weight: 500,
-            style: "normal",
+            style: "normal"
           },
           {
             src: ["./src/assets/fonts/Ronzino-MediumOblique.woff2"],
             weight: 500,
-            style: "oblique",
-          },
-        ],
-      },
-    },
-  ],
+            style: "oblique"
+          }
+        ]
+      }
+    }
+  ]
 });
