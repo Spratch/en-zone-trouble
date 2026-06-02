@@ -1,0 +1,22 @@
+---
+import { sanityClient } from "sanity:client";
+import Layout from "../../layouts/Layout.astro";
+import { pageBySlugQuery, pagesListQuery } from "../../sanity/lib/queries";
+import PortableText from "../../components/PortableText.astro";
+
+export async function getStaticPaths() {
+  const pages = await sanityClient.fetch(pagesListQuery);
+  return pages.map(({ slug }) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const page = await sanityClient.fetch(pageBySlugQuery, { slug });
+if (!page) throw new Error("page not found");
+---
+
+<Layout>
+  <main class="item-page legal-page">
+    <h1>{page.title}</h1>
+    <PortableText value={page.content} />
+  </main>
+</Layout>

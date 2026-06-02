@@ -5,7 +5,7 @@ import {
   galleryFragment,
   imageAltFragment,
   seasonsFragment,
-  slugFragment,
+  slugFragment
 } from "./fragments";
 
 export const layoutSettingsQuery = defineQuery(`*[_type == "settings"][0]{
@@ -119,4 +119,15 @@ export const companyQuery = defineQuery(`*[_type == "company"][0]{
   title,
   "presentation": presentation${customBlockFragment},
   ${seasonsFragment}
+}`);
+
+export const pagesListQuery = defineQuery(`*[_type == "legal"]{
+  ${slugFragment}
+}`);
+
+export const pageBySlugQuery =
+  defineQuery(`*[_type == "legal" && slug.current == $slug][0]{
+  title,
+  ${slugFragment},
+  "content": content${customBlockFragment}
 }`);
