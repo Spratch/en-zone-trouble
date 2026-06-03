@@ -18,29 +18,30 @@ export default defineConfig({
       disableUploadConfig: true,
       tool: {
         title: "Audios et vidéos",
-        icon: MicrophoneIcon,
-      },
+        icon: MicrophoneIcon
+      }
     }),
     webhooksTrigger({
       title: "Déployer",
       text: "Déployer les mises à jour vers le site public. Quand le contenu est prêt, cliquez sur 'trigger'",
       encryptionSalt: "043ec7ed84f10f1d83faf117d4818fa1",
-      name: "deploy",
-    }),
+      name: "deploy"
+    })
   ],
   document: {
     newDocumentOptions: (prev, { creationContext }) => {
       if (creationContext.type === "global") {
         const listDocuments = listDocs.map((doc) => doc.name);
         return prev.filter((item) =>
-          (listDocuments as string[]).includes(item.templateId),
+          (listDocuments as string[]).includes(item.templateId)
         );
       }
       return prev;
-    },
+    }
   },
   schema,
   releases: { enabled: false },
   scheduledDrafts: { enabled: false },
-  tasks: { enabled: false },
+  scheduledPublishing: { enabled: false },
+  tasks: { enabled: false }
 });

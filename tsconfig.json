@@ -1,5 +1,5 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "sanity.types.ts", "mux-audio.d.ts", "**/*"],
-  "exclude": ["dist"],
+  "exclude": ["dist"]
 }
