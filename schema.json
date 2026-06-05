@@ -413,7 +413,7 @@
             "value": {
               "type": "string"
             },
-            "optional": false
+            "optional": true
           },
           "events": {
             "type": "objectAttribute",
@@ -427,7 +427,7 @@
                     "value": {
                       "type": "string"
                     },
-                    "optional": false
+                    "optional": true
                   },
                   "description": {
                     "type": "objectAttribute",
@@ -496,7 +496,7 @@
                 }
               }
             },
-            "optional": false
+            "optional": true
           },
           "_type": {
             "type": "objectAttribute",
@@ -533,7 +533,7 @@
             "value": {
               "type": "string"
             },
-            "optional": false
+            "optional": true
           },
           "subtitle": {
             "type": "objectAttribute",
@@ -547,7 +547,7 @@
             "value": {
               "type": "string"
             },
-            "optional": false
+            "optional": true
           }
         },
         "rest": {
@@ -641,7 +641,7 @@
                           "type": "inline",
                           "name": "customBlock"
                         },
-                        "optional": false
+                        "optional": true
                       },
                       "_type": {
                         "type": "objectAttribute",
@@ -762,7 +762,7 @@
           "value": {
             "type": "string"
           },
-          "optional": false
+          "optional": true
         }
       }
     }
@@ -854,7 +854,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "slug": {
         "type": "objectAttribute",
@@ -862,7 +862,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": false
+        "optional": true
       },
       "content": {
         "type": "objectAttribute",
@@ -870,7 +870,7 @@
           "type": "inline",
           "name": "customBlock"
         },
-        "optional": false
+        "optional": true
       }
     }
   },
@@ -892,7 +892,7 @@
           "value": {
             "type": "string"
           },
-          "optional": false
+          "optional": true
         },
         "source": {
           "type": "objectAttribute",
@@ -944,7 +944,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "slug": {
         "type": "objectAttribute",
@@ -952,14 +952,14 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": false
+        "optional": true
       },
       "role": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "link": {
         "type": "objectAttribute",
@@ -1018,7 +1018,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "members": {
         "type": "objectAttribute",
@@ -1084,7 +1084,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "introduction": {
         "type": "objectAttribute",
@@ -1144,7 +1144,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "presentation": {
         "type": "objectAttribute",
@@ -1152,7 +1152,7 @@
           "type": "inline",
           "name": "customBlock"
         },
-        "optional": false
+        "optional": true
       },
       "seasons": {
         "type": "objectAttribute",
@@ -1204,7 +1204,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "introduction": {
         "type": "objectAttribute",
@@ -1212,7 +1212,7 @@
           "type": "inline",
           "name": "customBlock"
         },
-        "optional": false
+        "optional": true
       },
       "seasons": {
         "type": "objectAttribute",
@@ -1264,7 +1264,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "slug": {
         "type": "objectAttribute",
@@ -1272,14 +1272,14 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": false
+        "optional": true
       },
       "date": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "cover": {
         "type": "objectAttribute",
@@ -1326,7 +1326,7 @@
             }
           }
         },
-        "optional": false
+        "optional": true
       },
       "synopsis": {
         "type": "objectAttribute",
@@ -1334,7 +1334,7 @@
           "type": "inline",
           "name": "customBlock"
         },
-        "optional": false
+        "optional": true
       },
       "episodes": {
         "type": "objectAttribute",
@@ -1348,7 +1348,7 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": false
+                "optional": true
               },
               "mp3": {
                 "type": "objectAttribute",
@@ -1509,28 +1509,28 @@
           "value": {
             "type": "number"
           },
-          "optional": false
+          "optional": true
         },
         "bottom": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": false
+          "optional": true
         },
         "left": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": false
+          "optional": true
         },
         "right": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": false
+          "optional": true
         }
       }
     }
@@ -1553,28 +1553,28 @@
           "value": {
             "type": "number"
           },
-          "optional": false
+          "optional": true
         },
         "y": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": false
+          "optional": true
         },
         "height": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": false
+          "optional": true
         },
         "width": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": false
+          "optional": true
         }
       }
     }
@@ -1619,7 +1619,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "slug": {
         "type": "objectAttribute",
@@ -1627,14 +1627,14 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": false
+        "optional": true
       },
       "date": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "cover": {
         "type": "objectAttribute",
@@ -1672,6 +1672,23 @@
               },
               "optional": true
             },
+            "orientation": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "union",
+                "of": [
+                  {
+                    "type": "string",
+                    "value": "landscape"
+                  },
+                  {
+                    "type": "string",
+                    "value": "portrait"
+                  }
+                ]
+              },
+              "optional": true
+            },
             "_type": {
               "type": "objectAttribute",
               "value": {
@@ -1681,7 +1698,7 @@
             }
           }
         },
-        "optional": false
+        "optional": true
       },
       "synopsis": {
         "type": "objectAttribute",
@@ -1689,7 +1706,7 @@
           "type": "inline",
           "name": "customBlock"
         },
-        "optional": false
+        "optional": true
       },
       "excerpt": {
         "type": "objectAttribute",
@@ -1828,7 +1845,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "slug": {
         "type": "objectAttribute",
@@ -1836,7 +1853,7 @@
           "type": "inline",
           "name": "slug"
         },
-        "optional": false
+        "optional": true
       }
     }
   },
@@ -1880,7 +1897,7 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "presentation": {
         "type": "objectAttribute",
@@ -1888,7 +1905,7 @@
           "type": "inline",
           "name": "customBlock"
         },
-        "optional": false
+        "optional": true
       },
       "notes": {
         "type": "objectAttribute",
@@ -1955,14 +1972,14 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "description": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "favicon": {
         "type": "objectAttribute",
@@ -1975,7 +1992,7 @@
                 "type": "inline",
                 "name": "favicon"
               },
-              "optional": false
+              "optional": true
             },
             "light": {
               "type": "objectAttribute",
@@ -1983,7 +2000,7 @@
                 "type": "inline",
                 "name": "favicon"
               },
-              "optional": false
+              "optional": true
             }
           }
         },
@@ -1995,7 +2012,7 @@
           "type": "inline",
           "name": "imageAlt"
         },
-        "optional": false
+        "optional": true
       },
       "navigation": {
         "type": "objectAttribute",
@@ -2009,7 +2026,7 @@
                 "value": {
                   "type": "string"
                 },
-                "optional": false
+                "optional": true
               },
               "slug": {
                 "type": "objectAttribute",
@@ -2017,7 +2034,7 @@
                   "type": "inline",
                   "name": "slug"
                 },
-                "optional": false
+                "optional": true
               },
               "_type": {
                 "type": "objectAttribute",
@@ -2040,7 +2057,7 @@
             }
           }
         },
-        "optional": false
+        "optional": true
       }
     }
   },
@@ -2699,21 +2716,21 @@
           "value": {
             "type": "number"
           },
-          "optional": false
+          "optional": true
         },
         "width": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": false
+          "optional": true
         },
         "aspectRatio": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": false
+          "optional": true
         }
       }
     }
@@ -2868,35 +2885,35 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "extension": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "mimeType": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "size": {
         "type": "objectAttribute",
         "value": {
           "type": "number"
         },
-        "optional": false
+        "optional": true
       },
       "assetId": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "uploadId": {
         "type": "objectAttribute",
@@ -2910,14 +2927,14 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "url": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "source": {
         "type": "objectAttribute",
@@ -3041,35 +3058,35 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "extension": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "mimeType": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "size": {
         "type": "objectAttribute",
         "value": {
           "type": "number"
         },
-        "optional": false
+        "optional": true
       },
       "assetId": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "uploadId": {
         "type": "objectAttribute",
@@ -3083,14 +3100,14 @@
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "url": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
-        "optional": false
+        "optional": true
       },
       "metadata": {
         "type": "objectAttribute",

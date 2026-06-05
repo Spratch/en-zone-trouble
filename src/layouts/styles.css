@@ -25,11 +25,29 @@ body {
   flex-direction: column;
   min-height: 100lvh;
   position: relative;
-  background: linear-gradient(
+  --bg-gradient:linear-gradient(
     to bottom,
     var(--color-bg) 60%,
-    var(--color-accent) 100%
+    var(--color-accent) 91%,
+    var(--color-footer) 93.5%
   );
+  background: var(--bg-gradient);
+  background-attachment: fixed;
+  
+  &:has(.show-page),&:has(.podcast-page){
+    --bg-gradient:linear-gradient(
+    to top,
+    var(--color-bg) 60%,
+    var(--color-accent) 91%,
+    var(--color-footer) 93.5%
+  );
+  }
+}
+
+.home-image{
+  max-width: 100%;
+  height: auto;
+  padding-bottom: 100vh;
 }
 
 footer {
@@ -45,16 +63,16 @@ footer {
 
     &.flou {
       position: absolute;
-      bottom: 3rem;
+      bottom: 2.5rem;
       inset-inline: 0;
 
       --padding-top: 2.5vw;
       padding-top: var(
         --padding-top
       ); /* Pour laisser de l'espace au masque de flou */
-      filter: blur(0.75vw);
+      filter: blur(0.50vw);
 
-      --mask-size: 45%;
+      --mask-size: 60%;
       mask-image: linear-gradient(
         black 0,
         black calc(var(--mask-size) + var(--padding-top)),
@@ -89,7 +107,7 @@ footer {
   & nav.footer-navigation {
     display: flex;
     align-items: center;
-    height: 3rem;
+    height: 2.5rem;
     background-color: var(--color-footer);
     color: var(--color-accent);
 
@@ -103,6 +121,21 @@ footer {
       text-decoration: underline;
       text-underline-offset: 2px;
     }
+
+    & img.navigation-logo {
+      width: 3.5vw;
+      margin-left: 1vw;
+      margin-right: .5vw;
+    }
+
+    & .navigation-item {
+      margin: 1vw;
+    }
+
+    & a.navigation-about {
+      margin-right: 1vw;
+    }
+
   }
 }
 
@@ -113,10 +146,21 @@ main {
 
 .list-page {
   & section.content-list {
+    overflow-x: scroll;
+    margin: 1vw;
+    /*width: 120vw;*/
     display: flex;
+    grid-column-gap: 1vw;
 
     & .thumbnail {
       position: relative;
+      flex-shrink: 0;
+      &:has([data-orientation="landscape"]){
+        width: 45%;
+      }
+      &:has([data-orientation="portrait"]){
+        width: 30%;
+      }
 
       & img.thumbnail-image {
         --mask-size: 15px;
@@ -132,9 +176,8 @@ main {
         font-family: var(--font-sans);
         font-weight: 400;
         font-style: oblique;
-
         & span.title-date {
-          font-style: normal;
+        font-style: normal;
         }
       }
     }
@@ -147,6 +190,15 @@ main {
     font-weight: 500;
     font-style: oblique;
     font-size: 3rem;
+    margin-left: 1vw;
+  }
+
+  & .synopsis {
+    margin-left: 1vw;
+    margin-top: -1vh;
+    margin-bottom: 1vw;
+    font-size: 1rem;
+    line-height: 1.2rem;
   }
 
   & .page-grid {
@@ -158,7 +210,15 @@ main {
     & .details {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      grid-column-gap: 1vw;
     }
+  }
+
+  & .details {
+    margin-left: 1vw;
+    font-size: .8rem;
+    line-height: 1.1rem;
+   
   }
 
   & .credits {
@@ -170,7 +230,10 @@ main {
   }
 }
 
+
+
 .gallery {
+  margin: 1vw;
   position: sticky;
   bottom: 3rem;
   display: flex;
@@ -178,6 +241,7 @@ main {
   flex-shrink: 0;
   overflow-x: scroll;
   align-items: end;
+  grid-column-gap: 1vw;
 
   /* no scrollbar */
   &::-webkit-scrollbar {
@@ -187,7 +251,7 @@ main {
   scrollbar-width: none; /* Firefox */
 
   & .gallery-item {
-    height: 20rem;
+    height: 14rem;
 
     --mask-size: 75px;
     mask-image: linear-gradient(
@@ -230,11 +294,22 @@ main.research-page {
 }
 
 main.team-page {
+  & .team-members {
+    margin-left: 1vw;
+    margin-top: -1vh;
+   }
+
+  & .member-item{
+    margin-bottom: -.2rem;
+  }
+
   & span.member-name {
     text-transform: uppercase;
+    font-size: 1.5rem;
   }
 
   & span.member-role {
+    font-family: var(--font-sans);
     color: var(--color-accent);
   }
 }

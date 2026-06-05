@@ -4,6 +4,7 @@ import {
   customBlockFragment,
   galleryFragment,
   imageAltFragment,
+  imageSrcFragment,
   seasonsFragment,
   slugFragment
 } from "./fragments";
@@ -33,7 +34,12 @@ export const showsListQuery = defineQuery(`*[_type == "show"]{
   title,
   ${slugFragment},
   date,
-  "cover": cover${imageAltFragment},
+  "cover": cover{
+    ${imageSrcFragment},
+    "orientation": coalesce(orientation, "landscape"),
+    crop,
+    hotspot,
+  },
 } | order(date desc)`);
 
 export const showBySlugQuery =

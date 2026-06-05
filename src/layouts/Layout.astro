@@ -7,6 +7,7 @@ import { ClientRouter } from "astro:transitions";
 import { sanityClient } from "sanity:client";
 import { layoutSettingsQuery } from "../sanity/lib/queries";
 import Meta from "../components/Meta.astro";
+import Filter from "../components/Filter.astro";
 
 const settings = await sanityClient.fetch(layoutSettingsQuery);
 
@@ -41,5 +42,6 @@ const { ...seo } = Astro.props;
   <body transition:animate="none">
     <Footer />
     <slot />
+    <Filter />
   </body>
 </html>
