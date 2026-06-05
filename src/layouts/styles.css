@@ -6,6 +6,7 @@
   font-family: var(--font-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --font-size-detail: .8rem;
 }
 
 .sr-only {
@@ -36,10 +37,9 @@ body {
   
   &:has(.show-page),&:has(.podcast-page){
     --bg-gradient:linear-gradient(
-    to top,
-    var(--color-bg) 60%,
-    var(--color-accent) 91%,
-    var(--color-footer) 93.5%
+    to bottom,
+    var(--color-accent) 0%,
+    var(--color-bg) 15%
   );
   }
 }
@@ -47,7 +47,8 @@ body {
 .home-image{
   max-width: 100%;
   height: auto;
-  padding-bottom: 100vh;
+  position: fixed;
+  z-index: -1;
 }
 
 footer {
@@ -151,6 +152,9 @@ main {
     /*width: 120vw;*/
     display: flex;
     grid-column-gap: 1vw;
+    &::-webkit-scrollbar {
+    display: none;
+  }
 
     & .thumbnail {
       position: relative;
@@ -196,14 +200,26 @@ main {
   & .synopsis {
     margin-left: 1vw;
     margin-top: -1vh;
-    margin-bottom: 1vw;
+    margin-bottom: 5vh;
     font-size: 1rem;
     line-height: 1.2rem;
+
+    /*dégradé*/
+    display: inline-block;
+    background: linear-gradient(
+      to bottom,
+      var(--color-fg) 50%,
+      var(--color-accent) 70%
+      );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   & .page-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    margin-bottom: 6rem;
   }
 
   & .page-left {
@@ -216,13 +232,23 @@ main {
 
   & .details {
     margin-left: 1vw;
-    font-size: .8rem;
+    font-size: var(--font-size-detail);
     line-height: 1.1rem;
-   
+    color: var(--color-accent);
+  }
+
+  & .infos, .production, .supports {
+    margin-bottom: 2vw;
+  }
+
+  & h2 {
+    text-transform: uppercase;
   }
 
   & .credits {
     text-align: center;
+    font-size: var(--font-size-detail);
+    color: var(--color-accent);
 
     & .credit-title {
       text-transform: uppercase;
@@ -230,11 +256,9 @@ main {
   }
 }
 
-
-
 .gallery {
   margin: 1vw;
-  position: sticky;
+  position: fixed;
   bottom: 3rem;
   display: flex;
   width: 100%;
@@ -252,19 +276,25 @@ main {
 
   & .gallery-item {
     height: 14rem;
-
     --mask-size: 75px;
     mask-image: linear-gradient(
       transparent 0,
       black calc(var(--mask-size) / 4),
-      black calc(100% - var(--mask-size)),
+      black 70%,
       transparent 100%
     );
   }
 }
 
 .podcast-page {
+  & .synopsis {
+    color: var(--color-fg);
+  }
+
   & section.podcast-episodes {
+    margin-left: 1rem;
+    margin-bottom: 2vw;
+    color: var(--color-accent);
     & button.episode-trigger {
       text-decoration: underline;
       text-underline-offset: 2px;
