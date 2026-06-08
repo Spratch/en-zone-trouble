@@ -23,6 +23,7 @@ export const transmissionSchema = defineType({
     }),
     defineField({
       name: "seasons",
+      title: "Saisons",
       type: "seasons",
     }),
   ],

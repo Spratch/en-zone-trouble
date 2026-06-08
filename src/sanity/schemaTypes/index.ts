@@ -1,4 +1,5 @@
 import type { SchemaPluginOptions } from "sanity";
+import { aboutSchema } from "./about";
 import { calendarSchema } from "./calendar";
 import { companySchema } from "./company";
 import { jobSchema } from "./job";
@@ -25,6 +26,7 @@ const singltetonDocs = [
   calendarSchema,
   transmissionSchema,
   teamSchema,
+  aboutSchema,
 ];
 export const listDocs = [
   showSchema,

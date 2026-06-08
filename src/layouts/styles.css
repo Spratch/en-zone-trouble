@@ -6,7 +6,7 @@
   font-family: var(--font-serif);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --font-size-detail: .8rem;
+  --font-size-detail: 0.8rem;
 }
 
 .sr-only {
@@ -26,7 +26,7 @@ body {
   flex-direction: column;
   min-height: 100lvh;
   position: relative;
-  --bg-gradient:linear-gradient(
+  --bg-gradient: linear-gradient(
     to bottom,
     var(--color-bg) 60%,
     var(--color-accent) 91%,
@@ -35,16 +35,17 @@ body {
   background: var(--bg-gradient);
   background-attachment: fixed;
 
-  &:has(.show-page),&:has(.podcast-page){
-    --bg-gradient:linear-gradient(
-    to bottom,
-    var(--color-accent) 0%,
-    var(--color-bg) 15%
-  );
+  &:has(.show-page),
+  &:has(.podcast-page) {
+    --bg-gradient: linear-gradient(
+      to bottom,
+      var(--color-accent) 0%,
+      var(--color-bg) 15%
+    );
   }
 }
 
-.home-image{
+.home-image {
   max-width: 100%;
   height: auto;
   position: fixed;
@@ -71,7 +72,7 @@ footer {
       padding-top: var(
         --padding-top
       ); /* Pour laisser de l'espace au masque de flou */
-      filter: blur(0.50vw);
+      filter: blur(0.5vw);
 
       --mask-size: 60%;
       mask-image: linear-gradient(
@@ -126,7 +127,7 @@ footer {
     & img.navigation-logo {
       width: 3.5vw;
       margin-left: 1vw;
-      margin-right: .5vw;
+      margin-right: 0.5vw;
     }
 
     & .navigation-item {
@@ -136,7 +137,6 @@ footer {
     & a.navigation-about {
       margin-right: 1vw;
     }
-
   }
 }
 
@@ -153,16 +153,16 @@ main {
     display: flex;
     grid-column-gap: 1vw;
     &::-webkit-scrollbar {
-    display: none;
-  }
+      display: none;
+    }
 
     & .thumbnail {
       position: relative;
       flex-shrink: 0;
-      &:has([data-orientation="landscape"]){
+      &:has([data-orientation="landscape"]) {
         width: 45%;
       }
-      &:has([data-orientation="portrait"]){
+      &:has([data-orientation="portrait"]) {
         width: 30%;
       }
 
@@ -181,7 +181,7 @@ main {
         font-weight: 400;
         font-style: oblique;
         & span.title-date {
-        font-style: normal;
+          font-style: normal;
         }
       }
     }
@@ -210,7 +210,7 @@ main {
       to bottom,
       var(--color-fg) 50%,
       var(--color-accent) 70%
-      );
+    );
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -237,7 +237,9 @@ main {
     color: var(--color-accent);
   }
 
-  & .infos, .production, .supports {
+  & .infos,
+  .production,
+  .supports {
     margin-bottom: 2vw;
   }
 
@@ -288,7 +290,7 @@ main {
 
 .show-page {
   & .excerpt {
-    white-space: pre-wrap;
+    white-space: pre-line;
   }
 }
 
@@ -330,18 +332,10 @@ main.research-page {
 }
 
 main.team-page {
-  & .team-members {
-    margin-left: 1vw;
-    margin-top: -1vh;
-   }
-
-  & .member-item{
-    margin-bottom: -.2rem;
-  }
-
   & span.member-name {
     text-transform: uppercase;
     font-size: 1.5rem;
+    line-height: 1.2;
   }
 
   & span.member-role {
@@ -393,17 +387,11 @@ ul.seasons {
     &:focus {
       color: var(--color-accent);
     }
-
-    /*&[href^="https://"]::after {
-      content: "";
-      display: inline-block;
-      margin-left: 0.25rem;
-      margin-bottom: -3px;
-      width: 1ch;
-      height: 0.75lh;
-      background-color: var(--color-accent);
-    }*/
   }
+}
+
+section.contact {
+  white-space: pre-line;
 }
 
 .video-player {

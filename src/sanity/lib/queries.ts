@@ -1,12 +1,12 @@
 import { defineQuery } from "groq";
 import {
-    creditsFragment,
-    customBlockFragment,
-    galleryFragment,
-    imageAltFragment,
-    imageSrcFragment,
-    seasonsFragment,
-    slugFragment
+  creditsFragment,
+  customBlockFragment,
+  galleryFragment,
+  imageAltFragment,
+  imageSrcFragment,
+  seasonsFragment,
+  slugFragment
 } from "./fragments";
 
 export const layoutSettingsQuery = defineQuery(`*[_type == "settings"][0]{
@@ -137,4 +137,46 @@ export const pageBySlugQuery =
   title,
   ${slugFragment},
   "content": content${customBlockFragment}
+}`);
+
+export const aboutQuery = defineQuery(`
+  *[_type == "about"][0]{
+  title,
+  "presentation": presentation${customBlockFragment},
+  ${seasonsFragment},
+  "members": members[]->{
+    name,
+    slug,
+    role,
+    link,
+    "presentation": presentation${customBlockFragment}
+  },
+  "contact": contact{
+    "title": *[_type == "settings"][0].title,
+    name,
+    phone,
+    email,
+    address
+  },
+  supports,
+  "pages": *[_type == "legal"]{
+    ${slugFragment},
+    title
+  },
+  "credits": [{
+    "title": "Design",
+    "value": [{
+      "name": "Mathilde Mary",
+      "link": "https://mathildemary.fr/"
+    }]
+  },{
+    "title": "Développement web",
+    "value": [{
+      "name": "Joseph Clenet",
+      "link": "https://josephclenet.fr/"
+    },{
+      "name": "Mathilde Mary",
+      "link": "https://mathildemary.fr/"
+    }]
+  }]
 }`);

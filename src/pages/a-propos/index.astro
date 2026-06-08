@@ -1,0 +1,130 @@
+---
+import { sanityClient } from "sanity:client";
+import PortableText from "../../components/PortableText.astro";
+import SeasonList from "../../components/SeasonList.astro";
+import Layout from "../../layouts/Layout.astro";
+import { aboutQuery } from "../../sanity/lib/queries";
+
+const about = await sanityClient.fetch(aboutQuery);
+if (!about) throw new Error("About page not found");
+---
+
+<Layout title={about.title}>
+  <main class="company-page item-page events-page team-page">
+    <h1>{about.title}</h1>
+
+    <section class="page-grid">
+      <div class="page-left">
+        {/* Présentation */}
+        {
+          about.presentation && (
+            <section class="introduction company-introduction">
+              <PortableText value={about.presentation} />
+            </section>
+          )
+        }
+
+        {/* Membres de l'équipe */}
+        {
+          about.members && (
+            <section class="team-members">
+              <h2>Équipe</h2>
+              <ul>
+                {about.members.map((member) => (
+                  <li class="member-item">
+                    <span class="member-name">{member.name}</span>{" "}
+                    <span class="member-role">{member.role}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {/* Contact */}
+        {
+          about.contact && (
+            <section class="contact">
+              <h2>Contact</h2>
+              <p class="contact-title">{about.contact.title}</p>
+              <p class="contact-name">{about.contact.name}</p>
+              {about.contact.phone && (
+                <p class="contact-phone">
+                  <a href={`tel:${about.contact.phone.replace(/\s+/g, "")}`}>
+                    {about.contact.phone}
+                  </a>
+                </p>
+              )}
+              {about.contact.email && (
+                <p class="contact-email">
+                  <a href={`mailto:${about.contact.email}`}>
+                    {about.contact.email}
+                  </a>
+                </p>
+              )}
+              {about.contact.address && (
+                <p class="contact-address">
+                  <a
+                    href={`https://maps.google.com/?q=${about.contact.address.replace(/\s+/g, "+")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {about.contact.address}
+                  </a>
+                </p>
+              )}
+            </section>
+          )
+        }
+
+        {/* Pages légales */}
+        {
+          about.pages && (
+            <section class="pages">
+              <ul>
+                {about.pages.map((page) => (
+                  <li>
+                    <a href={`/p/${page.slug}`}>{page.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {/* Crédits */}
+        {
+          about.credits && (
+            <section class="about-credits">
+              {about.credits.map((credit) => (
+                <p>
+                  <span>{credit.title} :</span>
+                  {credit.value
+                    .map((person) => (
+                      <a
+                        href={person.link}
+                        target="_blank"
+                      >
+                        {person.name}
+                      </a>
+                    ))
+                    .reduce((prev, curr) => [prev, ", ", curr])}
+                </p>
+              ))}
+            </section>
+          )
+        }
+      </div>
+
+      {/* Événements */}
+      {
+        about.seasons && (
+          <aside class="page-right">
+            <h2>Événements</h2>
+            <SeasonList seasons={about.seasons} />
+          </aside>
+        )
+      }
+    </section>
+  </main>
+</Layout>

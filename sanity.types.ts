@@ -15,11 +15,14 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
-export type Gallery = Array<{
-  _key: string;
-} & ImageAlt | {
-  _key: string;
-} & MuxVideo>;
+export type Gallery = Array<
+  | ({
+      _key: string;
+    } & ImageAlt)
+  | ({
+      _key: string;
+    } & MuxVideo)
+>;
 
 export type ShowReference = {
   _ref: string;
@@ -65,11 +68,18 @@ export type CustomBlock = Array<{
   }>;
   style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
   listItem?: "bullet" | "number";
-  markDefs?: Array<{
-    href?: string;
-    _type: "link";
-    _key: string;
-  } | ShowReference | PodcastReference | ResearchReference | TransmissionReference | MemberReference>;
+  markDefs?: Array<
+    | {
+        href?: string;
+        _type: "link";
+        _key: string;
+      }
+    | ShowReference
+    | PodcastReference
+    | ResearchReference
+    | TransmissionReference
+    | MemberReference
+  >;
   level?: number;
   _type: "block";
   _key: string;
@@ -83,7 +93,11 @@ export type Seasons = Array<{
     date?: string;
     place?: string;
     link?: string;
-    project?: ShowReference | PodcastReference | ResearchReference | TransmissionReference;
+    project?:
+      | ShowReference
+      | PodcastReference
+      | ResearchReference
+      | TransmissionReference;
     _key: string;
   }>;
   _type: "season";
@@ -106,13 +120,16 @@ export type JobReference = {
 
 export type Credits = Array<{
   title?: JobReference;
-  value?: Array<{
-    _key: string;
-  } & MemberReference | {
-    value: CustomBlock;
-    _type: "personText";
-    _key: string;
-  }>;
+  value?: Array<
+    | ({
+        _key: string;
+      } & MemberReference)
+    | {
+        value: CustomBlock;
+        _type: "personText";
+        _key: string;
+      }
+  >;
   _key: string;
 }>;
 
@@ -170,6 +187,29 @@ export type Member = {
   presentation?: CustomBlock;
 };
 
+export type About = {
+  _id: string;
+  _type: "about";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  presentation: CustomBlock;
+  seasons?: Seasons;
+  members?: Array<
+    {
+      _key: string;
+    } & MemberReference
+  >;
+  contact?: {
+    name: string;
+    phone?: string;
+    email?: string;
+    address?: string;
+  };
+  supports?: string;
+};
+
 export type Team = {
   _id: string;
   _type: "team";
@@ -177,9 +217,11 @@ export type Team = {
   _updatedAt: string;
   _rev: string;
   title: string;
-  members?: Array<{
-    _key: string;
-  } & MemberReference>;
+  members?: Array<
+    {
+      _key: string;
+    } & MemberReference
+  >;
 };
 
 export type Calendar = {
@@ -379,21 +421,27 @@ export type MuxAssetData = {
   max_stored_frame_rate?: number;
   mp4_support?: string;
   max_resolution_tier?: string;
-  tracks?: Array<{
-    _key: string;
-  } & MuxTrack>;
-  playback_ids?: Array<{
-    _key: string;
-  } & MuxPlaybackId>;
+  tracks?: Array<
+    {
+      _key: string;
+    } & MuxTrack
+  >;
+  playback_ids?: Array<
+    {
+      _key: string;
+    } & MuxPlaybackId
+  >;
   static_renditions?: MuxStaticRenditions;
 };
 
 export type MuxStaticRenditions = {
   _type: "mux.staticRenditions";
   status?: string;
-  files?: Array<{
-    _key: string;
-  } & MuxStaticRenditionFile>;
+  files?: Array<
+    {
+      _key: string;
+    } & MuxStaticRenditionFile
+  >;
 };
 
 export type MuxStaticRenditionFile = {
@@ -530,7 +578,52 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = Gallery | ShowReference | PodcastReference | ResearchReference | TransmissionReference | MemberReference | CustomBlock | Seasons | LinksArray | JobReference | Credits | SanityImageAssetReference | ImageAlt | Favicon | Legal | Slug | Member | Team | Calendar | Company | Transmission | Podcast | MuxVideoAssetReference | MuxVideo | SanityImageCrop | SanityImageHotspot | Show | Job | Research | Settings | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes =
+  | Gallery
+  | ShowReference
+  | PodcastReference
+  | ResearchReference
+  | TransmissionReference
+  | MemberReference
+  | CustomBlock
+  | Seasons
+  | LinksArray
+  | JobReference
+  | Credits
+  | SanityImageAssetReference
+  | ImageAlt
+  | Favicon
+  | Legal
+  | Slug
+  | Member
+  | About
+  | Team
+  | Calendar
+  | Company
+  | Transmission
+  | Podcast
+  | MuxVideoAssetReference
+  | MuxVideo
+  | SanityImageCrop
+  | SanityImageHotspot
+  | Show
+  | Job
+  | Research
+  | Settings
+  | MuxVideoAsset
+  | MuxAssetData
+  | MuxStaticRenditions
+  | MuxStaticRenditionFile
+  | MuxPlaybackId
+  | MuxTrack
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityImageMetadata
+  | SanityFileAsset
+  | SanityAssetSourceData
+  | SanityImageAsset
+  | Geopoint;
 
 // Source: src/sanity/lib/queries.ts
 // Variable: layoutSettingsQuery
@@ -597,15 +690,18 @@ export type ShowBySlugQueryResult = {
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    }> | null;
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
     level?: number;
     _type: "block";
     _key: string;
@@ -620,15 +716,18 @@ export type ShowBySlugQueryResult = {
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    }> | null;
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
     level?: number;
     _type: "block";
     _key: string;
@@ -637,26 +736,32 @@ export type ShowBySlugQueryResult = {
   production: string | null;
   credits: Array<{
     title: string | null;
-    value: Array<{
-      _type: "member";
-      name: string;
-      slug: string;
-      link: string | null;
-    } | {
-      _type: "personText";
-      text: CustomBlock;
-    }> | null;
+    value: Array<
+      | {
+          _type: "member";
+          name: string;
+          slug: string;
+          link: string | null;
+        }
+      | {
+          _type: "personText";
+          text: CustomBlock;
+        }
+    > | null;
   }> | null;
-  gallery: Array<{
-    _type: "imageAlt";
-    src: string | "";
-    alt: string;
-    crop: SanityImageCrop | null;
-    hotspot: SanityImageHotspot | null;
-  } | {
-    _type: "mux.video";
-    playbackId: string | "";
-  }> | null;
+  gallery: Array<
+    | {
+        _type: "imageAlt";
+        src: string | "";
+        alt: string;
+        crop: SanityImageCrop | null;
+        hotspot: SanityImageHotspot | null;
+      }
+    | {
+        _type: "mux.video";
+        playbackId: string | "";
+      }
+  > | null;
   links: LinksArray | null;
   press: LinksArray | null;
 } | null;
@@ -692,15 +797,18 @@ export type PodcastBySlugQueryResult = {
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    }> | null;
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
     level?: number;
     _type: "block";
     _key: string;
@@ -718,15 +826,18 @@ export type PodcastBySlugQueryResult = {
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    }> | null;
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
     level?: number;
     _type: "block";
     _key: string;
@@ -735,26 +846,32 @@ export type PodcastBySlugQueryResult = {
   production: string | null;
   credits: Array<{
     title: string | null;
-    value: Array<{
-      _type: "member";
-      name: string;
-      slug: string;
-      link: string | null;
-    } | {
-      _type: "personText";
-      text: CustomBlock;
-    }> | null;
+    value: Array<
+      | {
+          _type: "member";
+          name: string;
+          slug: string;
+          link: string | null;
+        }
+      | {
+          _type: "personText";
+          text: CustomBlock;
+        }
+    > | null;
   }> | null;
-  gallery: Array<{
-    _type: "imageAlt";
-    src: string | "";
-    alt: string;
-    crop: SanityImageCrop | null;
-    hotspot: SanityImageHotspot | null;
-  } | {
-    _type: "mux.video";
-    playbackId: string | "";
-  }> | null;
+  gallery: Array<
+    | {
+        _type: "imageAlt";
+        src: string | "";
+        alt: string;
+        crop: SanityImageCrop | null;
+        hotspot: SanityImageHotspot | null;
+      }
+    | {
+        _type: "mux.video";
+        playbackId: string | "";
+      }
+  > | null;
   links: LinksArray | null;
   press: LinksArray | null;
 } | null;
@@ -773,15 +890,18 @@ export type ResearchQueryResult = {
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    }> | null;
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
     level?: number;
     _type: "block";
     _key: string;
@@ -795,15 +915,18 @@ export type ResearchQueryResult = {
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    }> | null;
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
     level?: number;
     _type: "block";
     _key: string;
@@ -818,15 +941,18 @@ export type ResearchQueryResult = {
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    }> | null;
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
     level?: number;
     _type: "block";
     _key: string;
@@ -852,15 +978,18 @@ export type TeamQueryResult = {
       }>;
       style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
       listItem?: "bullet" | "number";
-      markDefs: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      } | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-      }> | null;
+      markDefs: Array<
+        | {
+            href?: string;
+            _type: "link";
+            _key: string;
+          }
+        | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+          }
+      > | null;
       level?: number;
       _type: "block";
       _key: string;
@@ -882,15 +1011,18 @@ export type CalendarQueryResult = {
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    }> | null;
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
     level?: number;
     _type: "block";
     _key: string;
@@ -903,23 +1035,28 @@ export type CalendarQueryResult = {
       date: string | null;
       place: string | null;
       link: string | null;
-      project: {
-        title: string;
-        slug: string;
-        _type: "podcast";
-      } | {
-        title: string;
-        slug: null;
-        _type: "research";
-      } | {
-        title: string;
-        slug: string;
-        _type: "show";
-      } | {
-        title: string;
-        slug: null;
-        _type: "transmission";
-      } | null;
+      project:
+        | {
+            title: string;
+            slug: string;
+            _type: "podcast";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "research";
+          }
+        | {
+            title: string;
+            slug: string;
+            _type: "show";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "transmission";
+          }
+        | null;
     }>;
   }> | null;
 } | null;
@@ -938,15 +1075,18 @@ export type TransmissionQueryResult = {
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    }> | null;
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
     level?: number;
     _type: "block";
     _key: string;
@@ -959,23 +1099,28 @@ export type TransmissionQueryResult = {
       date: string | null;
       place: string | null;
       link: string | null;
-      project: {
-        title: string;
-        slug: string;
-        _type: "podcast";
-      } | {
-        title: string;
-        slug: null;
-        _type: "research";
-      } | {
-        title: string;
-        slug: string;
-        _type: "show";
-      } | {
-        title: string;
-        slug: null;
-        _type: "transmission";
-      } | null;
+      project:
+        | {
+            title: string;
+            slug: string;
+            _type: "podcast";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "research";
+          }
+        | {
+            title: string;
+            slug: string;
+            _type: "show";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "transmission";
+          }
+        | null;
     }>;
   }> | null;
 } | null;
@@ -994,15 +1139,18 @@ export type CompanyQueryResult = {
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    }> | null;
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
     level?: number;
     _type: "block";
     _key: string;
@@ -1015,23 +1163,28 @@ export type CompanyQueryResult = {
       date: string | null;
       place: string | null;
       link: string | null;
-      project: {
-        title: string;
-        slug: string;
-        _type: "podcast";
-      } | {
-        title: string;
-        slug: null;
-        _type: "research";
-      } | {
-        title: string;
-        slug: string;
-        _type: "show";
-      } | {
-        title: string;
-        slug: null;
-        _type: "transmission";
-      } | null;
+      project:
+        | {
+            title: string;
+            slug: string;
+            _type: "podcast";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "research";
+          }
+        | {
+            title: string;
+            slug: string;
+            _type: "show";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "transmission";
+          }
+        | null;
     }>;
   }> | null;
 } | null;
@@ -1058,39 +1211,171 @@ export type PageBySlugQueryResult = {
     }>;
     style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
     listItem?: "bullet" | "number";
-    markDefs: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-    }> | null;
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
     level?: number;
     _type: "block";
     _key: string;
   }>;
 } | null;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: aboutQuery
+// Query: *[_type == "about"][0]{  title,  "presentation": presentation[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }},    "seasons": seasons[]{    range,    "events": events[]{      title,      description,      date,      place,      link,      "project": project->{        title,        "slug": slug.current,        _type,      }    }  },  "members": members[]->{    name,    slug,    role,    link,    "presentation": presentation[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }}  },  "contact": contact{    "title": *[_type == "settings"][0].title,    name,    phone,    email,    address  },  supports,  "pages": *[_type == "legal"]{    "slug": slug.current,    title  },  "credits": [{    "title": "Design",    "value": [{      "name": "Mathilde Mary",      "link": "https://mathildemary.fr/"    }]  },{    "title": "Développement web",    "value": [{      "name": "Joseph Clenet",      "link": "https://josephclenet.fr/"    },{      "name": "Mathilde Mary",      "link": "https://mathildemary.fr/"    }]  }]}
+export type AboutQueryResult = {
+  title: string;
+  presentation: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs: Array<
+      | {
+          href?: string;
+          _type: "link";
+          _key: string;
+        }
+      | {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+        }
+    > | null;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  seasons: Array<{
+    range: string;
+    events: Array<{
+      title: string;
+      description: string | null;
+      date: string | null;
+      place: string | null;
+      link: string | null;
+      project:
+        | {
+            title: string;
+            slug: string;
+            _type: "podcast";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "research";
+          }
+        | {
+            title: string;
+            slug: string;
+            _type: "show";
+          }
+        | {
+            title: string;
+            slug: null;
+            _type: "transmission";
+          }
+        | null;
+    }>;
+  }> | null;
+  members: Array<{
+    name: string;
+    slug: Slug;
+    role: string;
+    link: string | null;
+    presentation: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs: Array<
+        | {
+            href?: string;
+            _type: "link";
+            _key: string;
+          }
+        | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+          }
+      > | null;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> | null;
+  }> | null;
+  contact: {
+    title: string | null;
+    name: string;
+    phone: string | null;
+    email: string | null;
+    address: string | null;
+  } | null;
+  supports: string | null;
+  pages: Array<{
+    slug: string;
+    title: string;
+  }>;
+  credits: Array<
+    | {
+        title: "Design";
+        value: Array<{
+          name: "Mathilde Mary";
+          link: "https://mathildemary.fr/";
+        }>;
+      }
+    | {
+        title: "D\xE9veloppement web";
+        value: Array<
+          | {
+              name: "Joseph Clenet";
+              link: "https://josephclenet.fr/";
+            }
+          | {
+              name: "Mathilde Mary";
+              link: "https://mathildemary.fr/";
+            }
+        >;
+      }
+  >;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"settings\"][0]{\n    title,\n    description,\n    \"favicons\": favicon{\n      \"light\": light.asset->url,\n      \"dark\": dark.asset->url,\n    }\n  }": LayoutSettingsQueryResult;
-    "*[_type == \"settings\"][0]{\n    title,\n    \"navigation\": navigation[]{\n      title,\n      \"slug\": slug.current\n    },\n    \"navigationLogo\": favicon.dark.asset->url,\n  }": FooterSettingsQueryResult;
-    "*[_type == \"settings\"\n  && defined(homeImage.asset->url)][0].homeImage{\n  \"src\": coalesce(asset->url, \"\"),\n  \"alt\": coalesce(alt, ^.title, \"\"),\n  crop,\n  hotspot,\n}": HomeImageQueryResult;
-    "*[_type == \"show\"]{\n  title,\n  \"slug\": slug.current,\n  date,\n  \"cover\": cover{\n    \"src\": coalesce(asset->url, \"\"),\n    \"orientation\": coalesce(orientation, \"landscape\"),\n    crop,\n    hotspot,\n  },\n} | order(date desc)": ShowsListQueryResult;
-    "*[_type == \"show\" && slug.current == $slug][0]{\n    title,\n    \"slug\": slug.current,\n    date,\n    \"synopsis\": synopsis[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    excerpt,\n    \"infos\": infos[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    supports,\n    production,\n    \"credits\": credits[]{\n  \"title\": title->title,\n  \"value\": value[]{\n    _type == \"reference\" => @->{\n      _type,\n      \"name\": name,\n      \"slug\": slug.current,\n      \"link\": link,\n    },\n    _type != \"reference\" => @{\n      _type,\n      \"text\": value,\n    },\n  },\n},\n    \"gallery\": gallery[]{\n  _type,\n  _type == \"imageAlt\" => {\n  \"src\": coalesce(asset->url, \"\"),\n  \"alt\": coalesce(alt, ^.title, \"\"),\n  crop,\n  hotspot,\n},\n  _type == \"mux.video\" => {\n    \"playbackId\": coalesce(asset->playbackId, \"\"),\n  }\n},\n    links,\n    press\n  }\n": ShowBySlugQueryResult;
-    "*[_type == \"podcast\"]{\n  title,\n  \"slug\": slug.current,\n  date,\n  \"cover\": cover{\n    \"src\": coalesce(asset->url, \"\"),\n    \"orientation\": coalesce(orientation, \"landscape\"),\n    crop,\n    hotspot,\n  },\n} | order(date desc)": PodcastsListQueryResult;
-    "*[_type == \"podcast\" && slug.current == $slug][0]{\n    title,\n    \"slug\": slug.current,\n    date,\n    \"synopsis\": synopsis[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    \"episodes\": episodes[]{\n      title,\n      \"playbackId\": mp3.asset->playbackId,\n    },\n    \"infos\": infos[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    supports,\n    production,\n    \"credits\": credits[]{\n  \"title\": title->title,\n  \"value\": value[]{\n    _type == \"reference\" => @->{\n      _type,\n      \"name\": name,\n      \"slug\": slug.current,\n      \"link\": link,\n    },\n    _type != \"reference\" => @{\n      _type,\n      \"text\": value,\n    },\n  },\n},\n    \"gallery\": gallery[]{\n  _type,\n  _type == \"imageAlt\" => {\n  \"src\": coalesce(asset->url, \"\"),\n  \"alt\": coalesce(alt, ^.title, \"\"),\n  crop,\n  hotspot,\n},\n  _type == \"mux.video\" => {\n    \"playbackId\": coalesce(asset->playbackId, \"\"),\n  }\n},\n    links,\n    press\n  }\n": PodcastBySlugQueryResult;
-    "*[_type == \"research\"][0]{\n  title,\n  \"presentation\": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \"notes\": notes[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  excerptTitle,\n  \"excerpt\": excerpt[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n}\n}": ResearchQueryResult;
-    "*[_type == \"team\"][0]{\n  title,\n  \"members\": members[]->{\n    name,\n    slug,\n    role,\n    link,\n    \"presentation\": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n}\n  }\n}": TeamQueryResult;
-    "*[_type == \"calendar\"][0]{\n  title,\n  \"introduction\": introduction[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  \"seasons\": seasons[]{\n    range,\n    \"events\": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      \"project\": project->{\n        title,\n        \"slug\": slug.current,\n        _type,\n      }\n    }\n  }\n\n}": CalendarQueryResult;
-    "*[_type == \"transmission\"][0]{\n  title,\n  \"introduction\": introduction[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  \"seasons\": seasons[]{\n    range,\n    \"events\": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      \"project\": project->{\n        title,\n        \"slug\": slug.current,\n        _type,\n      }\n    }\n  }\n\n}": TransmissionQueryResult;
-    "*[_type == \"company\"][0]{\n  title,\n  \"presentation\": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  \"seasons\": seasons[]{\n    range,\n    \"events\": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      \"project\": project->{\n        title,\n        \"slug\": slug.current,\n        _type,\n      }\n    }\n  }\n\n}": CompanyQueryResult;
-    "*[_type == \"legal\"]{\n  \"slug\": slug.current\n}": PagesListQueryResult;
-    "*[_type == \"legal\" && slug.current == $slug][0]{\n  title,\n  \"slug\": slug.current,\n  \"content\": content[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == \"internalLink\" => {\n      ...,\n      \"slug\": *[_id == ^._ref][0].slug.current,\n      \"refType\": *[_id == ^._ref][0]._type\n    }\n  }\n}\n}": PageBySlugQueryResult;
+    '*[_type == "settings"][0]{\n    title,\n    description,\n    "favicons": favicon{\n      "light": light.asset->url,\n      "dark": dark.asset->url,\n    }\n  }': LayoutSettingsQueryResult;
+    '*[_type == "settings"][0]{\n    title,\n    "navigation": navigation[]{\n      title,\n      "slug": slug.current\n    },\n    "navigationLogo": favicon.dark.asset->url,\n  }': FooterSettingsQueryResult;
+    '*[_type == "settings"\n  && defined(homeImage.asset->url)][0].homeImage{\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n}': HomeImageQueryResult;
+    '*[_type == "show"]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    "orientation": coalesce(orientation, "landscape"),\n    crop,\n    hotspot,\n  },\n} | order(date desc)': ShowsListQueryResult;
+    '*[_type == "show" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    date,\n    "synopsis": synopsis[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    excerpt,\n    "infos": infos[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    supports,\n    production,\n    "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n    "gallery": gallery[]{\n  _type,\n  _type == "imageAlt" => {\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n},\n  _type == "mux.video" => {\n    "playbackId": coalesce(asset->playbackId, ""),\n  }\n},\n    links,\n    press\n  }\n': ShowBySlugQueryResult;
+    '*[_type == "podcast"]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    "orientation": coalesce(orientation, "landscape"),\n    crop,\n    hotspot,\n  },\n} | order(date desc)': PodcastsListQueryResult;
+    '*[_type == "podcast" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    date,\n    "synopsis": synopsis[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    "episodes": episodes[]{\n      title,\n      "playbackId": mp3.asset->playbackId,\n    },\n    "infos": infos[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    supports,\n    production,\n    "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n    "gallery": gallery[]{\n  _type,\n  _type == "imageAlt" => {\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n},\n  _type == "mux.video" => {\n    "playbackId": coalesce(asset->playbackId, ""),\n  }\n},\n    links,\n    press\n  }\n': PodcastBySlugQueryResult;
+    '*[_type == "research"][0]{\n  title,\n  "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  "notes": notes[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  excerptTitle,\n  "excerpt": excerpt[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n}': ResearchQueryResult;
+    '*[_type == "team"][0]{\n  title,\n  "members": members[]->{\n    name,\n    slug,\n    role,\n    link,\n    "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n  }\n}': TeamQueryResult;
+    '*[_type == "calendar"][0]{\n  title,\n  "introduction": introduction[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': CalendarQueryResult;
+    '*[_type == "transmission"][0]{\n  title,\n  "introduction": introduction[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': TransmissionQueryResult;
+    '*[_type == "company"][0]{\n  title,\n  "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': CompanyQueryResult;
+    '*[_type == "legal"]{\n  "slug": slug.current\n}': PagesListQueryResult;
+    '*[_type == "legal" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  "content": content[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n}': PageBySlugQueryResult;
+    '\n  *[_type == "about"][0]{\n  title,\n  "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n,\n  "members": members[]->{\n    name,\n    slug,\n    role,\n    link,\n    "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n  },\n  "contact": contact{\n    "title": *[_type == "settings"][0].title,\n    name,\n    phone,\n    email,\n    address\n  },\n  supports,\n  "pages": *[_type == "legal"]{\n    "slug": slug.current,\n    title\n  },\n  "credits": [{\n    "title": "Design",\n    "value": [{\n      "name": "Mathilde Mary",\n      "link": "https://mathildemary.fr/"\n    }]\n  },{\n    "title": "D\xE9veloppement web",\n    "value": [{\n      "name": "Joseph Clenet",\n      "link": "https://josephclenet.fr/"\n    },{\n      "name": "Mathilde Mary",\n      "link": "https://mathildemary.fr/"\n    }]\n  }]\n}': AboutQueryResult;
   }
 }
-

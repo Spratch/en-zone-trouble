@@ -4,10 +4,9 @@ import {
   ComposeIcon,
   ControlsIcon,
   DocumentsIcon,
-  EmptyIcon,
   EyeOpenIcon,
-  MicrophoneIcon,
-  UsersIcon
+  InfoOutlineIcon,
+  MicrophoneIcon
 } from "@sanity/icons";
 import type { StructureResolver } from "sanity/structure";
 
@@ -35,14 +34,13 @@ export const structure: StructureResolver = (S, context) => {
 
       S.divider(),
 
-      li("company", "Compagnie", EmptyIcon, "singleton"),
-      li("team", "Équipe", UsersIcon, "singleton"),
-      // li("member", "Équipe", UsersIcon, "list"),
+      li("about", "À propos", InfoOutlineIcon, "singleton"),
+      li("calendar", "Calendrier", CalendarIcon, "singleton"),
+      // li("member", "Personnes", UsersIcon, "list"),
       // li("job", "Métiers", CaseIcon, "list"),
 
       S.divider(),
 
-      li("calendar", "Calendrier", CalendarIcon, "singleton"),
       li("research", "Recherche", ComposeIcon, "singleton"),
       li("transmission", "Transmission", AsteriskIcon, "singleton"),
 

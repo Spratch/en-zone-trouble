@@ -5,7 +5,7 @@ import {
   EyeOpenIcon,
   MicrophoneIcon,
   SearchIcon,
-  UserIcon,
+  UserIcon
 } from "@sanity/icons";
 import type { Props as $, Mark } from "astro-portabletext/types";
 import { contentRoutes } from "../utils";
@@ -19,7 +19,7 @@ const iconMap = {
   research: SearchIcon,
   transmission: AsteriskIcon,
   member: UserIcon,
-  externalLink: ArrowTopRightIcon,
+  externalLink: ArrowTopRightIcon
 };
 
 const { node } = Astro.props;
@@ -34,14 +34,19 @@ const Icon =
     : iconMap.externalLink;
 ---
 
-<a href={url}><slot /></a>
+<a
+  href={url}
+  target={node.markType === "externalLink" ? "_blank" : undefined}
+  rel={node.markType === "externalLink" ? "noopener noreferrer" : undefined}
+  ><slot /></a
+>
 {
   Icon && (
     <Icon
       style={{
         display: "inline-block",
         marginBottom: "0.25em",
-        marginLeft: "-0.25em",
+        marginLeft: "-0.25em"
       }}
     />
   )
