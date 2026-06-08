@@ -11,7 +11,7 @@ import type { Props as $, Mark } from "astro-portabletext/types";
 import { contentRoutes } from "../utils";
 
 type MarkDef = { slug?: string; refType?: string; href?: string };
-export type Props = $<Mark<MarkDef>>;
+type Props = $<Mark<MarkDef>>;
 
 const iconMap = {
   show: EyeOpenIcon,

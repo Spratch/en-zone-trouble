@@ -210,20 +210,6 @@ export type About = {
   supports?: string;
 };
 
-export type Team = {
-  _id: string;
-  _type: "team";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  members?: Array<
-    {
-      _key: string;
-    } & MemberReference
-  >;
-};
-
 export type Calendar = {
   _id: string;
   _type: "calendar";
@@ -232,17 +218,6 @@ export type Calendar = {
   _rev: string;
   title: string;
   introduction?: CustomBlock;
-  seasons?: Seasons;
-};
-
-export type Company = {
-  _id: string;
-  _type: "company";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  presentation: CustomBlock;
   seasons?: Seasons;
 };
 
@@ -597,9 +572,7 @@ export type AllSanitySchemaTypes =
   | Slug
   | Member
   | About
-  | Team
   | Calendar
-  | Company
   | Transmission
   | Podcast
   | MuxVideoAssetReference
@@ -960,44 +933,6 @@ export type ResearchQueryResult = {
 } | null;
 
 // Source: src/sanity/lib/queries.ts
-// Variable: teamQuery
-// Query: *[_type == "team"][0]{  title,  "members": members[]->{    name,    slug,    role,    link,    "presentation": presentation[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }}  }}
-export type TeamQueryResult = {
-  title: string;
-  members: Array<{
-    name: string;
-    slug: Slug;
-    role: string;
-    link: string | null;
-    presentation: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs: Array<
-        | {
-            href?: string;
-            _type: "link";
-            _key: string;
-          }
-        | {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-          }
-      > | null;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> | null;
-  }> | null;
-} | null;
-
-// Source: src/sanity/lib/queries.ts
 // Variable: calendarQuery
 // Query: *[_type == "calendar"][0]{  title,  "introduction": introduction[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }},    "seasons": seasons[]{    range,    "events": events[]{      title,      description,      date,      place,      link,      "project": project->{        title,        "slug": slug.current,        _type,      }    }  }}
 export type CalendarQueryResult = {
@@ -1067,70 +1002,6 @@ export type CalendarQueryResult = {
 export type TransmissionQueryResult = {
   title: string;
   introduction: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs: Array<
-      | {
-          href?: string;
-          _type: "link";
-          _key: string;
-        }
-      | {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-        }
-    > | null;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  seasons: Array<{
-    range: string;
-    events: Array<{
-      title: string;
-      description: string | null;
-      date: string | null;
-      place: string | null;
-      link: string | null;
-      project:
-        | {
-            title: string;
-            slug: string;
-            _type: "podcast";
-          }
-        | {
-            title: string;
-            slug: null;
-            _type: "research";
-          }
-        | {
-            title: string;
-            slug: string;
-            _type: "show";
-          }
-        | {
-            title: string;
-            slug: null;
-            _type: "transmission";
-          }
-        | null;
-    }>;
-  }> | null;
-} | null;
-
-// Source: src/sanity/lib/queries.ts
-// Variable: companyQuery
-// Query: *[_type == "company"][0]{  title,  "presentation": presentation[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }},    "seasons": seasons[]{    range,    "events": events[]{      title,      description,      date,      place,      link,      "project": project->{        title,        "slug": slug.current,        _type,      }    }  }}
-export type CompanyQueryResult = {
-  title: string;
-  presentation: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -1370,10 +1241,8 @@ declare module "@sanity/client" {
     '*[_type == "podcast"]{\n  title,\n  "slug": slug.current,\n  date,\n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    "orientation": coalesce(orientation, "landscape"),\n    crop,\n    hotspot,\n  },\n} | order(date desc)': PodcastsListQueryResult;
     '*[_type == "podcast" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    date,\n    "synopsis": synopsis[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    "episodes": episodes[]{\n      title,\n      "playbackId": mp3.asset->playbackId,\n    },\n    "infos": infos[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    supports,\n    production,\n    "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n    "gallery": gallery[]{\n  _type,\n  _type == "imageAlt" => {\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n},\n  _type == "mux.video" => {\n    "playbackId": coalesce(asset->playbackId, ""),\n  }\n},\n    links,\n    press\n  }\n': PodcastBySlugQueryResult;
     '*[_type == "research"][0]{\n  title,\n  "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  "notes": notes[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  excerptTitle,\n  "excerpt": excerpt[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n}': ResearchQueryResult;
-    '*[_type == "team"][0]{\n  title,\n  "members": members[]->{\n    name,\n    slug,\n    role,\n    link,\n    "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n  }\n}': TeamQueryResult;
     '*[_type == "calendar"][0]{\n  title,\n  "introduction": introduction[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': CalendarQueryResult;
     '*[_type == "transmission"][0]{\n  title,\n  "introduction": introduction[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': TransmissionQueryResult;
-    '*[_type == "company"][0]{\n  title,\n  "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': CompanyQueryResult;
     '*[_type == "legal"]{\n  "slug": slug.current\n}': PagesListQueryResult;
     '*[_type == "legal" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  "content": content[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n}': PageBySlugQueryResult;
     '\n  *[_type == "about"][0]{\n  title,\n  "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n,\n  "members": members[]->{\n    name,\n    slug,\n    role,\n    link,\n    "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n  },\n  "contact": contact{\n    "title": *[_type == "settings"][0].title,\n    name,\n    phone,\n    email,\n    address\n  },\n  supports,\n  "pages": *[_type == "legal"]{\n    "slug": slug.current,\n    title\n  },\n  "credits": [{\n    "title": "Design",\n    "value": [{\n      "name": "Mathilde Mary",\n      "link": "https://mathildemary.fr/"\n    }]\n  },{\n    "title": "D\xE9veloppement web",\n    "value": [{\n      "name": "Joseph Clenet",\n      "link": "https://josephclenet.fr/"\n    },{\n      "name": "Mathilde Mary",\n      "link": "https://mathildemary.fr/"\n    }]\n  }]\n}': AboutQueryResult;

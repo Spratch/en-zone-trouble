@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-export interface Props extends HTMLAttributes<"video"> {
+interface Props extends HTMLAttributes<"video"> {
   playbackId: string;
   class?: string;
 }

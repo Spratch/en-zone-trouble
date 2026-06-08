@@ -99,17 +99,6 @@ export const researchQuery = defineQuery(`*[_type == "research"][0]{
   "excerpt": excerpt${customBlockFragment}
 }`);
 
-export const teamQuery = defineQuery(`*[_type == "team"][0]{
-  title,
-  "members": members[]->{
-    name,
-    slug,
-    role,
-    link,
-    "presentation": presentation${customBlockFragment}
-  }
-}`);
-
 export const calendarQuery = defineQuery(`*[_type == "calendar"][0]{
   title,
   "introduction": introduction${customBlockFragment},
@@ -119,12 +108,6 @@ export const calendarQuery = defineQuery(`*[_type == "calendar"][0]{
 export const transmissionQuery = defineQuery(`*[_type == "transmission"][0]{
   title,
   "introduction": introduction${customBlockFragment},
-  ${seasonsFragment}
-}`);
-
-export const companyQuery = defineQuery(`*[_type == "company"][0]{
-  title,
-  "presentation": presentation${customBlockFragment},
   ${seasonsFragment}
 }`);
 

@@ -1,7 +1,6 @@
 import type { SchemaPluginOptions } from "sanity";
 import { aboutSchema } from "./about";
 import { calendarSchema } from "./calendar";
-import { companySchema } from "./company";
 import { jobSchema } from "./job";
 import { legalSchema } from "./legal";
 import { memberSchema } from "./member";
@@ -16,24 +15,21 @@ import { podcastSchema } from "./podcast";
 import { researchSchema } from "./research";
 import { settingsSchema } from "./settings";
 import { showSchema } from "./show";
-import { teamSchema } from "./team";
 import { transmissionSchema } from "./transmission";
 
 const singltetonDocs = [
   settingsSchema,
   researchSchema,
-  companySchema,
   calendarSchema,
   transmissionSchema,
-  teamSchema,
-  aboutSchema,
+  aboutSchema
 ];
 export const listDocs = [
   showSchema,
   podcastSchema,
   memberSchema,
   legalSchema,
-  jobSchema,
+  jobSchema
 ];
 const objects = [
   favicon,
@@ -42,8 +38,8 @@ const objects = [
   linksArray,
   eventsBySeason,
   customBlock,
-  gallery,
+  gallery
 ];
 export const schema: SchemaPluginOptions = {
-  types: [...singltetonDocs, ...listDocs, ...objects],
+  types: [...singltetonDocs, ...listDocs, ...objects]
 };
