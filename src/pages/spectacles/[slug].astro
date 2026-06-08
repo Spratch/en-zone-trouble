@@ -1,7 +1,6 @@
 ---
 import { sanityClient } from "sanity:client";
 import Gallery from "../../components/Gallery.astro";
-import Img from "../../components/Img.astro";
 import PortableText from "../../components/PortableText.astro";
 import Layout from "../../layouts/Layout.astro";
 import { showBySlugQuery, showsListQuery } from "../../sanity/lib/queries";
@@ -75,11 +74,7 @@ if (!show) throw new Error("Show not found");
         {/* Extrait */}
         {
           show.excerpt &&
-            (show.excerpt.type === "text" ? (
-              <p class="excerpt">{show.excerpt.text!}</p>
-            ) : (
-              <Img class="excerpt" image={show.excerpt.image!} />
-            ))
+              <p class="excerpt">{show.excerpt}</p>
         }
 
         {/* Crédits */}

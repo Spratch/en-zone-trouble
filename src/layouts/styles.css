@@ -34,7 +34,7 @@ body {
   );
   background: var(--bg-gradient);
   background-attachment: fixed;
-  
+
   &:has(.show-page),&:has(.podcast-page){
     --bg-gradient:linear-gradient(
     to bottom,
@@ -283,6 +283,12 @@ main {
       black 70%,
       transparent 100%
     );
+  }
+}
+
+.show-page {
+  & .excerpt {
+    white-space: pre-wrap;
   }
 }
 

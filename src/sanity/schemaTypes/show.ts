@@ -68,40 +68,9 @@ export const showSchema = defineType({
     defineField({
       name: "excerpt",
       title: "Extrait",
-      description: "Entrer un extrait du spectacle",
-      type: "object",
-      fields: [
-        defineField({
-          name: "type",
-          title: "Type",
-          description: "Sélectionner la façon d'entrer le contenu",
-          type: "string",
-          options: {
-            list: [
-              { title: "Texte", value: "text" },
-              { title: "Image", value: "image" },
-            ],
-            layout: "radio",
-          },
-        }),
-        defineField({
-          name: "text",
-          title: "Texte",
-          description:
-            "Entrer le texte, il sera affiché avec une typographie scripte",
-          type: "text",
-          rows: 3,
-          hidden: ({ parent }) => parent?.type !== "text",
-        }),
-        defineField({
-          name: "image",
-          title: "Image",
-          description:
-            "L'image doit avoir un fond transparent pour pouvoir être placé sur la page",
-          type: "imageAlt",
-          hidden: ({ parent }) => parent?.type !== "image",
-        }),
-      ],
+      description: "Entrer le texte, il sera affiché avec une typographie scripte",
+      type: "text",
+      rows: 3,
     }),
     defineField({
       name: "infos",

@@ -1728,41 +1728,7 @@
       "excerpt": {
         "type": "objectAttribute",
         "value": {
-          "type": "object",
-          "attributes": {
-            "type": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "union",
-                "of": [
-                  {
-                    "type": "string",
-                    "value": "text"
-                  },
-                  {
-                    "type": "string",
-                    "value": "image"
-                  }
-                ]
-              },
-              "optional": true
-            },
-            "text": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "image": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "imageAlt"
-              },
-              "optional": true
-            }
-          }
+          "type": "string"
         },
         "optional": true
       },

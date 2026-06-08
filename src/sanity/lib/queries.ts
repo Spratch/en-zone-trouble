@@ -48,11 +48,7 @@ export const showBySlugQuery =
     ${slugFragment},
     date,
     "synopsis": synopsis${customBlockFragment},
-    "excerpt": excerpt{
-      type,
-      "image": image${imageAltFragment},
-      text
-    },
+    excerpt,
     "infos": infos${customBlockFragment},
     supports,
     production,
