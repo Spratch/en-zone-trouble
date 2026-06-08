@@ -38,6 +38,21 @@ export const podcastSchema = defineType({
       title: "Couverture",
       description: "Image de couverture du podcast",
       type: "image",
+      fields: [
+        defineField({
+          name: "orientation",
+          title: "Orientation",
+          description: "Sélectionner l'orientation de l'image",
+          type :"string",
+          initialValue: "landscape",
+          options: {
+            list: [
+              { title:"Paysage", value:"landscape" },
+              { title:"Portrait", value:"portrait" }
+            ]
+          }
+        })
+      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({

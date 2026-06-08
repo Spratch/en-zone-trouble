@@ -1,12 +1,12 @@
 import { defineQuery } from "groq";
 import {
-  creditsFragment,
-  customBlockFragment,
-  galleryFragment,
-  imageAltFragment,
-  imageSrcFragment,
-  seasonsFragment,
-  slugFragment
+    creditsFragment,
+    customBlockFragment,
+    galleryFragment,
+    imageAltFragment,
+    imageSrcFragment,
+    seasonsFragment,
+    slugFragment
 } from "./fragments";
 
 export const layoutSettingsQuery = defineQuery(`*[_type == "settings"][0]{
@@ -67,7 +67,12 @@ export const podcastsListQuery = defineQuery(`*[_type == "podcast"]{
   title,
   ${slugFragment},
   date,
-  "cover": cover${imageAltFragment}
+  "cover": cover{
+    ${imageSrcFragment},
+    "orientation": coalesce(orientation, "landscape"),
+    crop,
+    hotspot,
+  },
 } | order(date desc)`);
 
 export const podcastBySlugQuery =
