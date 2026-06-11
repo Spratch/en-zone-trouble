@@ -16,9 +16,9 @@ if (!show) throw new Error("Show not found");
 
 <Layout title={show.title}>
   <main class="show-page item-page">
+    <h1>{show.title}</h1>
     <section class="page-grid">
       <div class="page-left">
-        <h1>{show.title}</h1>
 
         {/* Synopsis */}
         <PortableText class="synopsis" value={show.synopsis} />

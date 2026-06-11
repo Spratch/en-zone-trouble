@@ -5,7 +5,7 @@ import PortableText from "../../components/PortableText.astro";
 import Layout from "../../layouts/Layout.astro";
 import {
   podcastBySlugQuery,
-  podcastsListQuery,
+  podcastsListQuery
 } from "../../sanity/lib/queries";
 import Gallery from "../../components/Gallery.astro";
 
@@ -26,7 +26,10 @@ if (!podcast) throw new Error("Podcast not found");
         <h1>{podcast.title}</h1>
 
         {/* Synopsis */}
-        <PortableText class="synopsis" value={podcast.synopsis} />
+        <PortableText
+          class="synopsis-podcast"
+          value={podcast.synopsis}
+        />
 
         {/* Épisodes */}
         {
@@ -56,7 +59,10 @@ if (!podcast) throw new Error("Podcast not found");
         <section class="details">
           {
             podcast.infos && (
-              <PortableText class="infos" value={podcast.infos} />
+              <PortableText
+                class="infos"
+                value={podcast.infos}
+              />
             )
           }
           {podcast.production && <p class="production">{podcast.production}</p>}
@@ -107,7 +113,10 @@ if (!podcast) throw new Error("Podcast not found");
         {/* Player */}
         <section class="audio">
           <p class="audio-title"></p>
-          <audio controls class="audio-player"></audio>
+          <audio
+            controls
+            class="audio-player"
+          ></audio>
         </section>
 
         {/* Crédits */}
@@ -123,7 +132,7 @@ if (!podcast) throw new Error("Podcast not found");
                         <PortableText value={value.text} />
                       ) : (
                         <p>{value.name}</p>
-                      ),
+                      )
                     )}
                   </div>
                 </>

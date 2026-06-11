@@ -40,39 +40,57 @@ if (!about) throw new Error("About page not found");
             </section>
           )
         }
+      </div>
 
+      <div class="page-right">
+        {/* Événements */}
+        {
+          about.seasons && (
+            <aside class="seasons">
+              <h2 class="sous-titre">Événements</h2>
+              <SeasonList seasons={about.seasons} />
+            </aside>
+          )
+        }
+      </div>
+    </section>
+
+    <section class="page-grid">
+      <div class="page-left">
         {/* Contact */}
         {
           about.contact && (
             <section class="contact">
               <h2>Contact</h2>
-              <p class="contact-title">{about.contact.title}</p>
-              <p class="contact-name">{about.contact.name}</p>
-              {about.contact.phone && (
-                <p class="contact-phone">
-                  <a href={`tel:${about.contact.phone.replace(/\s+/g, "")}`}>
-                    {about.contact.phone}
-                  </a>
-                </p>
-              )}
-              {about.contact.email && (
-                <p class="contact-email">
-                  <a href={`mailto:${about.contact.email}`}>
-                    {about.contact.email}
-                  </a>
-                </p>
-              )}
-              {about.contact.address && (
-                <p class="contact-address">
-                  <a
-                    href={`https://maps.google.com/?q=${about.contact.address.replace(/\s+/g, "+")}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {about.contact.address}
-                  </a>
-                </p>
-              )}
+              <ul class="contact-item">
+                <p class="contact-title">{about.contact.title}</p>
+                <p class="contact-name">{about.contact.name}</p>
+                {about.contact.phone && (
+                  <p class="contact-phone">
+                    <a href={`tel:${about.contact.phone.replace(/\s+/g, "")}`}>
+                      {about.contact.phone}
+                    </a>
+                  </p>
+                )}
+                {about.contact.email && (
+                  <p class="contact-email">
+                    <a href={`mailto:${about.contact.email}`}>
+                      {about.contact.email}
+                    </a>
+                  </p>
+                )}
+                {about.contact.address && (
+                  <p class="contact-address">
+                    <a
+                      href={`https://maps.google.com/?q=${about.contact.address.replace(/\s+/g, "+")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {about.contact.address}
+                    </a>
+                  </p>
+                )}
+              </ul>
             </section>
           )
         }
@@ -91,14 +109,16 @@ if (!about) throw new Error("About page not found");
             </section>
           )
         }
-
+      </div>
+      <div class="page-right">
         {/* Crédits */}
         {
           about.credits && (
             <section class="about-credits">
+              <h2 class="sous-titre">Crédits</h2>
               {about.credits.map((credit) => (
                 <p>
-                  <span>{credit.title} :</span>
+                  <p class="credit-title">{credit.title}</p>
                   {credit.value
                     .map((person) => (
                       <a
@@ -115,16 +135,6 @@ if (!about) throw new Error("About page not found");
           )
         }
       </div>
-
-      {/* Événements */}
-      {
-        about.seasons && (
-          <aside class="page-right">
-            <h2>Événements</h2>
-            <SeasonList seasons={about.seasons} />
-          </aside>
-        )
-      }
     </section>
   </main>
 </Layout>

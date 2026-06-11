@@ -37,6 +37,11 @@ export default defineConfig({
       }
     },
     {
+      provider: fontProviders.fontsource(),
+      name: "Homemade Apple",
+      cssVariable: "--font-script"
+    },
+    {
       provider: fontProviders.local(),
       name: "Ronzino",
       cssVariable: "--font-sans",

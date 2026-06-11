@@ -18,7 +18,10 @@ const { ...seo } = Astro.props;
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <link
       rel="icon"
       href={settings?.favicons?.dark}
@@ -29,14 +32,27 @@ const { ...seo } = Astro.props;
       href={settings?.favicons?.light}
       media="(prefers-color-scheme: dark)"
     />
-    <link rel="icon" href={settings?.favicons?.dark} />
+    <link
+      rel="icon"
+      href={settings?.favicons?.dark}
+    />
     <Meta
       siteTitle={settings?.title || "En Zone Trouble"}
       siteDescription={settings?.description || ""}
       {...seo}
     />
-    <Font cssVariable="--font-serif" preload />
-    <Font cssVariable="--font-sans" preload />
+    <Font
+      cssVariable="--font-serif"
+      preload
+    />
+    <Font
+      cssVariable="--font-sans"
+      preload
+    />
+    <Font
+      cssVariable="--font-script"
+      preload
+    />
     <ClientRouter />
   </head>
   <body transition:animate="none">
