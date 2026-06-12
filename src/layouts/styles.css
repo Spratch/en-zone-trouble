@@ -173,7 +173,6 @@ footer {
     }
 
     & a.active {
-      pointer-events: none;
       text-decoration: underline;
       text-underline-offset: 2px;
     }
