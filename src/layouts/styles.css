@@ -12,7 +12,7 @@
   --font-size-detail: 14px;
   --font-size-menu: 16px;
   --font-size-labeur: 18px;
-  --font-size-sous-titre: 25px;
+  --font-size-sous-titre: 20px;
   --font-size-titre: 45px;
 
   --line-height-detail: 17px;
@@ -598,9 +598,11 @@ main.calendar-page {
 
   & .season-item {
     display: grid;
-    grid-template-columns: 1fr 7fr;
-    grid-column-gap: var(--padding);
+    grid-template-columns: 1fr 1.8fr;
+    padding-top: 5px;
+    grid-column-gap: 5px;
     padding-left: var(--padding);
+    padding-right: var(--padding);
     padding-bottom: 30px;
 
     /*dégradé dans texte*/
@@ -615,14 +617,13 @@ main.calendar-page {
 
     & .season-range {
       text-transform: uppercase;
-      font-size: var(--font-size-sous-titre);
+      font-size: var(--font-size-labeur);
     }
 
     & .season-events {
       display: flex;
       flex-direction: column;
       gap: var(--padding);
-      padding-top: 5px;
 
       & .event-item {
         & .event-title {
@@ -641,6 +642,18 @@ main.calendar-page {
           font-family: var(--font-sans);
           font-style: oblique;
         }
+      }
+    }
+  }
+
+  @media (min-width: 48rem) {
+    & .season-item {
+      grid-template-columns: 1fr 7fr;
+      padding-top: Opx;
+      grid-column-gap: var(--padding);
+
+      & .season-range {
+        font-size: var(--font-size-sous-titre);
       }
     }
   }
