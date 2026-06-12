@@ -10,6 +10,7 @@
   --color-accent: #8664ff;
 
   --font-size-detail: 16px;
+  --font-size-menu: 18px;
   --font-size-labeur: 20px;
   --font-size-sous-titre: 25px;
   --font-size-titre: 50px;
@@ -164,7 +165,7 @@ footer {
 
     & .navigation-item {
       padding-block: var(--padding);
-      font-size: var(--font-size-detail);
+      font-size: var(--font-size-menu);
       text-wrap: nowrap;
     }
 
@@ -291,7 +292,6 @@ main {
         text-underline-offset: 2px;
       }
       & .link-item-subtitle {
-        color: var(--color-fg);
         line-height: 1.6;
       }
     }
@@ -330,7 +330,6 @@ main {
     }
 
     & .credits {
-      padding-top: 45px;
       padding-right: var(--padding);
       text-align: center;
       font-size: var(--font-size-detail);
@@ -339,7 +338,10 @@ main {
 
       & .credit-title {
         text-transform: uppercase;
-        margin-top: 15px;
+      }
+
+      & .credit-value {
+        margin-bottom: var(--padding);
       }
     }
   }
@@ -407,6 +409,22 @@ main {
 
   & section.audio:not(:has(audio[src])) {
     display: none;
+  }
+  & .audio {
+    display: flex;
+    justify-content: center;
+    gap: var(--padding);
+    padding-bottom: var(--padding);
+    padding-right: var(--padding);
+
+    & p {
+      color: var(--color-accent);
+      text-transform: uppercase;
+    }
+
+    & .audio-player {
+      height: 20px;
+    }
   }
 }
 

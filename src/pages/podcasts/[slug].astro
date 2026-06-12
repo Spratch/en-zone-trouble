@@ -21,10 +21,9 @@ if (!podcast) throw new Error("Podcast not found");
 
 <Layout title={podcast.title}>
   <main class="podcast-page item-page">
+    <h1>{podcast.title}</h1>
     <section class="page-grid">
       <div class="page-left">
-        <h1>{podcast.title}</h1>
-
         {/* Synopsis */}
         <PortableText
           class="synopsis-podcast"
