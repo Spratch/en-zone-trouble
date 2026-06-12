@@ -55,6 +55,15 @@ if (!podcast) throw new Error("Podcast not found");
           )
         }
 
+        {/* Player */}
+        <section class="audio">
+          <p class="audio-title"></p>
+          <audio
+            controls
+            class="audio-player"
+          ></audio>
+        </section>
+
         <section class="details">
           {
             podcast.infos && (
@@ -119,15 +128,6 @@ if (!podcast) throw new Error("Podcast not found");
       </div>
 
       <aside class="page-right">
-        {/* Player */}
-        <section class="audio">
-          <p class="audio-title"></p>
-          <audio
-            controls
-            class="audio-player"
-          ></audio>
-        </section>
-
         {/* Crédits */}
         {
           podcast.credits && (

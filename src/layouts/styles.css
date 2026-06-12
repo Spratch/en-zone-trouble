@@ -297,21 +297,22 @@ main {
     }
 
     & .details {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-column-gap: var(--padding);
       padding-left: var(--padding);
       padding-right: var(--padding);
-      margin-bottom: -20px;
+
       padding-top: 40px;
+
       font-size: var(--font-size-detail);
       line-height: 16px;
       color: var(--color-accent);
 
       @media (min-width: 48rem) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: var(--padding);
         padding-right: 0;
         padding-top: 60px;
-        margin-bottom: 0px;
+
         line-height: 18px;
       }
 
@@ -356,7 +357,6 @@ main {
       font-size: 17px;
       line-height: 26px;
       padding-left: var(--padding);
-      padding-bottom: 40px;
       padding-right: var(--padding);
       padding-top: 40px;
       white-space: pre-line;
@@ -383,10 +383,17 @@ main {
 
     & .credits {
       padding-right: var(--padding);
+      padding-left: var(--padding);
+      padding-top: 40px;
       text-align: center;
       font-size: var(--font-size-detail);
       line-height: var(--line-height-detail);
       color: var(--color-accent);
+
+      @media (min-width: 48rem) {
+        padding-left: 0px;
+        padding-top: 5px;
+      }
 
       & .credit-title {
         text-transform: uppercase;
@@ -463,11 +470,7 @@ main {
     display: none;
   }
   & .audio {
-    display: flex;
-    justify-content: center;
-    gap: var(--padding);
-    padding-bottom: var(--padding);
-    padding-right: var(--padding);
+    padding: var(--padding);
 
     & p {
       color: var(--color-accent);
