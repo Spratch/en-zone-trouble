@@ -690,6 +690,11 @@ main.company-page {
         font-style: oblique;
         font-size: var(--font-size-titre);
         text-transform: none;
+        margin-bottom: -15px;
+      }
+
+      & ul {
+        padding-top: 5px;
       }
 
       & span.member-name {
