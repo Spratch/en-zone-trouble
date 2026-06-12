@@ -67,21 +67,20 @@ function isActive(pathname: string, slug: string): boolean {
               </li>
             );
           })}
+          {aboutItem && (
+            <li class="navigation-item">
+              <a
+                class:list={[
+                  "navigation-about",
+                  { active: isActive(pathname, aboutItem.slug) }
+                ]}
+                href={`/${aboutItem.slug}`}
+              >
+                {aboutItem.title}
+              </a>
+            </li>
+          )}
         </ul>
-      )
-    }
-
-    {
-      aboutItem && (
-        <a
-          class:list={[
-            "navigation-about",
-            { active: isActive(pathname, aboutItem.slug) }
-          ]}
-          href={`/${aboutItem.slug}`}
-        >
-          {aboutItem.title}
-        </a>
       )
     }
   </nav>

@@ -1,20 +1,34 @@
 :root {
+  font-family: var(--font-serif);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   --color-footer: #ffffff;
   --color-bg: #e6e6e6;
   --color-fg: #1e1e1e;
   --color-accent: #8664ff;
-  font-family: var(--font-serif);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  --font-size-sous-titre: 25px;
-  --font-size-labeur: 20px;
-  --line-height-labeur: 25px;
+
   --font-size-detail: 16px;
-  --padding: 15px;
-  @font-face {
-    font-family: HomemadeApple-Regular;
-    src: url(src/assets/fonts/HomemadeApple-Regular.woff2);
+  --font-size-labeur: 20px;
+  --font-size-sous-titre: 25px;
+  --font-size-titre: 50px;
+
+  --line-height-labeur: 25px;
+
+  --p-max-w: auto;
+  @media (min-width: 96rem) {
+    --p-max-w: 75ch;
   }
+
+  --padding: 15px;
+
+  --footer-h: 45px;
+  --gallery-img-h: 300px;
+  @media (min-width: 96rem) {
+    --gallery-img-h: 350px;
+  }
+  --gallery-h: calc(var(--gallery-img-h) + var(--padding) * 2);
 }
 
 .sr-only {
@@ -78,13 +92,7 @@ footer {
 
     &.flou {
       position: absolute;
-      bottom: 2.5rem;
       inset-inline: 0;
-
-      --padding-top: 2.5vw;
-      padding-top: var(
-        --padding-top
-      ); /* Pour laisser de l'espace au masque de flou */
       filter: blur(0.5vw);
 
       --mask-size: 60%;
@@ -122,13 +130,30 @@ footer {
   & nav.footer-navigation {
     display: flex;
     align-items: center;
-    height: 45px;
+    height: var(--footer-h);
     background: var(--color-footer);
     color: var(--color-accent);
+    gap: var(--padding);
+
+    max-width: 100%;
+    overflow: hidden;
+
+    & > a:first-child {
+      flex-shrink: 0;
+      width: 50px;
+      padding-left: var(--padding);
+    }
 
     & ul.navigation-pages {
       flex-grow: 1;
       display: flex;
+      gap: var(--padding);
+
+      max-width: calc(
+        100vw /* screen size */ - 50px /* logo width */ - var(--padding)
+          /* gap */
+      );
+      overflow-x: scroll;
     }
 
     & a.active {
@@ -137,14 +162,10 @@ footer {
       text-underline-offset: 2px;
     }
 
-    & img.navigation-logo {
-      width: 50px;
-      padding-left: var(--padding);
-    }
-
     & .navigation-item {
-      margin: 15px;
+      padding-block: var(--padding);
       font-size: var(--font-size-detail);
+      text-wrap: nowrap;
     }
 
     & a.navigation-about {
@@ -155,7 +176,7 @@ footer {
 
 main {
   flex-grow: 1;
-  padding-bottom: 150px;
+  padding-bottom: var(--gallery-h);
 }
 
 .list-page {
@@ -208,26 +229,30 @@ main {
     font-family: var(--font-sans);
     font-weight: 500;
     font-style: oblique;
-    font-size: 50px;
+    font-size: var(--font-size-titre);
     padding-left: var(--padding);
     margin-bottom: -15px;
   }
 
   & .page-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr;
+    @media (min-width: 48rem) {
+      grid-template-columns: 2fr 1fr;
+    }
     column-gap: var(--padding);
     margin-bottom: 6rem;
   }
 
   & .page-left {
-    & .synopsis {
+    & .synopsis,
+    & .synopsis-podcast {
       padding-left: var(--padding);
       padding-top: 5px;
-      /*margin-bottom: 5vh;*/
       font-size: var(--font-size-labeur);
       line-height: var(--line-height-labeur);
-
+    }
+    & .synopsis {
       /*dégradé dans texte*/
       display: inline-block;
       background: linear-gradient(
@@ -249,6 +274,26 @@ main {
       font-size: var(--font-size-detail);
       line-height: 18px;
       color: var(--color-accent);
+
+      & > div {
+        max-width: var(--p-max-w);
+      }
+    }
+
+    & .links,
+    & .press {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      & .link-item-title {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      & .link-item-subtitle {
+        color: var(--color-fg);
+        line-height: 1.6;
+      }
     }
 
     & .infos,
@@ -311,14 +356,6 @@ main {
   overflow-x: scroll;
   align-items: end;
   grid-column-gap: var(--padding);
-  /*masque du texte qui dépasse sous frise d'image*/
-  /*background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--color-bg) 5%,
-    var(--color-bg) 45%,
-    transparent 50%
-  );*/
 
   /* no scrollbar */
   &::-webkit-scrollbar {
@@ -328,7 +365,7 @@ main {
   scrollbar-width: none; /* Firefox */
 
   & .gallery-item {
-    height: 300px;
+    height: var(--gallery-img-h);
     --mask-size: 75px;
     mask-image: linear-gradient(
       transparent 0,
@@ -340,15 +377,6 @@ main {
 }
 
 .podcast-page {
-  & .synopsis-podcast {
-    padding-left: var(--padding);
-    padding-top: 5px;
-    /*margin-bottom: 5vh;*/
-    font-size: var(--font-size-labeur);
-    line-height: var(--line-height-labeur);
-    color: var(--color-fg);
-  }
-
   & section.podcast-episodes {
     padding-left: var(--padding);
     padding-top: var(--padding);
@@ -433,6 +461,7 @@ main.research-page {
     & .research-excerpt {
       font-family: var(--font-sans);
       font-size: var(--font-size-labeur);
+      line-height: 1.4;
       & p:nth-child(even) {
         margin-left: 6rem;
       }
@@ -441,6 +470,7 @@ main.research-page {
 }
 
 .portable-text {
+  max-width: var(--p-max-w);
   strong {
     font-weight: 400;
     color: var(--color-accent);
@@ -477,13 +507,12 @@ body:has(.gallery) .page-grid::after {
   height: 100dvh;
   user-select: none;
   pointer-events: none;
-  --footer-h: 3rem;
-  --gallery-h: calc(300px + 1.75vw);
+
   --gradient-h: calc(var(--footer-h) + var(--gallery-h));
   background: linear-gradient(
     transparent 0,
     transparent calc(100% - var(--gradient-h)),
-    var(--color-bg) calc(100% - var(--gradient-h) + 18.75px)
+    var(--color-bg) calc(100% - var(--gradient-h) + var(--padding))
   );
 }
 
@@ -641,7 +670,7 @@ main.company-page {
         font-family: var(--font-sans);
         font-weight: 500;
         font-style: oblique;
-        font-size: 50px;
+        font-size: var(--font-size-titre);
         text-transform: none;
       }
 
@@ -691,7 +720,7 @@ main.company-page {
       font-family: var(--font-sans);
       font-weight: 500;
       font-style: oblique;
-      font-size: 50px;
+      font-size: var(--font-size-titre);
       color: var(--color-fg);
       text-transform: none;
       margin-bottom: -15px;
@@ -745,15 +774,6 @@ main.legal-page {
 
     & strong {
       text-transform: uppercase;
-    }
-  }
-}
-
-/*tentative pour régler la hauteur des images en gallery sur grand écran*/
-@media (min-width: 1500px) {
-  .gallery {
-    & .gallery-item {
-      height: 350px;
     }
   }
 }

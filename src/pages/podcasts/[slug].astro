@@ -78,14 +78,19 @@ if (!podcast) throw new Error("Podcast not found");
             podcast.links && (
               <div class="links">
                 {podcast.links.map((link) => (
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link-item"
-                  >
-                    <span class="link-item-title">{link.title}</span>
-                  </a>
+                  <div class="link-item-container">
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="link-item"
+                    >
+                      <span class="link-item-title">{link.title}</span>
+                    </a>
+                    {link.subtitle && (
+                      <p class="link-item-subtitle">{link.subtitle}</p>
+                    )}
+                  </div>
                 ))}
               </div>
             )
@@ -94,14 +99,19 @@ if (!podcast) throw new Error("Podcast not found");
             podcast.press && (
               <div class="press">
                 {podcast.press.map((link) => (
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link-item"
-                  >
-                    <span class="link-item-title">{link.title}</span>
-                  </a>
+                  <div class="link-item-container">
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="link-item"
+                    >
+                      <span class="link-item-title">{link.title}</span>
+                    </a>
+                    {link.subtitle && (
+                      <p class="link-item-subtitle">{link.subtitle}</p>
+                    )}
+                  </div>
                 ))}
               </div>
             )
