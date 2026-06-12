@@ -9,13 +9,25 @@
   --color-fg: #1e1e1e;
   --color-accent: #8664ff;
 
-  --font-size-detail: 16px;
-  --font-size-menu: 18px;
-  --font-size-labeur: 20px;
+  --font-size-detail: 14px;
+  --font-size-menu: 16px;
+  --font-size-labeur: 18px;
   --font-size-sous-titre: 25px;
-  --font-size-titre: 50px;
+  --font-size-titre: 45px;
 
-  --line-height-labeur: 25px;
+  --line-height-detail: 17px;
+  --line-height-labeur: 22px;
+
+  @media (min-width: 48rem) {
+    --font-size-detail: 16px;
+    --font-size-menu: 18px;
+    --font-size-labeur: 20px;
+    --font-size-sous-titre: 25px;
+    --font-size-titre: 50px;
+
+    --line-height-detail: 20px;
+    --line-height-labeur: 25px;
+  }
 
   --p-max-w: auto;
   @media (min-width: 96rem) {
@@ -25,7 +37,10 @@
   --padding: 15px;
 
   --footer-h: 45px;
-  --gallery-img-h: 300px;
+  --gallery-img-h: 190px;
+  @media (min-width: 48rem) {
+    --gallery-img-h: 300px;
+  }
   @media (min-width: 96rem) {
     --gallery-img-h: 350px;
   }
@@ -238,6 +253,7 @@ main {
   & .page-grid {
     display: grid;
     grid-template-columns: 1fr;
+
     @media (min-width: 48rem) {
       grid-template-columns: 2fr 1fr;
     }
@@ -249,9 +265,14 @@ main {
     & .synopsis,
     & .synopsis-podcast {
       padding-left: var(--padding);
+      padding-right: var(--padding);
       padding-top: 5px;
       font-size: var(--font-size-labeur);
       line-height: var(--line-height-labeur);
+
+      @media (min-width: 48rem) {
+        padding-right: 0px;
+      }
     }
     & .synopsis {
       /*dégradé dans texte*/
@@ -271,10 +292,19 @@ main {
       grid-template-columns: 1fr 1fr;
       grid-column-gap: var(--padding);
       padding-left: var(--padding);
-      padding-top: 60px;
+      padding-right: var(--padding);
+      margin-bottom: -20px;
+      padding-top: 40px;
       font-size: var(--font-size-detail);
-      line-height: 18px;
+      line-height: 16px;
       color: var(--color-accent);
+
+      @media (min-width: 48rem) {
+        padding-right: 0;
+        padding-top: 60px;
+        margin-bottom: 0px;
+        line-height: 18px;
+      }
 
       & > div {
         max-width: var(--p-max-w);
@@ -299,7 +329,11 @@ main {
     & .infos,
     .production,
     .supports {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+
+      @media (min-width: 48rem) {
+        margin-bottom: 30px;
+      }
     }
 
     & h2 {
@@ -313,27 +347,36 @@ main {
       font-size: 17px;
       line-height: 26px;
       padding-left: var(--padding);
-      padding-bottom: var(--padding);
+      padding-bottom: 40px;
       padding-right: var(--padding);
+      padding-top: 40px;
       white-space: pre-line;
+      color: var(--color-accent);
+      text-align: center;
 
-      /*dégradé*/
-      display: inline-block;
-      background: linear-gradient(
-        to bottom,
-        var(--color-fg) 50%,
-        var(--color-accent) 70%
-      );
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      @media (min-width: 48rem) {
+        text-align: left;
+        padding-top: 0px;
+        padding-bottom: 60px;
+
+        /*dégradé*/
+        display: inline-block;
+        background: linear-gradient(
+          to bottom,
+          var(--color-fg) 50%,
+          var(--color-accent) 70%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     }
 
     & .credits {
       padding-right: var(--padding);
       text-align: center;
       font-size: var(--font-size-detail);
-      line-height: 20px;
+      line-height: var(--line-height-detail);
       color: var(--color-accent);
 
       & .credit-title {
@@ -437,7 +480,6 @@ main.research-page {
     & .portable-text {
       padding-left: var(--padding);
       padding-top: 5px;
-      /*margin-bottom: 5vh;*/
       font-size: var(--font-size-labeur);
       line-height: var(--line-height-labeur);
 
