@@ -19,7 +19,7 @@ const iconMap = {
   research: SearchIcon,
   transmission: AsteriskIcon,
   member: UserIcon,
-  externalLink: ArrowTopRightIcon
+  link: ArrowTopRightIcon
 };
 
 const { node } = Astro.props;
@@ -28,16 +28,13 @@ const { slug, refType, href } = node.markDef;
 const url =
   href ??
   `${contentRoutes[refType as keyof typeof contentRoutes]}/${refType === "member" ? "" : slug}`;
-const Icon =
-  node.markType === "internalLink"
-    ? iconMap[refType as keyof typeof iconMap]
-    : iconMap.externalLink;
+const Icon = node.markType === "link" ? iconMap.link : null;
 ---
 
 <a
   href={url}
-  target={node.markType === "externalLink" ? "_blank" : undefined}
-  rel={node.markType === "externalLink" ? "noopener noreferrer" : undefined}
+  target={node.markType === "link" ? "_blank" : undefined}
+  rel={node.markType === "link" ? "noopener noreferrer" : undefined}
   ><slot /></a
 >
 {

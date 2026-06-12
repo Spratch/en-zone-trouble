@@ -160,10 +160,12 @@ main {
 
 .list-page {
   & section.content-list {
+    position: relative;
     overflow-x: scroll;
     padding: var(--padding);
     display: flex;
     grid-column-gap: var(--padding);
+    z-index: 30;
     &::-webkit-scrollbar {
       display: none;
     }
@@ -748,15 +750,10 @@ main.legal-page {
 }
 
 /*tentative pour régler la hauteur des images en gallery sur grand écran*/
-/*@media (min-width: 1500px) {
-  .gallery-item {
-    height: 350px;
-    --mask-size: 75px;
-    mask-image: linear-gradient(
-      transparent 0,
-      black calc(var(--mask-size) / 4),
-      black 70%,
-      transparent 100%
-    );
+@media (min-width: 1500px) {
+  .gallery {
+    & .gallery-item {
+      height: 350px;
+    }
   }
-}*/
+}
