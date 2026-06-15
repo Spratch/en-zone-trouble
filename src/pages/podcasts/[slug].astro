@@ -17,6 +17,12 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const podcast = await sanityClient.fetch(podcastBySlugQuery, { slug });
 if (!podcast) throw new Error("Podcast not found");
+const audios = podcast.episodes
+  ?.filter((episode) => episode.playbackId)
+  .map((episode) => ({
+    title: episode.title,
+    playbackId: episode.playbackId
+  }));
 ---
 
 <Layout title={podcast.title}>
@@ -56,13 +62,18 @@ if (!podcast) throw new Error("Podcast not found");
         }
 
         {/* Player */}
-        <section class="audio">
-          <p class="audio-title"></p>
-          <audio
-            controls
-            class="audio-player"
-          ></audio>
-        </section>
+        {
+          audios && audios.length > 0 && (
+            <section class="audio">
+              <p class="audio-title">{audios[0].title}</p>
+              <audio
+                src={`https://stream.mux.com/${audios[0].playbackId}.m3u8`}
+                controls
+                class="audio-player"
+              />
+            </section>
+          )
+        }
 
         <section class="details">
           {
