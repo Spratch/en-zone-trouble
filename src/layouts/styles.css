@@ -519,20 +519,14 @@ main.research-page {
     & .portable-text {
       padding-left: var(--padding);
       padding-right: var(--padding);
-
       padding-top: 40px;
-
       font-size: var(--font-size-detail);
       line-height: 16px;
       color: var(--color-fg);
 
       @media (min-width: 48rem) {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-column-gap: var(--padding);
-        padding-right: 0;
-        padding-top: 60px;
-
+        padding-right: var(--padding);
+        padding-top: 5px;
         line-height: 18px;
       }
     }
@@ -542,19 +536,24 @@ main.research-page {
     }
   }
   & .excerpt {
-    padding: var(--padding);
+    padding-left: var(--padding);
     padding-right: var(--padding);
 
     & h2 {
       font-size: var(--font-size-labeur);
+      line-height: var(--line-height-labeur);
     }
 
     & .research-excerpt {
       font-family: var(--font-sans);
       font-size: var(--font-size-labeur);
-      line-height: 1.4;
+      line-height: var(--line-height-labeur);
       & p:nth-child(even) {
-        margin-left: 6rem;
+        margin-left: 3rem;
+
+        @media (min-width: 48rem) {
+          margin-left: 6rem;
+        }
       }
     }
   }
@@ -685,7 +684,7 @@ main.transmission-page {
 
   & .portable-text {
     padding-left: var(--padding);
-    padding-right: 450px;
+    padding-right: var(--padding);
     padding-top: 5px;
     margin-bottom: 60px;
     font-size: var(--font-size-labeur);
@@ -705,21 +704,22 @@ main.transmission-page {
 
   & .season-item {
     display: grid;
-    grid-template-columns: 1fr 7fr;
-    grid-column-gap: var(--padding);
+    grid-template-columns: 1fr 1.8fr;
+    padding-top: 5px;
+    grid-column-gap: 5px;
     padding-left: var(--padding);
+    padding-right: var(--padding);
     padding-bottom: 30px;
 
     & .season-range {
       text-transform: uppercase;
-      font-size: var(--font-size-sous-titre);
+      font-size: var(--font-size-labeur);
     }
 
     & .season-events {
       display: flex;
       flex-direction: column;
       gap: var(--padding);
-      padding-top: 5px;
 
       & .event-item {
         & .event-title {
@@ -741,6 +741,18 @@ main.transmission-page {
       }
     }
   }
+
+  @media (min-width: 48rem) {
+    & .season-item {
+      grid-template-columns: 1fr 7fr;
+      padding-top: Opx;
+      grid-column-gap: var(--padding);
+
+      & .season-range {
+        font-size: var(--font-size-sous-titre);
+      }
+    }
+  }
 }
 
 main.company-page {
@@ -750,9 +762,11 @@ main.company-page {
 
   & .page-left {
     padding-left: var(--padding);
+    padding-right: var(--padding);
 
     & .portable-text {
-      padding-top: 5px;
+      padding-top: 10px;
+      padding-right: var(--padding);
       margin-bottom: 60px;
       font-size: var(--font-size-labeur);
       line-height: var(--line-height-labeur);
@@ -770,35 +784,59 @@ main.company-page {
     }
 
     & .team-members {
+      padding-right: var(--padding);
+
       & h2 {
         font-family: var(--font-sans);
         font-weight: 500;
         font-style: oblique;
         font-size: var(--font-size-titre);
         text-transform: none;
-        margin-bottom: -15px;
+        margin-bottom: -10px;
+
+        @media (min-width: 48rem) {
+          margin-bottom: -15px;
+        }
       }
 
       & ul {
-        padding-top: 5px;
+        padding-top: 10px;
+
+        @media (min-width: 48rem) {
+          padding-top: 15px;
+        }
       }
 
-      & span.member-name {
-        text-transform: uppercase;
-        font-size: var(--font-size-sous-titre);
-        line-height: 1.2;
-      }
+      & .member-item {
+        padding-bottom: 10px;
+        line-height: 15px;
 
-      & span.member-role {
-        font-family: var(--font-sans);
-        color: var(--color-accent);
+        @media (min-width: 48rem) {
+          padding-bottom: 10px;
+          line-height: 18px;
+        }
+
+        & span.member-name {
+          text-transform: uppercase;
+          font-size: var(--font-size-sous-titre);
+        }
+
+        & span.member-role {
+          font-family: var(--font-sans);
+          font-size: var(--font-size-menu);
+          color: var(--color-accent);
+        }
       }
     }
   }
 
   & .page-right {
-    padding-right: var(--padding);
+    padding-top: 60px;
     color: var(--color-accent);
+
+    @media (min-width: 48rem) {
+      padding-top: 10px;
+    }
 
     & .sous-titre {
       font-size: var(--font-size-labeur);
@@ -856,8 +894,13 @@ main.company-page {
     font-size: var(--font-size-detail);
     line-height: 20px;
     color: var(--color-fg);
-    padding-top: 45px;
+    padding-top: 0;
     padding-right: var(--padding);
+    padding-left: var(--padding);
+
+    @media (min-width: 48rem) {
+      padding-top: 45px;
+    }
 
     & .credit-title {
       text-transform: uppercase;
