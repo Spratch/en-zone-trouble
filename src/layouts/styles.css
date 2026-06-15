@@ -170,6 +170,7 @@ footer {
           /* gap */
       );
       overflow-x: scroll;
+      padding-right: var(--padding);
     }
 
     & a.active {
@@ -181,10 +182,12 @@ footer {
       padding-block: var(--padding);
       font-size: var(--font-size-menu);
       text-wrap: nowrap;
-    }
 
-    & a.navigation-about {
-      padding-right: var(--padding);
+      &:last-child {
+        flex-grow: 1;
+        display: flex;
+        justify-content: end;
+      }
     }
   }
 }

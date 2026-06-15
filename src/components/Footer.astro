@@ -7,7 +7,6 @@ const settings = await sanityClient.fetch(footerSettingsQuery);
 const siteTitle = settings?.title;
 const navigationLogo = settings?.navigationLogo;
 const navigation = settings?.navigation;
-const aboutItem = navigation?.at(-1);
 
 function isActive(pathname: string, slug: string): boolean {
   const normalized = pathname.replace(/\/$/, "");
@@ -49,7 +48,6 @@ function isActive(pathname: string, slug: string): boolean {
           class="navigation-pages"
         >
           {navigation.map((item, index) => {
-            if (index === navigation.length - 1) return null;
             return (
               <li
                 role="listitem"
@@ -67,19 +65,6 @@ function isActive(pathname: string, slug: string): boolean {
               </li>
             );
           })}
-          {aboutItem && (
-            <li class="navigation-item">
-              <a
-                class:list={[
-                  "navigation-about",
-                  { active: isActive(pathname, aboutItem.slug) }
-                ]}
-                href={`/${aboutItem.slug}`}
-              >
-                {aboutItem.title}
-              </a>
-            </li>
-          )}
         </ul>
       )
     }
