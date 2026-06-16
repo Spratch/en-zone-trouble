@@ -930,3 +930,23 @@ main.legal-page {
     }
   }
 }
+
+#neko-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  pointer-events: none;
+  z-index: 9999;
+}
+#neko-sprite {
+  --neko-size: 32px;
+  @media (min-width: 768px) {
+    --neko-size: 38px;
+  }
+  position: absolute;
+  width: var(--neko-size);
+  height: var(--neko-size);
+  transform: translate(-50%, -50%);
+}

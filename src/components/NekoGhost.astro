@@ -1,0 +1,205 @@
+---
+import idle from "../assets/neko-ghost/idle.svg";
+import floatR1 from "../assets/neko-ghost/floatR1.svg";
+import floatR2 from "../assets/neko-ghost/floatR2.svg";
+import floatL1 from "../assets/neko-ghost/floatL1.svg";
+import floatL2 from "../assets/neko-ghost/floatL2.svg";
+
+const sprites = {
+  idle: [idle.src],
+  walk_right: [floatR1.src, floatR2.src],
+  walk_left: [floatL1.src, floatL2.src],
+  walk_up: [
+    floatL1.src,
+    floatL2.src,
+    floatL1.src,
+    idle.src,
+    floatR1.src,
+    floatR2.src
+  ],
+  walk_down: [
+    floatR1.src,
+    floatR2.src,
+    floatR1.src,
+    idle.src,
+    floatL1.src,
+    floatL2.src
+  ],
+  arrive: [idle.src]
+};
+---
+
+<div
+  id="neko-container"
+  aria-hidden="true"
+>
+  <span
+    class="hidden"
+    id="neko-sprite-data"
+    data-sprites={JSON.stringify(sprites)}
+  ></span>
+  <img
+    id="neko-sprite"
+    src={idle.src}
+    alt=""
+  />
+</div>
+
+<script>
+  // Types
+  type PositionType = {
+    x: number;
+    y: number;
+  };
+  type StateType =
+    | "idle"
+    | "walk_right"
+    | "walk_left"
+    | "walk_up"
+    | "walk_down"
+    | "arrive";
+  type followModeType = "click" | "move";
+
+  const sprites = JSON.parse(
+    document.getElementById("neko-sprite-data")?.dataset.sprites || ""
+  );
+
+  // Positions
+  let position: PositionType = {
+    x: window.innerWidth - 32,
+    y: 32
+  };
+  let target: PositionType | null = null;
+
+  // State, animation
+  let state: StateType = "idle";
+  let frame = 0;
+  let frameTimer = 0;
+  let lastTimestamp = 0;
+  let active = false;
+  let followMod: "click" | "move" = "move";
+  const FPS = {
+    idle: 2,
+    walk_right: 8,
+    walk_left: 8,
+    walk_up: 10,
+    walk_down: 10,
+    arrive: 4
+  };
+
+  function setState(newState: StateType) {
+    if (state === newState) return;
+    state = newState;
+    frame = 0;
+  }
+
+  function onDocInteraction(event: MouseEvent) {
+    if (!active) return;
+
+    if (event.type === "click" && followMod === "move") return;
+    if (event.type === "mousemove" && followMod === "click") return;
+
+    const element = document.getElementById("neko-sprite");
+    if (
+      element &&
+      event.target instanceof Node &&
+      element.contains(event.target)
+    )
+      return;
+
+    target = { x: event.clientX, y: event.clientY };
+  }
+
+  function onNekoClick(event: MouseEvent) {
+    event.stopPropagation();
+    active = !active;
+    const element = document.getElementById("neko-sprite");
+    if (!active) {
+      target = null;
+      setState("idle");
+      if (element) {
+        element.style.cursor = "pointer";
+        element.title = `Cliquer pour me faire suivre ${followMod === "click" ? "vos clics" : "votre curseur"}.`;
+      }
+    } else {
+      if (element) {
+        element.style.cursor = "pointer";
+        element.title = `Cliquer pour que j'arrête de suivre ${followMod === "click" ? "vos clics" : "votre curseur"}.`;
+      }
+    }
+  }
+
+  let loopRunning = false;
+
+  function loop(timestamp: number) {
+    const element = document.getElementById(
+      "neko-sprite"
+    ) as HTMLImageElement | null;
+    if (!element) {
+      loopRunning = false;
+      return;
+    }
+
+    const deltaTime = Math.min(timestamp - (lastTimestamp || timestamp), 50);
+    lastTimestamp = timestamp;
+
+    if (active && target) {
+      const deltaX = target.x - position.x,
+        deltaY = target.y - position.y;
+      const distance = Math.hypot(deltaX, deltaY);
+      if (distance < 4) {
+        target = null;
+        setState("arrive");
+        setTimeout(() => setState("idle"), 800);
+      } else {
+        const speed = Math.min(distance, 2.5);
+        position.x += (deltaX / distance) * speed;
+        position.y += (deltaY / distance) * speed;
+        setState(
+          Math.abs(deltaX) * 2 > Math.abs(deltaY)
+            ? deltaX > 0
+              ? "walk_right"
+              : "walk_left"
+            : deltaY > 0
+              ? "walk_down"
+              : "walk_up"
+        );
+      }
+    }
+
+    element.style.left = Math.round(position.x) + "px";
+    element.style.top = Math.round(position.y) + "px";
+
+    frameTimer += deltaTime;
+    const interval = 1000 / (FPS[state] ?? 4);
+    if (frameTimer >= interval) {
+      frameTimer = 0;
+      const frames = sprites[active ? state : "idle"] ?? sprites.idle;
+      frame = (frame + 1) % frames.length;
+      element.src = frames[frame];
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  function initNeko() {
+    const element = document.getElementById("neko-sprite");
+    if (element) {
+      element.style.cursor = "pointer";
+      element.style.pointerEvents = "auto";
+      element.removeEventListener("click", onNekoClick);
+      element.addEventListener("click", onNekoClick);
+    }
+
+    document.addEventListener("click", onDocInteraction);
+    document.addEventListener("mousemove", onDocInteraction);
+
+    if (!loopRunning) {
+      loopRunning = true;
+      requestAnimationFrame(loop);
+    }
+  }
+
+  initNeko();
+  document.addEventListener("astro:page-load", initNeko);
+</script>
