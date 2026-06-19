@@ -116,6 +116,21 @@ export const showSchema = defineType({
       title: "Presse et récompenses",
       description: "Liste des liens de presse liés au spectacle",
       type: "linksArray"
+    }),
+    defineField({
+      name: "reservationLink",
+      title: "Lien de réservation",
+      description: "Lien vers la billetterie du spectacle",
+      type: "url"
+    }),
+    defineField({
+      name: "presentationFile",
+      title: "Fichier de présentation",
+      description: "Fichier PDF de présentation du spectacle",
+      type: "file",
+      options: {
+        accept: ".pdf"
+      }
     })
   ],
   preview: {

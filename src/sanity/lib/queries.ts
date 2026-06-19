@@ -59,7 +59,12 @@ export const showBySlugQuery =
     ${creditsFragment}
     "gallery": gallery[]${galleryFragment},
     links,
-    press
+    press,
+    reservationLink,
+    "presentationFile": presentationFile.asset->{
+      url,
+      originalFilename
+    }
   }
 `);
 

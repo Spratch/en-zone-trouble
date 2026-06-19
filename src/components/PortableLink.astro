@@ -1,0 +1,17 @@
+---
+import type { Props as $, Mark } from "astro-portabletext/types";
+import CustomLink from "./CustomLink.astro";
+
+type MarkDef = { slug?: string; refType?: string; href?: string };
+type Props = $<Mark<MarkDef>>;
+
+const { node } = Astro.props;
+const { slug, refType, href } = node.markDef;
+---
+
+<CustomLink
+  href={href}
+  refType={refType}
+  slug={slug}
+  ><slot /></CustomLink
+>

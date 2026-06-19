@@ -1,17 +1,20 @@
 ---
 import { PortableText as PortableTextInternal } from "astro-portabletext";
-import Link from "./Link.astro";
+import PortableLink from "./PortableLink.astro";
 
 const { value, class: className } = Astro.props;
 
 const components = {
   mark: {
-    internalLink: Link,
-    link: Link,
-  },
+    internalLink: PortableLink,
+    link: PortableLink
+  }
 };
 ---
 
 <div class:list={[className, "portable-text"]}>
-  <PortableTextInternal value={value} components={components} />
+  <PortableTextInternal
+    value={value}
+    components={components}
+  />
 </div>

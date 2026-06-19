@@ -21,5 +21,10 @@ export const dataStructure: StructureResolver = (S) => {
 
       li("member", "Personnes", UsersIcon, "list"),
       li("job", "Métiers", CaseIcon, "list")
+
+      // S.divider().title("Médias")
+
+      // li("sanity.imageAsset", "Images", ImagesIcon, "list"),
+      // li("sanity.fileAsset", "Fichiers PDF", DocumentPdfIcon, "list")
     ]);
 };

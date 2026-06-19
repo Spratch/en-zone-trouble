@@ -1,0 +1,41 @@
+---
+import { ArrowTopRightIcon, DownloadIcon } from "@sanity/icons";
+import { contentRoutes } from "../utils";
+
+interface Props {
+  href?: string;
+  refType?: string;
+  slug?: string;
+}
+
+const { href, refType, slug } = Astro.props;
+
+const url =
+  href ??
+  `${contentRoutes[refType as keyof typeof contentRoutes]}/${refType === "member" ? "" : slug}`;
+const Icon = href
+  ? href.endsWith(".pdf")
+    ? DownloadIcon
+    : ArrowTopRightIcon
+  : null;
+---
+
+<span class:list={["link", href ? "external" : "internal"]}
+  ><a
+    href={url}
+    target={href ? "_blank" : undefined}
+    rel={href ? "noopener noreferrer" : undefined}
+    ><slot /></a
+  >
+  {
+    Icon && (
+      <Icon
+        style={{
+          display: "inline-block",
+          marginBottom: "0.25em",
+          marginLeft: "-0.25em"
+        }}
+      />
+    )
+  }</span
+>

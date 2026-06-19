@@ -332,6 +332,13 @@ export type SanityImageHotspot = {
   width: number;
 };
 
+export type SanityFileAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+};
+
 export type Show = {
   _id: string;
   _type: "show";
@@ -358,6 +365,12 @@ export type Show = {
   gallery?: Gallery;
   links?: LinksArray;
   press?: LinksArray;
+  reservationLink?: string;
+  presentationFile?: {
+    asset?: SanityFileAssetReference;
+    media?: unknown;
+    _type: "file";
+  };
 };
 
 export type Job = {
@@ -651,6 +664,7 @@ export type AllSanitySchemaTypes =
   | MuxVideo
   | SanityImageCrop
   | SanityImageHotspot
+  | SanityFileAssetReference
   | Show
   | Job
   | Research
@@ -729,7 +743,7 @@ export type ShowsListQueryResult = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: showBySlugQuery
-// Query: *[_type == "show" && slug.current == $slug][0]{    title,    "slug": slug.current,    date,    "synopsis": synopsis[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }},    excerpt,    "infos": infos[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }},    supports,    production,    "credits": credits[]{  "title": title->title,  "value": value[]{    _type == "reference" => @->{      _type,      "name": name,      "slug": slug.current,      "link": link,    },    _type != "reference" => @{      _type,      "text": value,    },  },},    "gallery": gallery[]{  _type,  _type == "imageAlt" => {  "src": coalesce(asset->url, ""),  "alt": coalesce(alt, ^.title, ""),  crop,  hotspot,},  _type == "mux.video" => {    "playbackId": coalesce(asset->playbackId, ""),  }},    links,    press  }
+// Query: *[_type == "show" && slug.current == $slug][0]{    title,    "slug": slug.current,    date,    "synopsis": synopsis[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }},    excerpt,    "infos": infos[]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }},    supports,    production,    "credits": credits[]{  "title": title->title,  "value": value[]{    _type == "reference" => @->{      _type,      "name": name,      "slug": slug.current,      "link": link,    },    _type != "reference" => @{      _type,      "text": value,    },  },},    "gallery": gallery[]{  _type,  _type == "imageAlt" => {  "src": coalesce(asset->url, ""),  "alt": coalesce(alt, ^.title, ""),  crop,  hotspot,},  _type == "mux.video" => {    "playbackId": coalesce(asset->playbackId, ""),  }},    links,    press,    reservationLink,    "presentationFile": presentationFile.asset->{      url,      originalFilename    }  }
 export type ShowBySlugQueryResult = {
   title: string;
   slug: string;
@@ -817,6 +831,11 @@ export type ShowBySlugQueryResult = {
   > | null;
   links: LinksArray | null;
   press: LinksArray | null;
+  reservationLink: string | null;
+  presentationFile: {
+    url: string;
+    originalFilename: string | null;
+  } | null;
 } | null;
 
 // Source: src/sanity/lib/queries.ts
@@ -1321,7 +1340,7 @@ declare module "@sanity/client" {
     '*[_type == "settings"][0]{\n    title,\n    "navigation": navigation[]->{\n      title,\n      "slug": slug.current\n    },\n    "navigationLogo": favicon.dark.asset->url,\n  }': FooterSettingsQueryResult;
     '*[_type == "settings"\n  && defined(homeImage.asset->url)][0].homeImage{\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n}': HomeImageQueryResult;
     '*[_type == "shows"][0]{\n  title,\n  "slug": slug.current,\n  "shows": showsList[]->{\n    title,\n    "slug": slug.current,\n    date,\n    "cover": cover{\n      "src": coalesce(asset->url, ""),\n      "orientation": coalesce(orientation, "landscape"),\n      crop,\n      hotspot,\n    },\n  }\n}': ShowsListQueryResult;
-    '*[_type == "show" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    date,\n    "synopsis": synopsis[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    excerpt,\n    "infos": infos[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    supports,\n    production,\n    "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n    "gallery": gallery[]{\n  _type,\n  _type == "imageAlt" => {\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n},\n  _type == "mux.video" => {\n    "playbackId": coalesce(asset->playbackId, ""),\n  }\n},\n    links,\n    press\n  }\n': ShowBySlugQueryResult;
+    '*[_type == "show" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    date,\n    "synopsis": synopsis[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    excerpt,\n    "infos": infos[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    supports,\n    production,\n    "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n    "gallery": gallery[]{\n  _type,\n  _type == "imageAlt" => {\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n},\n  _type == "mux.video" => {\n    "playbackId": coalesce(asset->playbackId, ""),\n  }\n},\n    links,\n    press,\n    reservationLink,\n    "presentationFile": presentationFile.asset->{\n      url,\n      originalFilename\n    }\n  }\n': ShowBySlugQueryResult;
     '*[_type == "podcasts"][0]{\n  title,\n  "slug": slug.current,\n  "podcasts": podcastsList[]->{\n    title,\n    "slug": slug.current,\n    date,\n    "cover": cover{\n      "src": coalesce(asset->url, ""),\n      "orientation": coalesce(orientation, "landscape"),\n      crop,\n      hotspot,\n    },\n  }\n}': PodcastsListQueryResult;
     '*[_type == "podcast" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    date,\n    "synopsis": synopsis[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    "episodes": episodes[]{\n      title,\n      "playbackId": mp3.asset->playbackId,\n    },\n    "infos": infos[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    supports,\n    production,\n    "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n    "gallery": gallery[]{\n  _type,\n  _type == "imageAlt" => {\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n},\n  _type == "mux.video" => {\n    "playbackId": coalesce(asset->playbackId, ""),\n  }\n},\n    links,\n    press\n  }\n': PodcastBySlugQueryResult;
     '*[_type == "research"][0]{\n  title,\n  "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  "notes": notes[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  excerptTitle,\n  "excerpt": excerpt[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n}': ResearchQueryResult;

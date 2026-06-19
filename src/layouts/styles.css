@@ -59,6 +59,19 @@
   border: 0;
 }
 
+.link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  display: inline-flex;
+  gap: 5px;
+
+  &.internal {
+  }
+  &.external {
+    color: var(--color-accent);
+  }
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -73,7 +86,8 @@ body {
   background-attachment: fixed;
 
   &:has(.show-page),
-  &:has(.podcast-page) {
+  &:has(.podcast-page),
+  &:has(.gallery) {
     --bg-gradient: linear-gradient(
       to bottom,
       var(--color-accent) 0%,
@@ -321,10 +335,6 @@ main {
       flex-direction: column;
       gap: 12px;
 
-      & .link-item-title {
-        text-decoration: underline;
-        text-underline-offset: 2px;
-      }
       & .link-item-subtitle {
         line-height: 1.6;
       }

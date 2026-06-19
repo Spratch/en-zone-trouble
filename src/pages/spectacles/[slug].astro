@@ -1,9 +1,11 @@
 ---
 import { sanityClient } from "sanity:client";
+import CustomLink from "../../components/CustomLink.astro";
 import Gallery from "../../components/Gallery.astro";
 import PortableText from "../../components/PortableText.astro";
 import Layout from "../../layouts/Layout.astro";
 import { showBySlugQuery, showsListQuery } from "../../sanity/lib/queries";
+
 export async function getStaticPaths() {
   const showsList = await sanityClient.fetch(showsListQuery);
   if (!showsList) throw new Error("Shows not found");
@@ -29,6 +31,24 @@ if (!show) throw new Error("Show not found");
 
         {/* Infos */}
         <section class="details">
+          {/* Special links */}
+          {
+            (show.reservationLink || show.presentationFile) && (
+              <div class="special-links">
+                {show.reservationLink && (
+                  <CustomLink href={show.reservationLink}>Réserver</CustomLink>
+                )}
+                {show.presentationFile && (
+                  <CustomLink
+                    href={`${show.presentationFile.url}?dl=${show.presentationFile.originalFilename}`}
+                  >
+                    Dossier de présentation
+                  </CustomLink>
+                )}
+              </div>
+            )
+          }
+
           {
             show.infos && (
               <PortableText
@@ -50,14 +70,12 @@ if (!show) throw new Error("Show not found");
             show.links && (
               <div class="links">
                 {show.links.map((link) => (
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link-item"
-                  >
-                    <span class="link-item-title">{link.title}</span>
-                  </a>
+                  <div class="link-item-container">
+                    <CustomLink href={link.url}>{link.title}</CustomLink>
+                    {link.subtitle && (
+                      <p class="link-item-subtitle">{link.subtitle}</p>
+                    )}
+                  </div>
                 ))}
               </div>
             )
