@@ -1,9 +1,15 @@
-import { MicrophoneIcon, SortIcon } from "@sanity/icons";
+import {
+  DatabaseIcon,
+  DocumentsIcon,
+  MicrophoneIcon,
+  SortIcon
+} from "@sanity/icons";
 import { frFRLocale } from "@sanity/locale-fr-fr";
 import { defineConfig } from "sanity";
 import { muxInput } from "sanity-plugin-mux-input";
 import { webhooksTrigger } from "sanity-plugin-webhooks-trigger";
 import { structureTool } from "sanity/structure";
+import { dataStructure } from "./src/sanity/dataStructure";
 import StudioNavBar from "./src/sanity/lib/studioNav";
 import { listDocs, schema } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
@@ -13,7 +19,18 @@ export default defineConfig({
   dataset: "production",
   title: "En zone trouble",
   plugins: [
-    structureTool({ structure, title: "Contenus" }),
+    structureTool({
+      structure,
+      name: "content",
+      title: "Contenus",
+      icon: DocumentsIcon
+    }),
+    structureTool({
+      structure: dataStructure,
+      name: "data",
+      title: "Données",
+      icon: DatabaseIcon
+    }),
     frFRLocale(),
     muxInput({
       disableUploadConfig: true,
