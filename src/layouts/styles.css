@@ -196,6 +196,7 @@ footer {
 main {
   flex-grow: 1;
   padding-bottom: var(--gallery-h);
+  padding-inline: var(--padding);
 }
 
 .list-page {
@@ -258,7 +259,6 @@ main {
     font-weight: 500;
     font-style: oblique;
     font-size: var(--font-size-titre);
-    padding-left: var(--padding);
     margin-bottom: -15px;
   }
 
@@ -276,16 +276,11 @@ main {
   & .page-left {
     & .synopsis,
     & .synopsis-podcast {
-      padding-left: var(--padding);
-      padding-right: var(--padding);
       padding-top: 5px;
       font-size: var(--font-size-labeur);
       line-height: var(--line-height-labeur);
-
-      @media (min-width: 48rem) {
-        padding-right: 0px;
-      }
     }
+
     & .synopsis {
       /*dégradé dans texte*/
       display: inline-block;
@@ -300,9 +295,6 @@ main {
     }
 
     & .details {
-      padding-left: var(--padding);
-      padding-right: var(--padding);
-
       padding-top: 40px;
 
       font-size: var(--font-size-detail);
@@ -313,7 +305,6 @@ main {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-column-gap: var(--padding);
-        padding-right: 0;
         padding-top: 60px;
 
         line-height: 18px;
@@ -359,8 +350,6 @@ main {
       font-family: var(--font-script);
       font-size: 17px;
       line-height: 26px;
-      padding-left: var(--padding);
-      padding-right: var(--padding);
       padding-top: 40px;
       white-space: pre-line;
       color: var(--color-accent);
@@ -385,8 +374,6 @@ main {
     }
 
     & .credits {
-      padding-right: var(--padding);
-      padding-left: var(--padding);
       padding-top: 40px;
       text-align: center;
       font-size: var(--font-size-detail);
@@ -394,7 +381,6 @@ main {
       color: var(--color-accent);
 
       @media (min-width: 48rem) {
-        padding-left: 0px;
         padding-top: 5px;
       }
 
@@ -442,8 +428,6 @@ main {
 
 .podcast-page {
   & section.podcast-episodes {
-    padding-left: var(--padding);
-    padding-top: var(--padding);
     font-size: var(--font-size-labeur);
     line-height: var(--line-height-labeur);
     color: var(--color-accent);
@@ -493,8 +477,6 @@ main.research-page {
 
   & .page-left {
     & .portable-text {
-      padding-left: var(--padding);
-      padding-right: var(--padding);
       padding-top: 5px;
       font-size: var(--font-size-labeur);
       line-height: var(--line-height-labeur);
@@ -509,24 +491,17 @@ main.research-page {
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-
-      @media (min-width: 48rem) {
-        padding-right: 0px;
-      }
     }
   }
 
   & .page-right {
     & .portable-text {
-      padding-left: var(--padding);
-      padding-right: var(--padding);
       padding-top: 40px;
       font-size: var(--font-size-detail);
       line-height: 16px;
       color: var(--color-fg);
 
       @media (min-width: 48rem) {
-        padding-right: var(--padding);
         padding-top: 5px;
         line-height: 18px;
       }
@@ -537,8 +512,7 @@ main.research-page {
     }
   }
   & .excerpt {
-    padding-left: var(--padding);
-    padding-right: var(--padding);
+    padding-inline: var(--padding);
 
     & h2 {
       font-size: var(--font-size-labeur);
@@ -610,6 +584,7 @@ body:has(.gallery) .page-grid::after {
 main.calendar-page {
   display: flex;
   flex-direction: column;
+  padding-inline: var(--padding);
 
   & h1 {
     color: var(--color-accent);
@@ -620,8 +595,6 @@ main.calendar-page {
     grid-template-columns: 1fr 1.8fr;
     padding-top: 5px;
     grid-column-gap: 5px;
-    padding-left: var(--padding);
-    padding-right: var(--padding);
     padding-bottom: 30px;
 
     /*dégradé dans texte*/
@@ -684,8 +657,6 @@ main.transmission-page {
   }
 
   & .portable-text {
-    padding-left: var(--padding);
-    padding-right: var(--padding);
     padding-top: 5px;
     margin-bottom: 60px;
     font-size: var(--font-size-labeur);
@@ -708,8 +679,6 @@ main.transmission-page {
     grid-template-columns: 1fr 1.8fr;
     padding-top: 5px;
     grid-column-gap: 5px;
-    padding-left: var(--padding);
-    padding-right: var(--padding);
     padding-bottom: 30px;
 
     & .season-range {
@@ -920,7 +889,6 @@ main.legal-page {
   color: var(--color-accent);
   & .portable-text {
     padding-top: 5px;
-    padding-left: var(--padding);
     font-size: var(--font-size-labeur);
     line-height: var(--line-height-labeur);
     padding-bottom: var(--padding);
