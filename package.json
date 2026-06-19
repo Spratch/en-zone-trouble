@@ -18,7 +18,7 @@
     "@astrojs/react": "^5.0.5",
     "@mux/mux-video": "^0.31.0",
     "@sanity/asset-utils": "^2.3.0",
-    "@sanity/astro": "^3.4.0",
+    "@sanity/astro": "^3.4.1",
     "@sanity/client": "^7.22.0",
     "@sanity/icons": "^3.7.4",
     "@sanity/image-url": "^2.1.1",

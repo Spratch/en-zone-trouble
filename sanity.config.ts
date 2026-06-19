@@ -1,9 +1,10 @@
-import { MicrophoneIcon } from "@sanity/icons";
+import { MicrophoneIcon, SortIcon } from "@sanity/icons";
 import { frFRLocale } from "@sanity/locale-fr-fr";
 import { defineConfig } from "sanity";
 import { muxInput } from "sanity-plugin-mux-input";
 import { webhooksTrigger } from "sanity-plugin-webhooks-trigger";
 import { structureTool } from "sanity/structure";
+import StudioNavBar from "./src/sanity/lib/studioNav";
 import { listDocs, schema } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
 
@@ -30,18 +31,44 @@ export default defineConfig({
   ],
   document: {
     newDocumentOptions: (prev, { creationContext }) => {
-      if (creationContext.type === "global") {
+      if (
+        creationContext.type === "global" ||
+        creationContext.type === "document"
+      ) {
         const listDocuments = listDocs.map((doc) => doc.name);
         return prev.filter((item) =>
           (listDocuments as string[]).includes(item.templateId)
         );
       }
       return prev;
+    },
+    inspectors: (prev) =>
+      prev.map((inspector) =>
+        inspector.name === "sanity/structure/incoming-references"
+          ? {
+              ...inspector,
+              useMenuItem(props) {
+                return {
+                  ...props,
+                  title: "Références entrantes",
+                  icon: SortIcon,
+                  showAsAction: true
+                };
+              }
+            }
+          : inspector
+      ),
+    comments: { enabled: false }
+  },
+  studio: {
+    components: {
+      navbar: StudioNavBar
     }
   },
   schema,
   releases: { enabled: false },
   scheduledDrafts: { enabled: false },
+  tasks: { enabled: false },
   scheduledPublishing: { enabled: false },
-  tasks: { enabled: false }
+  announcements: { enabled: false }
 });
