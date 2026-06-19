@@ -1,6 +1,5 @@
 ---
 import { sanityClient } from "sanity:client";
-import Img from "../../components/Img.astro";
 import PortableText from "../../components/PortableText.astro";
 import Layout from "../../layouts/Layout.astro";
 import {
@@ -11,6 +10,7 @@ import Gallery from "../../components/Gallery.astro";
 
 export async function getStaticPaths() {
   const podcasts = await sanityClient.fetch(podcastsListQuery);
+  if (!podcasts) throw new Error("Podcasts not found");
   return podcasts.map(({ slug }) => ({ params: { slug } }));
 }
 

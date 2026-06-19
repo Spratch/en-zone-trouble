@@ -30,8 +30,8 @@ Site web pour la compagnie de théatre "En Zone Trouble".
 - Développement : `pnpm dev`
 - Générer le site (build) : `pnpm build`
 - Tester le build localement : `pnpm preview`
-- Extraction des schémas Sanity (watch) : `pnpm run schemas` (exécute `sanity schemas extract --watch`)
-- Génération des types/query typegen (watch) : `pnpm run queries` (exécute `sanity typegen generate --watch`)
+- Extraction des schémas Sanity (watch) : `pnpm run schemas` 
+- Génération des types/query typegen (watch) : `pnpm run types`
 
 Les deux dernières commandes nécessitent la CLI Sanity (ou `npx sanity ...`).
 

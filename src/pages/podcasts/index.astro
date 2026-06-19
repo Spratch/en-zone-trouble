@@ -5,6 +5,7 @@ import Layout from "../../layouts/Layout.astro";
 import { podcastsListQuery } from "../../sanity/lib/queries";
 
 const podcasts = await sanityClient.fetch(podcastsListQuery);
+if (!podcasts) throw new Error("Podcasts not found");
 if (podcasts.length === 1) {
   return Astro.rewrite(`/podcasts/${podcasts[0].slug}`);
 }
@@ -30,7 +31,10 @@ if (podcasts.length === 1) {
                   alt={podcast.title}
                   style="filter: url(#filter)"
                 />
-                <h2 id={`title-${podcast.slug}`} class="thumbnail-title">
+                <h2
+                  id={`title-${podcast.slug}`}
+                  class="thumbnail-title"
+                >
                   {podcast.title}{" "}
                   <span class="title-date">({podcast.date.split("-")[0]})</span>
                 </h2>

@@ -53,7 +53,8 @@ export const showsSchema = defineType({
           }
         })
       ],
-      validation: (Rule) => Rule.required()
+      validation: (Rule) =>
+        Rule.required().min(1).error("La liste doit contenir au moins un item")
     })
   ],
   preview: {

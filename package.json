@@ -8,8 +8,8 @@
   "packageManager": "pnpm@11.5.0",
   "scripts": {
     "dev": "astro dev",
-    "schemas": "sanity schemas extract --enforce-required-fields --watch",
-    "queries": "sanity typegen generate --watch",
+    "schemas": "sanity schemas extract --enforce-required-fields",
+    "types": "sanity typegen generate",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"

@@ -6,6 +6,7 @@ import Layout from "../../layouts/Layout.astro";
 import { showBySlugQuery, showsListQuery } from "../../sanity/lib/queries";
 export async function getStaticPaths() {
   const shows = await sanityClient.fetch(showsListQuery);
+  if (!shows) throw new Error("Shows not found");
   return shows.map(({ slug }) => ({ params: { slug } }));
 }
 
@@ -19,13 +20,22 @@ if (!show) throw new Error("Show not found");
     <h1>{show.title}</h1>
     <section class="page-grid">
       <div class="page-left">
-
         {/* Synopsis */}
-        <PortableText class="synopsis" value={show.synopsis} />
+        <PortableText
+          class="synopsis"
+          value={show.synopsis}
+        />
 
         {/* Infos */}
         <section class="details">
-          {show.infos && <PortableText class="infos" value={show.infos} />}
+          {
+            show.infos && (
+              <PortableText
+                class="infos"
+                value={show.infos}
+              />
+            )
+          }
           {show.production && <p class="production">{show.production}</p>}
           {
             show.supports && (
@@ -72,10 +82,7 @@ if (!show) throw new Error("Show not found");
 
       <aside class="page-right">
         {/* Extrait */}
-        {
-          show.excerpt &&
-              <p class="excerpt">{show.excerpt}</p>
-        }
+        {show.excerpt && <p class="excerpt">{show.excerpt}</p>}
 
         {/* Crédits */}
         {
@@ -90,7 +97,7 @@ if (!show) throw new Error("Show not found");
                         <PortableText value={value.text} />
                       ) : (
                         <p>{value.name}</p>
-                      ),
+                      )
                     )}
                   </div>
                 </>
