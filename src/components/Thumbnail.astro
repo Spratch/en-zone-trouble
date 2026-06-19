@@ -1,0 +1,39 @@
+---
+import type {
+  PodcastsListQueryResult,
+  ShowsListQueryResult
+} from "../../sanity.types";
+import Img from "./Img.astro";
+
+interface Props {
+  parentSlug: string;
+  item:
+    | NonNullable<PodcastsListQueryResult>["podcasts"][number]
+    | NonNullable<ShowsListQueryResult>["shows"][number];
+}
+
+const { parentSlug, item } = Astro.props;
+---
+
+<article class="list-item thumbnail">
+  <a
+    id={`link-${item.slug}`}
+    aria-labelledby={`title-${item.slug}`}
+    class="thumbnail-link"
+    href={`/${parentSlug}/${item.slug}`}
+  >
+    <Img
+      class="thumbnail-image"
+      image={item.cover}
+      alt=""
+      style="filter: url(#filter)"
+    />
+    <h2
+      id={`title-${item.slug}`}
+      class="thumbnail-title"
+    >
+      {item.title}{" "}
+      <span class="title-date">({item.date.split("-")[0]})</span>
+    </h2>
+  </a>
+</article>

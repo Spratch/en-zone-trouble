@@ -1,45 +1,28 @@
 ---
 import { sanityClient } from "sanity:client";
-import Img from "../../components/Img.astro";
+import Thumbnail from "../../components/Thumbnail.astro";
 import Layout from "../../layouts/Layout.astro";
 import { showsListQuery } from "../../sanity/lib/queries";
 
-const shows = await sanityClient.fetch(showsListQuery);
-if (!shows) throw new Error("Shows not found");
+const showsList = await sanityClient.fetch(showsListQuery);
+if (!showsList) throw new Error("Shows not found");
+const { title, slug, shows } = showsList;
 if (shows.length === 1) {
-  return Astro.rewrite(`/spectacles/${shows[0].slug}`);
+  return Astro.rewrite(`/${slug}/${shows[0].slug}`);
 }
 ---
 
 <Layout title="Spectacles">
   <main class="list-page">
-    <h1 class="sr-only">Spectacles</h1>
+    <h1 class="sr-only">{title}</h1>
     {
       shows.length > 0 ? (
         <section class="content-list shows-list">
           {shows.map((show) => (
-            <article class="list-item thumbnail show-thumbnail">
-              <a
-                id={`link-${show.slug}`}
-                aria-labelledby={`title-${show.slug}`}
-                class="thumbnail-link"
-                href={`/spectacles/${show.slug}`}
-              >
-                <Img
-                  class="thumbnail-image"
-                  image={show.cover}
-                  alt={show.title}
-                  style="filter: url(#filter)"
-                />
-                <h2
-                  id={`title-${show.slug}`}
-                  class="thumbnail-title"
-                >
-                  {show.title}{" "}
-                  <span class="title-date">({show.date.split("-")[0]})</span>
-                </h2>
-              </a>
-            </article>
+            <Thumbnail
+              parentSlug={slug}
+              item={show}
+            />
           ))}
         </section>
       ) : (

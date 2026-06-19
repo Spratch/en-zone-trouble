@@ -9,8 +9,9 @@ import {
 import Gallery from "../../components/Gallery.astro";
 
 export async function getStaticPaths() {
-  const podcasts = await sanityClient.fetch(podcastsListQuery);
-  if (!podcasts) throw new Error("Podcasts not found");
+  const podcastsList = await sanityClient.fetch(podcastsListQuery);
+  if (!podcastsList) throw new Error("Podcasts not found");
+  const { podcasts } = podcastsList;
   return podcasts.map(({ slug }) => ({ params: { slug } }));
 }
 

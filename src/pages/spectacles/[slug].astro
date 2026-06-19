@@ -5,8 +5,9 @@ import PortableText from "../../components/PortableText.astro";
 import Layout from "../../layouts/Layout.astro";
 import { showBySlugQuery, showsListQuery } from "../../sanity/lib/queries";
 export async function getStaticPaths() {
-  const shows = await sanityClient.fetch(showsListQuery);
-  if (!shows) throw new Error("Shows not found");
+  const showsList = await sanityClient.fetch(showsListQuery);
+  if (!showsList) throw new Error("Shows not found");
+  const { shows } = showsList;
   return shows.map(({ slug }) => ({ params: { slug } }));
 }
 

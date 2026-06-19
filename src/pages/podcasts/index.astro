@@ -1,45 +1,28 @@
 ---
 import { sanityClient } from "sanity:client";
-import Img from "../../components/Img.astro";
+import Thumbnail from "../../components/Thumbnail.astro";
 import Layout from "../../layouts/Layout.astro";
 import { podcastsListQuery } from "../../sanity/lib/queries";
 
-const podcasts = await sanityClient.fetch(podcastsListQuery);
-if (!podcasts) throw new Error("Podcasts not found");
+const podcastsList = await sanityClient.fetch(podcastsListQuery);
+if (!podcastsList) throw new Error("Podcasts not found");
+const { title, slug, podcasts } = podcastsList;
 if (podcasts.length === 1) {
-  return Astro.rewrite(`/podcasts/${podcasts[0].slug}`);
+  return Astro.rewrite(`/${slug}/${podcasts[0].slug}`);
 }
 ---
 
 <Layout title="Podcasts">
   <main class="list-page">
-    <h1 class="sr-only">Podcasts</h1>
+    <h1 class="sr-only">{title}</h1>
     {
       podcasts.length > 0 ? (
         <section class="content-list podcasts-list">
           {podcasts.map((podcast) => (
-            <article class="list-item thumbnail podcast-thumbnail">
-              <a
-                id={`link-${podcast.slug}`}
-                aria-labelledby={`title-${podcast.slug}`}
-                class="thumbnail-link"
-                href={`/podcasts/${podcast.slug}`}
-              >
-                <Img
-                  class="thumbnail-image"
-                  image={podcast.cover}
-                  alt={podcast.title}
-                  style="filter: url(#filter)"
-                />
-                <h2
-                  id={`title-${podcast.slug}`}
-                  class="thumbnail-title"
-                >
-                  {podcast.title}{" "}
-                  <span class="title-date">({podcast.date.split("-")[0]})</span>
-                </h2>
-              </a>
-            </article>
+            <Thumbnail
+              parentSlug={slug}
+              item={podcast}
+            />
           ))}
         </section>
       ) : (

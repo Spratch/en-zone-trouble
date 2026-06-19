@@ -30,16 +30,20 @@ export const footerSettingsQuery = defineQuery(`*[_type == "settings"][0]{
 export const homeImageQuery = defineQuery(`*[_type == "settings"
   && defined(homeImage.asset->url)][0].homeImage${imageAltFragment}`);
 
-export const showsListQuery = defineQuery(`*[_type == "shows"][0].showsList[]->{
+export const showsListQuery = defineQuery(`*[_type == "shows"][0]{
   title,
   ${slugFragment},
-  date,
-  "cover": cover{
-    ${imageSrcFragment},
-    "orientation": coalesce(orientation, "landscape"),
-    crop,
-    hotspot,
-  },
+  "shows": showsList[]->{
+    title,
+    ${slugFragment},
+    date,
+    "cover": cover{
+      ${imageSrcFragment},
+      "orientation": coalesce(orientation, "landscape"),
+      crop,
+      hotspot,
+    },
+  }
 }`);
 
 export const showBySlugQuery =
@@ -59,17 +63,20 @@ export const showBySlugQuery =
   }
 `);
 
-export const podcastsListQuery =
-  defineQuery(`*[_type == "podcasts"][0].podcastsList[]->{
+export const podcastsListQuery = defineQuery(`*[_type == "podcasts"][0]{
   title,
   ${slugFragment},
-  date,
-  "cover": cover{
-    ${imageSrcFragment},
-    "orientation": coalesce(orientation, "landscape"),
-    crop,
-    hotspot,
-  },
+  "podcasts": podcastsList[]->{
+    title,
+    ${slugFragment},
+    date,
+    "cover": cover{
+      ${imageSrcFragment},
+      "orientation": coalesce(orientation, "landscape"),
+      crop,
+      hotspot,
+    },
+  }
 }`);
 
 export const podcastBySlugQuery =
