@@ -20,7 +20,7 @@ export const layoutSettingsQuery = defineQuery(`*[_type == "settings"][0]{
 
 export const footerSettingsQuery = defineQuery(`*[_type == "settings"][0]{
     title,
-    "navigation": navigation[]{
+    "navigation": navigation[]->{
       title,
       ${slugFragment}
     },
@@ -30,7 +30,7 @@ export const footerSettingsQuery = defineQuery(`*[_type == "settings"][0]{
 export const homeImageQuery = defineQuery(`*[_type == "settings"
   && defined(homeImage.asset->url)][0].homeImage${imageAltFragment}`);
 
-export const showsListQuery = defineQuery(`*[_type == "show"]{
+export const showsListQuery = defineQuery(`*[_type == "shows"][0].showsList[]->{
   title,
   ${slugFragment},
   date,
@@ -40,7 +40,7 @@ export const showsListQuery = defineQuery(`*[_type == "show"]{
     crop,
     hotspot,
   },
-} | order(date desc)`);
+}`);
 
 export const showBySlugQuery =
   defineQuery(`*[_type == "show" && slug.current == $slug][0]{
@@ -59,7 +59,8 @@ export const showBySlugQuery =
   }
 `);
 
-export const podcastsListQuery = defineQuery(`*[_type == "podcast"]{
+export const podcastsListQuery =
+  defineQuery(`*[_type == "podcasts"][0].podcastsList[]->{
   title,
   ${slugFragment},
   date,
@@ -69,7 +70,7 @@ export const podcastsListQuery = defineQuery(`*[_type == "podcast"]{
     crop,
     hotspot,
   },
-} | order(date desc)`);
+}`);
 
 export const podcastBySlugQuery =
   defineQuery(`*[_type == "podcast" && slug.current == $slug][0]{

@@ -6,6 +6,7 @@ import sanity from "@sanity/astro";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://enzonetrouble.fr",
   integrations: [
     sanity({
       projectId: "a7gwf3qs",

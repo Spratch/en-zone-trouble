@@ -12,9 +12,11 @@ import gallery from "./objects/gallery";
 import imageAlt from "./objects/imageAlt";
 import linksArray from "./objects/linksArray";
 import { podcastSchema } from "./podcast";
+import { podcastsSchema } from "./podcasts";
 import { researchSchema } from "./research";
 import { settingsSchema } from "./settings";
 import { showSchema } from "./show";
+import { showsSchema } from "./shows";
 import { transmissionSchema } from "./transmission";
 
 const singltetonDocs = [
@@ -22,7 +24,9 @@ const singltetonDocs = [
   researchSchema,
   calendarSchema,
   transmissionSchema,
-  aboutSchema
+  aboutSchema,
+  showsSchema,
+  podcastsSchema
 ];
 export const listDocs = [
   showSchema,

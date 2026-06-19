@@ -2,6 +2,7 @@ import {
   BlockContentIcon,
   CalendarIcon,
   EnvelopeIcon,
+  InfoOutlineIcon,
   UsersIcon
 } from "@sanity/icons";
 import {
@@ -15,6 +16,7 @@ export const aboutSchema = defineType({
   name: "about",
   title: "À propos",
   type: "document",
+  icon: InfoOutlineIcon,
   groups: [
     {
       name: "content",
@@ -50,6 +52,19 @@ export const aboutSchema = defineType({
       type: "string",
       group: "content",
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      description:
+        "Identifiant unique de la page, cliquer sur Générer après avoir renseigné le titre",
+      type: "slug",
+      options: {
+        source: "title"
+      },
+      group: "content",
+      validation: (Rule) => Rule.required(),
+      hidden: true
     }),
     defineField({
       name: "presentation",
@@ -140,5 +155,20 @@ export const aboutSchema = defineType({
       rows: 2,
       group: "content"
     })
-  ]
+  ],
+  preview: {
+    select: {
+      title: "title",
+      subtitle: "slug.current"
+    },
+    prepare({ title, subtitle }) {
+      const displaySubtitle = subtitle
+        ? `${import.meta.env.SITE.replace("https://", "")} / ${subtitle}`
+        : "";
+      return {
+        title: title,
+        subtitle: displaySubtitle
+      };
+    }
+  }
 });

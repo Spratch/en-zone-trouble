@@ -29,8 +29,8 @@ export const structure: StructureResolver = (S, context) => {
   return S.list()
     .title("Contenus")
     .items([
-      li("show", "Spectacles", EyeOpenIcon, "list"),
-      li("podcast", "Podcasts", MicrophoneIcon, "list"),
+      li("shows", "Spectacles", EyeOpenIcon, "singleton"),
+      li("podcasts", "Podcasts", MicrophoneIcon, "singleton"),
 
       S.divider(),
 

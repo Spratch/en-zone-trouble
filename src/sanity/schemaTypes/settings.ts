@@ -1,5 +1,4 @@
-import { InlineElementIcon } from "@sanity/icons";
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const settingsSchema = defineType({
   name: "settings",
@@ -14,7 +13,7 @@ export const settingsSchema = defineType({
       validation: (Rule) =>
         Rule.required()
           .max(60)
-          .warning("Le titre du site doit contenir moins de 60 caractères"),
+          .warning("Le titre du site doit contenir moins de 60 caractères")
     }),
     defineField({
       name: "description",
@@ -26,8 +25,8 @@ export const settingsSchema = defineType({
         Rule.required()
           .max(160)
           .warning(
-            "La description du site doit contenir moins de 160 caractères",
-          ),
+            "La description du site doit contenir moins de 160 caractères"
+          )
     }),
     defineField({
       name: "favicon",
@@ -35,7 +34,7 @@ export const settingsSchema = defineType({
       type: "object",
       description: "Entrez les favicons à utiliser sur le site",
       options: {
-        columns: 2,
+        columns: 2
       },
       fields: [
         {
@@ -43,60 +42,62 @@ export const settingsSchema = defineType({
           title: "Foncé",
           type: "favicon",
           description:
-            "Choisissez le favicon foncé utilisé sur les fonds clairs (PNG)",
+            "Choisissez le favicon foncé utilisé sur les fonds clairs (PNG)"
         },
         {
           name: "light",
           title: "Clair",
           type: "favicon",
           description:
-            "Choisissez le favicon clair utilisé sur les fonds sombres (PNG)",
-        },
-      ],
+            "Choisissez le favicon clair utilisé sur les fonds sombres (PNG)"
+        }
+      ]
     }),
     defineField({
       name: "homeImage",
       title: "Image d'accueil",
       type: "imageAlt",
       description: "Image affichée sur la page d'accueil",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       name: "navigation",
       title: "Menu de navigation",
       description:
-        "Renseigner les éléments composant le menu de navigation présent dans le footer",
+        "Renseigner les éléments composant le menu de navigation présent dans le footer.\nLe dernier élément du menu sera affiché seul, à droite de l'écran, l'usage est d'y mettre la page d'information ('À propos').",
       type: "array",
       of: [
-        defineField({
-          name: "item",
-          title: "Item",
-          description: "Un élément du menu de navigation",
-          icon: InlineElementIcon,
-          type: "object",
-          fields: [
-            defineField({
-              name: "title",
-              title: "Titre",
-              type: "string",
-              description: "Le titre de l'élément du menu de navigation",
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: "slug",
-              title: "Slug",
-              type: "slug",
-              options: {
-                source: (_, context) =>
-                  (context.parent as Record<string, unknown>).title as string,
-              },
-              description: "Le slug de l'élément du menu de navigation",
-              validation: (Rule) => Rule.required(),
-            }),
+        defineArrayMember({
+          type: "reference",
+          title: "Page",
+          description:
+            "Sélectionner une page à afficher dans le menu de navigation.",
+          to: [
+            { type: "shows" },
+            { type: "podcasts" },
+            { type: "research" },
+            { type: "transmission" },
+            { type: "calendar" },
+            { type: "about" }
           ],
-        }),
+          options: {
+            filter: ({ parent }) => {
+              const refs = (parent as { _ref?: string }[])
+                .map((m) => m._ref)
+                .filter(Boolean) as string[];
+              if (refs.length === 0) {
+                return { filter: "true" };
+              }
+              const refList = refs.map((id) => `"${id}"`).join(", ");
+
+              return {
+                filter: `!(_id in [${refList}])`
+              };
+            }
+          }
+        })
       ],
-      validation: (Rule) => Rule.required(),
-    }),
-  ],
+      validation: (Rule) => Rule.required()
+    })
+  ]
 });
