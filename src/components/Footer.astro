@@ -31,11 +31,14 @@ function isActive(pathname: string, slug: string): boolean {
   <nav class="footer-navigation">
     {
       navigationLogo && (
-        <a href="/">
+        <a
+          href="/"
+          title="Accueil"
+        >
           <img
             class="navigation-logo"
             src={navigationLogo}
-            alt="Logo"
+            aria-hidden="true"
           />
         </a>
       )
@@ -58,6 +61,9 @@ function isActive(pathname: string, slug: string): boolean {
                     "navigation-link",
                     { active: isActive(pathname, item.slug) }
                   ]}
+                  aria-current={
+                    isActive(pathname, item.slug) ? "page" : undefined
+                  }
                   href={`/${item.slug}`}
                 >
                   {item.title}
