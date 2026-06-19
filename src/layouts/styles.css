@@ -310,7 +310,6 @@ main {
 
     & .details {
       padding-top: 40px;
-
       font-size: var(--font-size-detail);
       line-height: 16px;
       color: var(--color-accent);
@@ -318,7 +317,7 @@ main {
       @media (min-width: 48rem) {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-column-gap: var(--padding);
+        grid-gap: var(--padding);
         padding-top: 60px;
 
         line-height: 18px;
@@ -329,14 +328,13 @@ main {
       }
     }
 
-    & .links,
-    & .press {
+    & .links {
       display: flex;
       flex-direction: column;
       gap: 12px;
 
       & .link-item-subtitle {
-        line-height: 1.6;
+        padding-top: 0.25rem;
       }
     }
 
@@ -351,7 +349,9 @@ main {
     }
 
     & h2 {
-      text-transform: uppercase;
+      /*text-transform: uppercase;*/
+      font-variant-caps: all-small-caps;
+      padding-bottom: 0.125rem;
     }
   }
 

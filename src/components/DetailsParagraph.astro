@@ -1,0 +1,40 @@
+---
+import type { PortableTextBlock } from "sanity";
+import PortableText from "./PortableText.astro";
+import type { LinksArray } from "../../sanity.types";
+import CustomLink from "./CustomLink.astro";
+
+interface Props {
+  title?: string;
+  paragraph?: string;
+  links?: LinksArray;
+  portableText?: PortableTextBlock[];
+}
+
+const { title, paragraph, links, portableText } = Astro.props;
+---
+
+<div class="details-item">
+  {title && <h2>{title}</h2>}
+  {paragraph && <p class="details-item-content">{paragraph}</p>}
+  {
+    links && (
+      <div class="links">
+        {links.map((link) => (
+          <div class="link-item-container">
+            <CustomLink href={link.url}>{link.title}</CustomLink>
+            {link.subtitle && <p class="link-item-subtitle">{link.subtitle}</p>}
+          </div>
+        ))}
+      </div>
+    )
+  }
+  {
+    portableText && (
+      <PortableText
+        value={portableText}
+        class="detail-item-content"
+      />
+    )
+  }
+</div>

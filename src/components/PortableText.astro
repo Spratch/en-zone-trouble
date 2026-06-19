@@ -2,6 +2,11 @@
 import { PortableText as PortableTextInternal } from "astro-portabletext";
 import PortableLink from "./PortableLink.astro";
 
+interface Props {
+  value: any;
+  class?: string;
+}
+
 const { value, class: className } = Astro.props;
 
 const components = {

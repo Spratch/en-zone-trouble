@@ -7,6 +7,7 @@ import {
   podcastsListQuery
 } from "../../sanity/lib/queries";
 import Gallery from "../../components/Gallery.astro";
+import DetailsParagraph from "../../components/DetailsParagraph.astro";
 
 export async function getStaticPaths() {
   const podcastsList = await sanityClient.fetch(podcastsListQuery);
@@ -76,64 +77,46 @@ const audios = podcast.episodes
           )
         }
 
+        {/* Details section */}
         <section class="details">
           {
             podcast.infos && (
-              <PortableText
-                class="infos"
-                value={podcast.infos}
+              <DetailsParagraph
+                title="Informations"
+                portableText={podcast.infos}
               />
             )
           }
-          {podcast.production && <p class="production">{podcast.production}</p>}
+          {
+            podcast.production && (
+              <DetailsParagraph
+                title="Production"
+                paragraph={podcast.production}
+              />
+            )
+          }
           {
             podcast.supports && (
-              <div class="supports">
-                <h2>Soutiens</h2>
-                <p class="supports-content">{podcast.supports}</p>
-              </div>
+              <DetailsParagraph
+                title="Soutiens"
+                paragraph={podcast.supports}
+              />
             )
           }
           {
             podcast.links && (
-              <div class="links">
-                {podcast.links.map((link) => (
-                  <div class="link-item-container">
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="link-item"
-                    >
-                      <span class="link-item-title">{link.title}</span>
-                    </a>
-                    {link.subtitle && (
-                      <p class="link-item-subtitle">{link.subtitle}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
+              <DetailsParagraph
+                title="Liens"
+                links={podcast.links}
+              />
             )
           }
           {
             podcast.press && (
-              <div class="press">
-                {podcast.press.map((link) => (
-                  <div class="link-item-container">
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="link-item"
-                    >
-                      <span class="link-item-title">{link.title}</span>
-                    </a>
-                    {link.subtitle && (
-                      <p class="link-item-subtitle">{link.subtitle}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
+              <DetailsParagraph
+                title="Presse"
+                links={podcast.press}
+              />
             )
           }
         </section>

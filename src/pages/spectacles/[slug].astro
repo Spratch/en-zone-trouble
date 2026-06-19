@@ -1,6 +1,7 @@
 ---
 import { sanityClient } from "sanity:client";
 import CustomLink from "../../components/CustomLink.astro";
+import DetailsParagraph from "../../components/DetailsParagraph.astro";
 import Gallery from "../../components/Gallery.astro";
 import PortableText from "../../components/PortableText.astro";
 import Layout from "../../layouts/Layout.astro";
@@ -16,6 +17,27 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const show = await sanityClient.fetch(showBySlugQuery, { slug });
 if (!show) throw new Error("Show not found");
+
+const specialLinks = [
+  ...(show.reservationLink
+    ? [
+        {
+          title: "Réservation",
+          url: show.reservationLink,
+          _key: "reservation"
+        }
+      ]
+    : []),
+  ...(show.presentationFile
+    ? [
+        {
+          title: "Fiche de présentation",
+          url: `${show.presentationFile}?dl=${show.presentationFile.originalFilename}`,
+          _key: "presentation"
+        }
+      ]
+    : [])
+];
 ---
 
 <Layout title={show.title}>
@@ -29,71 +51,53 @@ if (!show) throw new Error("Show not found");
           value={show.synopsis}
         />
 
-        {/* Infos */}
+        {/* Details section */}
         <section class="details">
           {/* Special links */}
           {
             (show.reservationLink || show.presentationFile) && (
-              <div class="special-links">
-                {show.reservationLink && (
-                  <CustomLink href={show.reservationLink}>Réserver</CustomLink>
-                )}
-                {show.presentationFile && (
-                  <CustomLink
-                    href={`${show.presentationFile.url}?dl=${show.presentationFile.originalFilename}`}
-                  >
-                    Dossier de présentation
-                  </CustomLink>
-                )}
-              </div>
+              <DetailsParagraph links={specialLinks} />
             )
           }
 
           {
             show.infos && (
-              <PortableText
-                class="infos"
-                value={show.infos}
+              <DetailsParagraph
+                title="Informations"
+                portableText={show.infos}
               />
             )
           }
-          {show.production && <p class="production">{show.production}</p>}
+          {
+            show.production && (
+              <DetailsParagraph
+                title="Production"
+                paragraph={show.production}
+              />
+            )
+          }
           {
             show.supports && (
-              <div class="supports">
-                <h2>Soutiens</h2>
-                <p class="supports-content">{show.supports}</p>
-              </div>
+              <DetailsParagraph
+                title="Soutiens"
+                paragraph={show.supports}
+              />
             )
           }
           {
             show.links && (
-              <div class="links">
-                {show.links.map((link) => (
-                  <div class="link-item-container">
-                    <CustomLink href={link.url}>{link.title}</CustomLink>
-                    {link.subtitle && (
-                      <p class="link-item-subtitle">{link.subtitle}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
+              <DetailsParagraph
+                title="Liens"
+                links={show.links}
+              />
             )
           }
           {
             show.press && (
-              <div class="press">
-                {show.press.map((link) => (
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link-item"
-                  >
-                    <span class="link-item-title">{link.title}</span>
-                  </a>
-                ))}
-              </div>
+              <DetailsParagraph
+                title="Presse"
+                links={show.press}
+              />
             )
           }
         </section>
