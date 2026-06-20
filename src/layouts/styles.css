@@ -70,11 +70,6 @@ h1 {
   font-weight: 500;
   font-style: oblique;
   font-size: var(--font-size-titre);
-
-  color: var(--color-accent);
-}
-body:has(.gallery) h1 {
-  color: var(--color-fg);
 }
 
 .link {
