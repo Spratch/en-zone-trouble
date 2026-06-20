@@ -438,6 +438,13 @@ export type Settings = {
     dark: Favicon;
     light: Favicon;
   };
+  logo: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
   homeImage: ImageAlt;
   navigation: ArrayOf<
     | ShowsReference
@@ -703,7 +710,7 @@ export type LayoutSettingsQueryResult = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: footerSettingsQuery
-// Query: *[_type == "settings"][0]{    title,    "navigation": navigation[]->{      title,      "slug": slug.current    },    "navigationLogo": favicon.dark.asset->url,  }
+// Query: *[_type == "settings"][0]{    title,    "navigation": navigation[]->{      title,      "slug": slug.current    },    "navigationLogo": logo.asset->url,  }
 export type FooterSettingsQueryResult = {
   title: string;
   navigation: Array<{
@@ -1351,7 +1358,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "settings"][0]{\n    title,\n    description,\n    "favicons": favicon{\n      "light": light.asset->url,\n      "dark": dark.asset->url,\n    }\n  }': LayoutSettingsQueryResult;
-    '*[_type == "settings"][0]{\n    title,\n    "navigation": navigation[]->{\n      title,\n      "slug": slug.current\n    },\n    "navigationLogo": favicon.dark.asset->url,\n  }': FooterSettingsQueryResult;
+    '*[_type == "settings"][0]{\n    title,\n    "navigation": navigation[]->{\n      title,\n      "slug": slug.current\n    },\n    "navigationLogo": logo.asset->url,\n  }': FooterSettingsQueryResult;
     '*[_type == "settings"\n  && defined(homeImage.asset->url)][0].homeImage{\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n}': HomeImageQueryResult;
     '*[_type == "shows"][0]{\n  title,\n  "slug": slug.current,\n  "shows": showsList[]->{\n    title,\n    "slug": slug.current,\n    date,\n    "cover": cover{\n      "src": coalesce(asset->url, ""),\n      "orientation": coalesce(orientation, "landscape"),\n      crop,\n      hotspot,\n    },\n  }\n}': ShowsListQueryResult;
     '*[_type == "show" && slug.current == $slug][0]{\n    title,\n    "slug": slug.current,\n    date,\n    "synopsis": synopsis[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    excerpt,\n    "infos": infos[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    supports,\n    production,\n    "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n    "gallery": gallery[]{\n  _type,\n  _type == "imageAlt" => {\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n},\n  _type == "mux.video" => {\n    "playbackId": coalesce(asset->playbackId, ""),\n  }\n},\n    links,\n    press,\n    reservationLink,\n    "presentationFile": presentationFile.asset->{\n      url,\n      originalFilename\n    }\n  }\n': ShowBySlugQueryResult;

@@ -24,7 +24,7 @@ export const footerSettingsQuery = defineQuery(`*[_type == "settings"][0]{
       title,
       ${slugFragment}
     },
-    "navigationLogo": favicon.dark.asset->url,
+    "navigationLogo": logo.asset->url,
   }`);
 
 export const homeImageQuery = defineQuery(`*[_type == "settings"

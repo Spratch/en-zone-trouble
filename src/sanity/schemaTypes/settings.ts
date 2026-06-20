@@ -54,6 +54,16 @@ export const settingsSchema = defineType({
       ]
     }),
     defineField({
+      name: "logo",
+      title: "Logo",
+      type: "image",
+      description: "Logo affiché dans le footer, utiliser une image SVG",
+      options: {
+        accept: "image/svg+xml"
+      },
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
       name: "homeImage",
       title: "Image d'accueil",
       type: "imageAlt",
