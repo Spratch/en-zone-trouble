@@ -176,7 +176,10 @@ const sprites = {
       frameTimer = 0;
       const frames = sprites[active ? state : "idle"] ?? sprites.idle;
       frame = (frame + 1) % frames.length;
-      element.src = frames[frame];
+      const nextFrame = frames[frame];
+      if (element.src !== nextFrame && !element.src.endsWith(nextFrame)) {
+        element.src = nextFrame;
+      }
     }
 
     requestAnimationFrame(loop);
