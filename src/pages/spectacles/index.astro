@@ -1,6 +1,6 @@
 ---
 import { sanityClient } from "sanity:client";
-import Thumbnail from "../../components/Thumbnail.astro";
+import ContentList from "../../components/ContentList.astro";
 import Layout from "../../layouts/Layout.astro";
 import { showsListQuery } from "../../sanity/lib/queries";
 
@@ -15,19 +15,9 @@ if (shows.length === 1) {
 <Layout title="Spectacles">
   <main class="list-page">
     <h1 class="sr-only">{title}</h1>
-    {
-      shows.length > 0 ? (
-        <section class="content-list shows-list scroll-mask-x">
-          {shows.map((show) => (
-            <Thumbnail
-              parentSlug={slug}
-              item={show}
-            />
-          ))}
-        </section>
-      ) : (
-        <p>Aucun spectacle trouvé.</p>
-      )
-    }
+    <ContentList
+      slug={slug}
+      items={shows}
+    />
   </main>
 </Layout>

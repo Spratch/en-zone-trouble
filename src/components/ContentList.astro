@@ -1,0 +1,27 @@
+---
+import type {
+  PodcastsListQueryResult,
+  ShowsListQueryResult
+} from "../../sanity.types";
+import Thumbnail from "./Thumbnail.astro";
+
+interface Props {
+  slug: string;
+  items:
+    | NonNullable<ShowsListQueryResult>["shows"]
+    | NonNullable<PodcastsListQueryResult>["podcasts"];
+}
+
+const { slug, items } = Astro.props;
+---
+
+<section class="content-list scroll-mask-x">
+  {
+    items.map((item) => (
+      <Thumbnail
+        parentSlug={slug}
+        item={item}
+      />
+    ))
+  }
+</section>

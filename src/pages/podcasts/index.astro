@@ -1,6 +1,6 @@
 ---
 import { sanityClient } from "sanity:client";
-import Thumbnail from "../../components/Thumbnail.astro";
+import ContentList from "../../components/ContentList.astro";
 import Layout from "../../layouts/Layout.astro";
 import { podcastsListQuery } from "../../sanity/lib/queries";
 
@@ -15,19 +15,9 @@ if (podcasts.length === 1) {
 <Layout title="Podcasts">
   <main class="list-page">
     <h1 class="sr-only">{title}</h1>
-    {
-      podcasts.length > 0 ? (
-        <section class="content-list podcasts-list">
-          {podcasts.map((podcast) => (
-            <Thumbnail
-              parentSlug={slug}
-              item={podcast}
-            />
-          ))}
-        </section>
-      ) : (
-        <p>Aucun podcast trouvé.</p>
-      )
-    }
+    <ContentList
+      slug={slug}
+      items={podcasts}
+    />
   </main>
 </Layout>

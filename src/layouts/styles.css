@@ -68,8 +68,10 @@
   display: inline-flex;
   gap: 5px;
 
+  /* Si jamais tu veux styliser les liens internes différemment
   &.internal {
-  }
+
+  } */
   &.external {
     color: var(--color-accent);
   }
