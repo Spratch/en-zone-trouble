@@ -62,6 +62,18 @@
   border: 0;
 }
 
+h1 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-style: oblique;
+  font-size: var(--font-size-titre);
+
+  color: var(--color-accent);
+}
+body:has(.gallery) h1 {
+  color: var(--color-fg);
+}
+
 .link {
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -274,10 +286,6 @@ main {
 
 .item-page {
   & h1 {
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-style: oblique;
-    font-size: var(--font-size-titre);
     margin-bottom: -15px;
   }
 
@@ -486,10 +494,6 @@ main {
 }
 
 main.research-page {
-  & h1 {
-    color: var(--color-accent);
-  }
-
   & .page-left {
     & .portable-text {
       padding-top: 5px;
@@ -577,7 +581,7 @@ section.contact {
   height: 100%;
 }
 
-body:has(.gallery) .page-grid::after {
+body:has(.gallery) main::after {
   content: "";
   position: fixed;
   z-index: 10;
@@ -600,10 +604,6 @@ main.calendar-page {
   display: flex;
   flex-direction: column;
   padding-inline: var(--padding);
-
-  & h1 {
-    color: var(--color-accent);
-  }
 
   & .season-item {
     display: grid;
@@ -667,10 +667,6 @@ main.calendar-page {
 }
 
 main.transmission-page {
-  & h1 {
-    color: var(--color-accent);
-  }
-
   & .portable-text {
     padding-top: 5px;
     margin-bottom: 60px;
@@ -741,10 +737,6 @@ main.transmission-page {
 }
 
 main.company-page {
-  & h1 {
-    color: var(--color-accent);
-  }
-
   & .page-left {
     & .portable-text {
       padding-top: 10px;
