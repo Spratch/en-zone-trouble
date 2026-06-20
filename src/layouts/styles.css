@@ -21,6 +21,9 @@
   --line-height-detail: 17px;
   --line-height-labeur: 22px;
 
+  --text-gradient-first-stop: 30dvh;
+  --text-gradient-second-stop: 50dvh;
+
   @media (min-width: 48rem) {
     --font-size-detail: 16px;
     --font-size-menu: 18px;
@@ -102,9 +105,14 @@ body {
   background: var(--bg-gradient);
   background-attachment: fixed;
 
+  --text-gradient-top: var(--color-accent);
+  --text-gradient-bottom: var(--color-fg);
+
   &:has(.show-page),
   &:has(.podcast-page),
   &:has(.gallery) {
+    --text-gradient-top: var(--color-fg);
+    --text-gradient-bottom: var(--color-accent);
     --bg-gradient: linear-gradient(
       to bottom,
       var(--color-accent) 0%,
@@ -228,6 +236,15 @@ main {
   flex-grow: 1;
   padding-bottom: var(--gallery-h);
   padding-inline: var(--padding);
+
+  background: linear-gradient(
+    to bottom,
+    var(--text-gradient-top) var(--text-gradient-first-stop),
+    var(--text-gradient-bottom) var(--text-gradient-second-stop)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .list-page {
@@ -308,19 +325,6 @@ main {
       line-height: var(--line-height-labeur);
     }
 
-    & .synopsis {
-      /*dégradé dans texte*/
-      display: inline-block;
-      background: linear-gradient(
-        to bottom,
-        var(--color-fg) 50%,
-        var(--color-accent) 70%
-      );
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
     & .details {
       padding-top: 40px;
       font-size: var(--font-size-detail);
@@ -382,17 +386,6 @@ main {
         text-align: left;
         padding-top: 0px;
         padding-bottom: 60px;
-
-        /*dégradé*/
-        display: inline-block;
-        background: linear-gradient(
-          to bottom,
-          var(--color-fg) 50%,
-          var(--color-accent) 70%
-        );
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
       }
     }
 
@@ -455,17 +448,6 @@ main {
     line-height: var(--line-height-labeur);
     color: var(--color-accent);
 
-    /*dégradé dans texte*/
-    display: inline-block;
-    background: linear-gradient(
-      to bottom,
-      var(--color-fg) 30%,
-      var(--color-accent) 70%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
     & button.episode-trigger {
       text-decoration: underline;
       text-underline-offset: 2px;
@@ -499,17 +481,6 @@ main.research-page {
       padding-top: 5px;
       font-size: var(--font-size-labeur);
       line-height: var(--line-height-labeur);
-
-      /*dégradé dans texte*/
-      display: inline-block;
-      background: linear-gradient(
-        to bottom,
-        var(--color-accent) 50%,
-        var(--color-fg) 70%
-      );
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
   }
 
@@ -612,16 +583,6 @@ main.calendar-page {
     grid-column-gap: 5px;
     padding-bottom: 30px;
 
-    /*dégradé dans texte*/
-    background: linear-gradient(
-      to top,
-      var(--color-fg) 80%,
-      var(--color-accent) 95%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
     & .season-range {
       text-transform: uppercase;
       font-size: var(--font-size-labeur);
@@ -672,17 +633,6 @@ main.transmission-page {
     margin-bottom: 60px;
     font-size: var(--font-size-labeur);
     line-height: var(--line-height-labeur);
-
-    /*dégradé dans texte*/
-    display: inline-block;
-    background: linear-gradient(
-      to bottom,
-      var(--color-accent) 50%,
-      var(--color-fg) 70%
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   & .season-item {
@@ -743,17 +693,6 @@ main.company-page {
       margin-bottom: 60px;
       font-size: var(--font-size-labeur);
       line-height: var(--line-height-labeur);
-
-      /*dégradé dans texte*/
-      display: inline-block;
-      background: linear-gradient(
-        to bottom,
-        var(--color-accent) 50%,
-        var(--color-fg) 70%
-      );
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     & .team-members {
