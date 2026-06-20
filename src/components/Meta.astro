@@ -1,18 +1,27 @@
 ---
-interface Props {
-  siteTitle: string;
-  siteDescription: string;
+export interface Props {
+  siteTitle?: string;
+  siteDescription?: string;
+  siteSeoImage?: string;
   title?: string;
   description?: string;
   type?: string;
   seoImage?: string;
 }
 
-const { siteTitle, siteDescription, title, description, type, seoImage } =
-  Astro.props;
+const {
+  siteTitle,
+  siteDescription,
+  title,
+  description,
+  type,
+  seoImage,
+  siteSeoImage
+} = Astro.props;
 
 const seoTitle = `${siteTitle}${title ? ` | ${title}` : ""}`;
 const seoDescription = description || siteDescription;
+const image = `${seoImage || siteSeoImage}?w=1200&h=630&fit=crop&auto=format`;
 ---
 
 <meta
@@ -39,10 +48,10 @@ const seoDescription = description || siteDescription;
   content={seoDescription}
 />
 {
-  seoImage && (
+  image && (
     <meta
       property="og:image"
-      content={seoImage}
+      content={image}
     />
   )
 }
@@ -65,10 +74,10 @@ const seoDescription = description || siteDescription;
   content={seoDescription}
 />
 {
-  seoImage && (
+  image && (
     <meta
       name="twitter:image"
-      content={seoImage?.replace("/og/", "/og/twitter-")}
+      content={image}
     />
   )
 }

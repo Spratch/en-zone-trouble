@@ -19,6 +19,8 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const podcast = await sanityClient.fetch(podcastBySlugQuery, { slug });
 if (!podcast) throw new Error("Podcast not found");
+
+const seoDescription = `${podcast.synopsis[0]?.children?.[0]?.text?.substring(0, 159)}…`;
 const audios = podcast.episodes
   ?.filter((episode) => episode.playbackId)
   .map((episode) => ({
@@ -27,7 +29,12 @@ const audios = podcast.episodes
   }));
 ---
 
-<Layout title={podcast.title}>
+<Layout
+  title={podcast.title}
+  description={seoDescription}
+  seoImage={podcast.seoImage || ""}
+  type="music.album"
+>
   <main class="podcast-page item-page">
     <h1>{podcast.title}</h1>
     <section class="page-grid">

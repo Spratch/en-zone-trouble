@@ -4,10 +4,13 @@ import { ClientRouter } from "astro:transitions";
 import { sanityClient } from "sanity:client";
 import Filter from "../components/Filter.astro";
 import Footer from "../components/Footer.astro";
+import type { Props as MetaProps } from "../components/Meta.astro";
 import Meta from "../components/Meta.astro";
 import NekoGhost from "../components/NekoGhost.astro";
 import { layoutSettingsQuery } from "../sanity/lib/queries";
 import "./styles.css";
+import { undefined } from "astro:schema";
+interface Props extends MetaProps {}
 
 const settings = await sanityClient.fetch(layoutSettingsQuery);
 
@@ -39,6 +42,7 @@ const { ...seo } = Astro.props;
     <Meta
       siteTitle={settings?.title || "En Zone Trouble"}
       siteDescription={settings?.description || ""}
+      siteSeoImage={settings?.seoImage || ""}
       {...seo}
     />
     <Font

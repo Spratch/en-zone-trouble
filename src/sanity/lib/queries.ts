@@ -15,7 +15,8 @@ export const layoutSettingsQuery = defineQuery(`*[_type == "settings"][0]{
     "favicons": favicon{
       "light": light.asset->url,
       "dark": dark.asset->url,
-    }
+    },
+    "seoImage": homeImage.asset->url,
   }`);
 
 export const footerSettingsQuery = defineQuery(`*[_type == "settings"][0]{
@@ -64,7 +65,8 @@ export const showBySlugQuery =
     "presentationFile": presentationFile.asset->{
       url,
       originalFilename
-    }
+    },
+    "seoImage": cover.asset->url
   }
 `);
 
@@ -100,7 +102,8 @@ export const podcastBySlugQuery =
     ${creditsFragment}
     "gallery": gallery[]${galleryFragment},
     links,
-    press
+    press,
+    "seoImage": cover.asset->url
   }
 `);
 
