@@ -1,3 +1,6 @@
+@import "./reset.css";
+@import "./scroll-mask.css";
+
 :root {
   font-family: var(--font-serif);
 
@@ -217,7 +220,7 @@ main {
   & section.content-list {
     position: relative;
     overflow-x: scroll;
-    padding: var(--padding);
+    padding-block: var(--padding);
     display: flex;
     grid-column-gap: var(--padding);
     z-index: 30;
@@ -741,12 +744,8 @@ main.company-page {
   }
 
   & .page-left {
-    padding-left: var(--padding);
-    padding-right: var(--padding);
-
     & .portable-text {
       padding-top: 10px;
-      padding-right: var(--padding);
       margin-bottom: 60px;
       font-size: var(--font-size-labeur);
       line-height: var(--line-height-labeur);
@@ -764,8 +763,6 @@ main.company-page {
     }
 
     & .team-members {
-      padding-right: var(--padding);
-
       & h2 {
         font-family: var(--font-sans);
         font-weight: 500;
@@ -874,9 +871,6 @@ main.company-page {
     font-size: var(--font-size-detail);
     line-height: 20px;
     color: var(--color-fg);
-    padding-top: 0;
-    padding-right: var(--padding);
-    padding-left: var(--padding);
 
     @media (min-width: 48rem) {
       padding-top: 45px;
