@@ -237,14 +237,16 @@ main {
   padding-bottom: var(--gallery-h);
   padding-inline: var(--padding);
 
-  background: linear-gradient(
-    to bottom,
-    var(--text-gradient-top) var(--text-gradient-first-stop),
-    var(--text-gradient-bottom) var(--text-gradient-second-stop)
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  &:not(:has(img)) {
+    background: linear-gradient(
+      to bottom,
+      var(--text-gradient-top) var(--text-gradient-first-stop),
+      var(--text-gradient-bottom) var(--text-gradient-second-stop)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 .list-page {
@@ -293,6 +295,7 @@ main {
         font-weight: 400;
         font-style: oblique;
         font-size: var(--font-size-detail);
+        color: var(--color-fg);
         & span.title-date {
           font-style: normal;
         }
