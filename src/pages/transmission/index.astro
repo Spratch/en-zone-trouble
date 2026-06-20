@@ -1,9 +1,10 @@
 ---
 import { sanityClient } from "sanity:client";
+import Gallery from "../../components/Gallery.astro";
+import PortableText from "../../components/PortableText.astro";
 import SeasonList from "../../components/SeasonList.astro";
 import Layout from "../../layouts/Layout.astro";
 import { transmissionQuery } from "../../sanity/lib/queries";
-import PortableText from "../../components/PortableText.astro";
 
 const transmission = await sanityClient.fetch(transmissionQuery);
 if (!transmission) throw new Error("Team not found");
@@ -23,4 +24,5 @@ if (!transmission) throw new Error("Team not found");
 
     {transmission.seasons && <SeasonList seasons={transmission.seasons} />}
   </main>
+  {transmission.gallery && <Gallery gallery={transmission.gallery} />}
 </Layout>

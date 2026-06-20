@@ -37,6 +37,12 @@ export const transmissionSchema = defineType({
       name: "seasons",
       title: "Saisons",
       type: "seasons"
+    }),
+    defineField({
+      name: "gallery",
+      title: "Galerie",
+      description: "Images liées à la page transmission",
+      type: "gallery"
     })
   ],
   preview: {

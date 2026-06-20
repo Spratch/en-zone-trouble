@@ -14,7 +14,12 @@ const { gallery } = Astro.props;
   {
     gallery.map((item) => {
       if (item._type === "imageAlt") {
-        return <Img class="gallery-item" image={item} />;
+        return (
+          <Img
+            class="gallery-item"
+            image={item}
+          />
+        );
       }
       if (item._type === "mux.video") {
         return (

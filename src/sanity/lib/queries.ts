@@ -121,7 +121,8 @@ export const calendarQuery = defineQuery(`*[_type == "calendar"][0]{
 export const transmissionQuery = defineQuery(`*[_type == "transmission"][0]{
   title,
   "introduction": introduction${customBlockFragment},
-  ${seasonsFragment}
+  ${seasonsFragment},
+  "gallery": gallery[]${galleryFragment},
 }`);
 
 export const pagesListQuery = defineQuery(`*[_type == "legal"]{

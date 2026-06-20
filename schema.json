@@ -1393,6 +1393,14 @@
           "name": "seasons"
         },
         "optional": true
+      },
+      "gallery": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "gallery"
+        },
+        "optional": true
       }
     }
   },
