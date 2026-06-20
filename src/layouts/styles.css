@@ -588,7 +588,7 @@ body:has(.gallery) .page-grid::after {
   user-select: none;
   pointer-events: none;
 
-  --gradient-h: calc(var(--footer-h) + var(--gallery-h));
+  --gradient-h: calc(var(--footer-h) + var(--gallery-h) - var(--padding));
   background: linear-gradient(
     transparent 0,
     transparent calc(100% - var(--gradient-h)),
