@@ -373,7 +373,7 @@ main {
   & .page-right {
     & .excerpt {
       font-family: var(--font-script);
-      font-size: 19px;
+      font-size: 18px;
       line-height: 26px;
       padding-top: 40px;
       white-space: pre-line;
