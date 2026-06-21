@@ -39,7 +39,7 @@ export default defineConfig({
     },
     {
       provider: fontProviders.fontsource(),
-      name: "Homemade Apple",
+      name: "Edu AU VIC WA NT Hand",
       cssVariable: "--font-script"
     },
     {
