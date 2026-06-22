@@ -381,7 +381,6 @@ main {
       text-align: center;
 
       @media (min-width: 48rem) {
-        text-align: left;
         padding-top: 0px;
         padding-bottom: 60px;
       }
