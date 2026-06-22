@@ -38,9 +38,18 @@ export default defineConfig({
       }
     },
     {
-      provider: fontProviders.fontsource(),
-      name: "Edu AU VIC WA NT Hand",
-      cssVariable: "--font-script"
+      provider: fontProviders.local(),
+      name: "Feroniapi",
+      cssVariable: "--font-script",
+      options: {
+        variants: [
+          {
+            src: ["./src/assets/fonts/Feroniapi-MediumItalic.woff2"],
+            weight: 400,
+            style: "normal"
+          }
+        ]
+      }
     },
     {
       provider: fontProviders.local(),

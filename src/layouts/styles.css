@@ -373,8 +373,8 @@ main {
   & .page-right {
     & .excerpt {
       font-family: var(--font-script);
-      font-size: 18px;
-      line-height: 26px;
+      font-size: 20px;
+      line-height: 25.5px;
       padding-top: 40px;
       white-space: pre-line;
       color: var(--color-accent);
