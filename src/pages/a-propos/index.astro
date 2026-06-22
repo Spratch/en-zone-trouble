@@ -120,8 +120,8 @@ if (!about) throw new Error("About page not found");
             <section class="about-credits">
               <h2 class="sous-titre">Crédits</h2>
               {about.credits.map((credit) => (
-                <p>
-                  <span class="credit-title">{credit.title}</span>
+                <div>
+                  <p class="credit-title">{credit.title}</p>
                   {credit.value
                     .map((person) => (
                       <a
@@ -132,7 +132,7 @@ if (!about) throw new Error("About page not found");
                       </a>
                     ))
                     .reduce((prev, curr) => [prev, ", ", curr])}
-                </p>
+                </div>
               ))}
             </section>
           )
