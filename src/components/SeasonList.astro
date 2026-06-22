@@ -5,21 +5,22 @@ import CustomLink from "./CustomLink.astro";
 
 type Props = {
   seasons: NonNullable<NonNullable<CalendarQueryResult>["seasons"]>;
+  isClassic?: boolean;
 };
 
-const { seasons } = Astro.props;
+const { seasons, isClassic = true } = Astro.props;
 ---
 
 <ul class="seasons">
   {
     seasons.map((season) => (
-      <li class="season-item">
+      <li class:list={[{ "season-item": isClassic }]}>
         <h2 class="season-range">Saison {season.range}</h2>
 
         {/* Événements */}
         <ul class="season-events events-list">
           {season.events.map((event) => (
-            <li class="event-item">
+            <li class:list={[{ "event-item": isClassic }]}>
               {/* Titre de l'événement */}
               <h3 class="event-title">{event.title}</h3>
               {event.description && (

@@ -48,7 +48,10 @@ if (!about) throw new Error("About page not found");
           about.seasons && (
             <aside class="seasons">
               <h2 class="sous-titre">Événements</h2>
-              <SeasonList seasons={about.seasons} />
+              <SeasonList
+                seasons={about.seasons}
+                isClassic={false}
+              />
             </aside>
           )
         }
@@ -118,7 +121,7 @@ if (!about) throw new Error("About page not found");
               <h2 class="sous-titre">Crédits</h2>
               {about.credits.map((credit) => (
                 <p>
-                  <p class="credit-title">{credit.title}</p>
+                  <span class="credit-title">{credit.title}</span>
                   {credit.value
                     .map((person) => (
                       <a
