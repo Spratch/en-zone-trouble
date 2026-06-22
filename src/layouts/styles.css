@@ -353,18 +353,21 @@ main {
       }
     }
 
-    & .infos,
-    .production,
-    .supports {
-      margin-bottom: 20px;
+    & .event-infos {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
 
-      @media (min-width: 48rem) {
-        margin-bottom: 30px;
+      & .event-date {
+        font-family: var(--font-sans);
+        font-variant-numeric: oldstyle-nums;
+        line-height: 1.3;
+        font-size: 0.9em;
+        font-variant-caps: all-small-caps;
       }
     }
 
     & h2 {
-      /*text-transform: uppercase;*/
       font-variant-caps: all-small-caps;
       padding-bottom: 0.125rem;
     }
@@ -572,56 +575,6 @@ main.calendar-page {
   display: flex;
   flex-direction: column;
   padding-inline: var(--padding);
-
-  & .season-item {
-    display: grid;
-    grid-template-columns: 1fr 1.8fr;
-    padding-top: 5px;
-    grid-column-gap: 5px;
-    padding-bottom: 30px;
-
-    & .season-range {
-      text-transform: uppercase;
-      font-size: var(--font-size-labeur);
-    }
-
-    & .season-events {
-      display: flex;
-      flex-direction: column;
-      gap: var(--padding);
-
-      & .event-item {
-        & .event-title {
-          text-transform: uppercase;
-          font-size: var(--font-size-labeur);
-          margin-bottom: -5px;
-        }
-
-        & .event-infos {
-          font-family: var(--font-serif);
-          font-size: var(--font-size-détail);
-          margin-bottom: -5px;
-        }
-
-        & .event-project {
-          font-family: var(--font-sans);
-          font-style: oblique;
-        }
-      }
-    }
-  }
-
-  @media (min-width: 48rem) {
-    & .season-item {
-      grid-template-columns: 1fr 7fr;
-      padding-top: Opx;
-      grid-column-gap: var(--padding);
-
-      & .season-range {
-        font-size: var(--font-size-sous-titre);
-      }
-    }
-  }
 }
 
 main.transmission-page {
@@ -631,54 +584,54 @@ main.transmission-page {
     font-size: var(--font-size-labeur);
     line-height: var(--line-height-labeur);
   }
+}
 
-  & .season-item {
-    display: grid;
-    grid-template-columns: 1fr 1.8fr;
-    padding-top: 5px;
-    grid-column-gap: 5px;
-    padding-bottom: 30px;
+& .season-item {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr;
+  padding-top: 5px;
+  grid-column-gap: 5px;
+  padding-bottom: 30px;
 
-    & .season-range {
+  & .season-range {
+    text-transform: uppercase;
+    font-size: var(--font-size-labeur);
+  }
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding);
+
+  & .event-item {
+    & .event-title {
       text-transform: uppercase;
       font-size: var(--font-size-labeur);
+      margin-bottom: -5px;
     }
 
-    & .season-events {
-      display: flex;
-      flex-direction: column;
-      gap: var(--padding);
+    & .event-infos {
+      font-family: var(--font-serif);
+      font-size: var(--font-size-détail);
+      margin-bottom: -5px;
+    }
 
-      & .event-item {
-        & .event-title {
-          text-transform: uppercase;
-          font-size: var(--font-size-labeur);
-          margin-bottom: -5px;
-        }
-
-        & .event-infos {
-          font-family: var(--font-serif);
-          font-size: var(--font-size-détail);
-          margin-bottom: -5px;
-        }
-
-        & .event-project {
-          font-family: var(--font-sans);
-          font-style: oblique;
-        }
-      }
+    & .event-project {
+      font-family: var(--font-sans);
+      font-style: oblique;
     }
   }
+}
 
-  @media (min-width: 48rem) {
-    & .season-item {
-      grid-template-columns: 1fr 7fr;
-      padding-top: Opx;
-      grid-column-gap: var(--padding);
+@media (min-width: 48rem) {
+  & .season-item {
+    grid-template-columns: 1fr 7fr;
+    padding-top: Opx;
+    grid-column-gap: var(--padding);
 
-      & .season-range {
-        font-size: var(--font-size-sous-titre);
-      }
+    & .season-range {
+      font-size: var(--font-size-sous-titre);
     }
   }
 }

@@ -1,6 +1,7 @@
 ---
 import type { CalendarQueryResult } from "../../sanity.types";
 import { contentRoutes } from "../utils";
+import CustomLink from "./CustomLink.astro";
 
 type Props = {
   seasons: NonNullable<NonNullable<CalendarQueryResult>["seasons"]>;
@@ -16,11 +17,14 @@ const { seasons } = Astro.props;
         <h2 class="season-range">Saison {season.range}</h2>
 
         {/* Événements */}
-        <ul class="season-events">
+        <ul class="season-events events-list">
           {season.events.map((event) => (
             <li class="event-item">
               {/* Titre de l'événement */}
               <h3 class="event-title">{event.title}</h3>
+              {event.description && (
+                <p class="event-description">{event.description}</p>
+              )}
 
               {/* Informations sur l'événement */}
               {(event.date || event.place) && (
@@ -40,6 +44,10 @@ const { seasons } = Astro.props;
                 >
                   {event.project.title}
                 </a>
+              )}
+
+              {event.link && (
+                <CustomLink href={event.link}>En savoir plus</CustomLink>
               )}
             </li>
           ))}

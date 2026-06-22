@@ -55,6 +55,13 @@ export const showBySlugQuery =
     "synopsis": synopsis${customBlockFragment},
     excerpt,
     "infos": infos${customBlockFragment},
+    "dates": dates[]{
+      date,
+      place,
+      title,
+      description,
+      link
+    },
     supports,
     production,
     ${creditsFragment}

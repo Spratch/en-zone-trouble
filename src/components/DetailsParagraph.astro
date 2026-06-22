@@ -1,17 +1,24 @@
 ---
 import type { PortableTextBlock } from "sanity";
-import PortableText from "./PortableText.astro";
 import type { LinksArray } from "../../sanity.types";
 import CustomLink from "./CustomLink.astro";
+import PortableText from "./PortableText.astro";
 
 interface Props {
   title?: string;
   paragraph?: string;
   links?: LinksArray;
   portableText?: PortableTextBlock[];
+  dates?: Array<{
+    date: string;
+    place: string;
+    title: string | null;
+    description: string | null;
+    link: string | null;
+  }>;
 }
 
-const { title, paragraph, links, portableText } = Astro.props;
+const { title, paragraph, links, portableText, dates } = Astro.props;
 ---
 
 <div class="details-item">
@@ -35,6 +42,33 @@ const { title, paragraph, links, portableText } = Astro.props;
         value={portableText}
         class="detail-item-content"
       />
+    )
+  }
+  {
+    dates && (
+      <ul class="events-list">
+        {dates.map((event) => (
+          <li class="event-item">
+            {/* Titre de l'événement */}
+            {event.title && <h3 class="event-title">{event.title}</h3>}
+            {event.description && (
+              <p class="event-description">{event.description}</p>
+            )}
+
+            {/* Informations sur l'événement */}
+            {(event.date || event.place) && (
+              <p class="event-infos">
+                {event.date && <span class="event-date">{event.date}</span>}
+                {event.place && <span class="event-place">{event.place}</span>}
+              </p>
+            )}
+
+            {event.link && (
+              <CustomLink href={event.link}>En savoir plus</CustomLink>
+            )}
+          </li>
+        ))}
+      </ul>
     )
   }
 </div>

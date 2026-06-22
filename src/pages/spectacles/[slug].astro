@@ -93,6 +93,14 @@ const specialLinks = [
             )
           }
           {
+            show.dates && (
+              <DetailsParagraph
+                title="Dates"
+                dates={show.dates}
+              />
+            )
+          }
+          {
             show.links && (
               <DetailsParagraph
                 title="Liens"

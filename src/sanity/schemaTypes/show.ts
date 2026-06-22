@@ -72,13 +72,24 @@ export const showSchema = defineType({
       description:
         "Entrer le texte, il sera affiché avec une typographie scripte",
       type: "text",
-      rows: 3
+      rows: 3,
+      validation: (Rule) =>
+        Rule.max(550).warning(
+          "Un extrait trop long perdra en lisibilité et en harmonie visuelle."
+        )
     }),
     defineField({
       name: "infos",
       title: "Infos",
       description: "Entrer les infos du spectacle (dates, lieu, etc.)",
       type: "customBlock"
+    }),
+    defineField({
+      name: "dates",
+      title: "Dates",
+      description: "Dates de représentation du spectacle",
+      type: "array",
+      of: [{ type: "simpleEvent" }]
     }),
     defineField({
       name: "supports",
