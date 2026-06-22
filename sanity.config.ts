@@ -21,7 +21,7 @@ export default defineConfig({
   plugins: [
     structureTool({
       structure,
-      name: "content",
+      name: "structure",
       title: "Contenus",
       icon: DocumentsIcon
     }),
