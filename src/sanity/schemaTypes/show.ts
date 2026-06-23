@@ -93,15 +93,8 @@ export const showSchema = defineType({
     defineField({
       name: "excerpt",
       title: "Extrait",
-      description:
-        "Entrer le texte, il sera affiché avec une typographie scripte",
-      type: "text",
-      rows: 3,
-      group: "content",
-      validation: (Rule) =>
-        Rule.max(550).warning(
-          "Un extrait trop long perdra en lisibilité et en harmonie visuelle."
-        )
+      type: "excerpt",
+      group: "content"
     }),
     defineField({
       name: "credits",
@@ -112,7 +105,7 @@ export const showSchema = defineType({
     defineField({
       name: "infos",
       title: "Infos",
-      description: "Entrer les infos du spectacle (dates, lieu, etc.)",
+      description: "Entrer des informations supplémentaires sur le spectacle",
       type: "customBlock",
       group: "details"
     }),

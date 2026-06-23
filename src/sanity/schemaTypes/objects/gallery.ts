@@ -4,21 +4,22 @@ import { defineField, defineType } from "sanity";
 export default defineType({
   name: "gallery",
   title: "Galerie",
+  description: "Galerie d'images et de vidéos",
   type: "array",
   of: [
     defineField({
       name: "imageAlt",
       title: "Image",
-      type: "imageAlt",
+      type: "imageAlt"
     }),
     defineField({
       name: "mux.video",
       title: "Vidéo",
       type: "mux.video",
-      icon: VideoIcon,
-    }),
+      icon: VideoIcon
+    })
   ],
   options: {
-    layout: "grid",
-  },
+    layout: "grid"
+  }
 });

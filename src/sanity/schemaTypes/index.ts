@@ -9,6 +9,7 @@ import credits from "./objects/credits";
 import customBlock from "./objects/customBlock";
 import event from "./objects/event";
 import eventsBySeason from "./objects/eventsBySeason";
+import excerpt from "./objects/excerpt";
 import favicon from "./objects/favicon";
 import gallery from "./objects/gallery";
 import imageAlt from "./objects/imageAlt";
@@ -17,6 +18,7 @@ import simpleEvent from "./objects/simpleEvent";
 import { podcastSchema } from "./podcast";
 import { podcastsSchema } from "./podcasts";
 import { researchSchema } from "./research";
+import { researchsSchema } from "./researchs";
 import { settingsSchema } from "./settings";
 import { showSchema } from "./show";
 import { showsSchema } from "./shows";
@@ -24,7 +26,7 @@ import { transmissionSchema } from "./transmission";
 
 const singltetonDocs = [
   settingsSchema,
-  researchSchema,
+  researchsSchema,
   calendarSchema,
   transmissionSchema,
   aboutSchema,
@@ -36,7 +38,8 @@ export const listDocs = [
   podcastSchema,
   memberSchema,
   legalSchema,
-  jobSchema
+  jobSchema,
+  researchSchema
 ];
 const objects = [
   favicon,
@@ -48,7 +51,8 @@ const objects = [
   gallery,
   event,
   simpleEvent,
-  cover
+  cover,
+  excerpt
 ];
 export const schema: SchemaPluginOptions = {
   types: [...singltetonDocs, ...listDocs, ...objects]

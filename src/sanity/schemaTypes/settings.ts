@@ -113,7 +113,7 @@ export const settingsSchema = defineType({
           to: [
             { type: "shows" },
             { type: "podcasts" },
-            { type: "research" },
+            { type: "researchs" },
             { type: "transmission" },
             { type: "calendar" },
             { type: "about" }

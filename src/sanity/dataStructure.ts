@@ -1,5 +1,6 @@
 import {
   CaseIcon,
+  ComposeIcon,
   EyeOpenIcon,
   MicrophoneIcon,
   UsersIcon
@@ -16,6 +17,7 @@ export const dataStructure: StructureResolver = (S) => {
     .items([
       li("show", "Tous les spectacles", EyeOpenIcon, "list"),
       li("podcast", "Tous les podcasts", MicrophoneIcon, "list"),
+      li("research", "Toutes les recherches", ComposeIcon, "list"),
 
       S.divider(),
 
