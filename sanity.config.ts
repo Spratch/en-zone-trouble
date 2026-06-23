@@ -10,6 +10,7 @@ import { muxInput } from "sanity-plugin-mux-input";
 import { webhooksTrigger } from "sanity-plugin-webhooks-trigger";
 import { structureTool } from "sanity/structure";
 import { dataStructure } from "./src/sanity/dataStructure";
+import CustomDocument from "./src/sanity/lib/customDocument";
 import StudioNavBar from "./src/sanity/lib/studioNav";
 import { listDocs, schema } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
@@ -47,6 +48,9 @@ export default defineConfig({
     })
   ],
   document: {
+    components: {
+      unstable_layout: CustomDocument
+    },
     newDocumentOptions: (prev, { creationContext }) => {
       if (
         creationContext.type === "global" ||
