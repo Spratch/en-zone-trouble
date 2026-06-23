@@ -36,7 +36,6 @@ export type Cover = {
   media?: unknown;
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
-  orientation: "landscape" | "portrait";
 };
 
 export type SimpleEvent = {

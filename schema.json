@@ -79,23 +79,6 @@
             "name": "sanity.imageCrop"
           },
           "optional": true
-        },
-        "orientation": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "union",
-            "of": [
-              {
-                "type": "string",
-                "value": "landscape"
-              },
-              {
-                "type": "string",
-                "value": "portrait"
-              }
-            ]
-          },
-          "optional": false
         }
       }
     }
