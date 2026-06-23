@@ -4,6 +4,7 @@ import { calendarSchema } from "./calendar";
 import { jobSchema } from "./job";
 import { legalSchema } from "./legal";
 import { memberSchema } from "./member";
+import cover from "./objects/cover";
 import credits from "./objects/credits";
 import customBlock from "./objects/customBlock";
 import event from "./objects/event";
@@ -46,7 +47,8 @@ const objects = [
   customBlock,
   gallery,
   event,
-  simpleEvent
+  simpleEvent,
+  cover
 ];
 export const schema: SchemaPluginOptions = {
   types: [...singltetonDocs, ...listDocs, ...objects]

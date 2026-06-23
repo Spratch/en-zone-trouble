@@ -80,28 +80,8 @@ export const podcastSchema = defineType({
       name: "cover",
       title: "Couverture",
       description: "Image de couverture du podcast",
-      type: "image",
-      group: "presentation",
-      validation: (rule) =>
-        rule.required().custom((value) => {
-          return value?.asset ? true : "Une image doit être sélectionnée";
-        }),
-      fields: [
-        defineField({
-          name: "orientation",
-          title: "Orientation",
-          description: "Sélectionner l'orientation de l'image",
-          type: "string",
-          initialValue: "landscape",
-          validation: (Rule) => Rule.required(),
-          options: {
-            list: [
-              { title: "Paysage", value: "landscape" },
-              { title: "Portrait", value: "portrait" }
-            ]
-          }
-        })
-      ]
+      type: "cover",
+      group: "presentation"
     }),
     defineField({
       name: "synopsis",

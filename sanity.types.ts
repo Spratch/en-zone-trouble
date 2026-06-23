@@ -21,6 +21,22 @@ type ArrayOf<T> = Array<
 >;
 
 // Source: schema.json
+export type SanityImageAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
+export type Cover = {
+  _type: "cover";
+  asset?: SanityImageAssetReference;
+  media?: unknown;
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  orientation: "landscape" | "portrait";
+};
+
 export type SimpleEvent = {
   _type: "simpleEvent";
   date: string;
@@ -154,13 +170,6 @@ export type Credits = Array<{
   _key: string;
 }>;
 
-export type SanityImageAssetReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-};
-
 export type ImageAlt = {
   _type: "imageAlt";
   asset?: SanityImageAssetReference;
@@ -224,14 +233,7 @@ export type Podcast = {
   title: string;
   slug: Slug;
   date: string;
-  cover: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    orientation: "landscape" | "portrait";
-    _type: "image";
-  };
+  cover: Cover;
   synopsis: CustomBlock;
   episodes?: Array<{
     title: string;
@@ -271,22 +273,6 @@ export type MuxVideo = {
   asset?: MuxVideoAssetReference;
 };
 
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
-};
-
 export type Show = {
   _id: string;
   _type: "show";
@@ -296,14 +282,7 @@ export type Show = {
   title: string;
   slug: Slug;
   date: string;
-  cover: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    orientation: "landscape" | "portrait";
-    _type: "image";
-  };
+  cover: Cover;
   synopsis: CustomBlock;
   excerpt?: string;
   credits?: Credits;
@@ -334,6 +313,22 @@ export type Job = {
   _rev: string;
   title: string;
   slug: Slug;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type Podcasts = {
@@ -675,6 +670,8 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | SanityImageAssetReference
+  | Cover
   | SimpleEvent
   | ShowReference
   | PodcastReference
@@ -688,7 +685,6 @@ export type AllSanitySchemaTypes =
   | LinksArray
   | JobReference
   | Credits
-  | SanityImageAssetReference
   | ImageAlt
   | Favicon
   | Legal
@@ -698,10 +694,10 @@ export type AllSanitySchemaTypes =
   | Podcast
   | MuxVideoAssetReference
   | MuxVideo
-  | SanityImageCrop
-  | SanityImageHotspot
   | Show
   | Job
+  | SanityImageCrop
+  | SanityImageHotspot
   | Podcasts
   | Shows
   | About
