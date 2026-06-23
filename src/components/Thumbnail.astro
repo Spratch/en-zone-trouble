@@ -1,6 +1,7 @@
 ---
 import type {
   PodcastsListQueryResult,
+  ResearchsListQueryResult,
   ShowsListQueryResult
 } from "../../sanity.types";
 import Img from "./Img.astro";
@@ -9,7 +10,8 @@ interface Props {
   parentSlug: string;
   item:
     | NonNullable<PodcastsListQueryResult>["podcasts"][number]
-    | NonNullable<ShowsListQueryResult>["shows"][number];
+    | NonNullable<ShowsListQueryResult>["shows"][number]
+    | NonNullable<ResearchsListQueryResult>["researchs"][number];
 }
 
 const { parentSlug, item } = Astro.props;
@@ -33,7 +35,7 @@ const { parentSlug, item } = Astro.props;
       class="thumbnail-title"
     >
       {item.title}{" "}
-      <span class="title-date">({item.date.split("-")[0]})</span>
+      {item.date && <span class="title-date">({item.date.split("-")[0]})</span>}
     </h2>
   </a>
 </article>

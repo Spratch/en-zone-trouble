@@ -23,7 +23,8 @@ export const researchsSchema = defineType({
       options: {
         source: "title"
       },
-      validation: (Rule) => Rule.required()
+      validation: (Rule) => Rule.required(),
+      hidden: true
     }),
     defineField({
       name: "researchsList",

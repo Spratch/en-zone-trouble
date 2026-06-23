@@ -1,36 +1,24 @@
 ---
 import { sanityClient } from "sanity:client";
-import PortableText from "../../components/PortableText.astro";
+import ContentList from "../../components/ContentList.astro";
 import Layout from "../../layouts/Layout.astro";
-import { researchQuery } from "../../sanity/lib/queries";
+import { researchsListQuery } from "../../sanity/lib/queries";
 
-const research = await sanityClient.fetch(researchQuery);
-if (!research) throw new Error("No research found");
+console.log("test");
+const researchsList = await sanityClient.fetch(researchsListQuery);
+if (!researchsList) throw new Error("Shows not found");
+const { title, slug, researchs } = researchsList;
+if (researchs.length === 1) {
+  return Astro.rewrite(`/${slug}/${researchs[0].slug}`);
+}
 ---
 
-<Layout title={research.title}>
-  <main class="research-page item-page">
-    <h1>{research.title}</h1>
-    <section class="page-grid">
-      <div class="page-left">
-        <PortableText value={research.presentation} />
-      </div>
-
-      <aside class="page-right">
-        <PortableText value={research.notes} />
-      </aside>
-    </section>
-
-    {
-      research.excerpt && (
-        <section class="excerpt">
-          {research.excerptTitle && <h2>{research.excerptTitle}</h2>}
-          <PortableText
-            class="research-excerpt"
-            value={research.excerpt}
-          />
-        </section>
-      )
-    }
+<Layout title={title}>
+  <main class="list-page">
+    <h1 class="sr-only">{title}</h1>
+    <ContentList
+      slug={slug}
+      items={researchs}
+    />
   </main>
 </Layout>

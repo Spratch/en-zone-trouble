@@ -39,12 +39,12 @@ const { seasons, isClassic = true } = Astro.props;
 
               {/* Projet associé à l'événement */}
               {event.project && (
-                <a
+                <CustomLink
                   href={`${contentRoutes[event.project._type]}/${event.project.slug}`}
                   class="event-project"
                 >
                   {event.project.title}
-                </a>
+                </CustomLink>
               )}
 
               {event.link && (

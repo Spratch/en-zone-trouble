@@ -75,12 +75,25 @@ export const podcastBySlugQuery =
   }
 `);
 
-export const researchQuery = defineQuery(`*[_type == "research"][0]{
+export const researchsListQuery = defineQuery(`*[_type == "researchs"][0]{
   title,
+  ${slugFragment},
+  "researchs": researchsList[]->{
+    title,
+    ${slugFragment},
+    date,
+    ${coverFragment}
+  }
+}`);
+
+export const researchBySlugQuery =
+  defineQuery(`*[_type == "research" && slug.current == $slug][0]{
+  ${itemMetaFragment},
   "presentation": presentation${customBlockFragment},
   "notes": notes${customBlockFragment},
-  excerptTitle,
-  "excerpt": excerpt${customBlockFragment}
+  excerpt,
+  "text": text${customBlockFragment},
+  ${itemDetailsFragment}
 }`);
 
 export const calendarQuery = defineQuery(`*[_type == "calendar"][0]{

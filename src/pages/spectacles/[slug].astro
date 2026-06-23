@@ -1,6 +1,5 @@
 ---
 import { sanityClient } from "sanity:client";
-import DetailsParagraph from "../../components/DetailsParagraph.astro";
 import Gallery from "../../components/Gallery.astro";
 import PortableText from "../../components/PortableText.astro";
 import Layout from "../../layouts/Layout.astro";
@@ -19,26 +18,6 @@ const show = await sanityClient.fetch(showBySlugQuery, { slug });
 if (!show) throw new Error("Show not found");
 
 const seoDescription = `${show.synopsis[0]?.children?.[0]?.text?.substring(0, 159)}…`;
-const specialLinks = [
-  ...(show.reservationLink
-    ? [
-        {
-          title: "Réservation",
-          url: show.reservationLink,
-          _key: "reservation"
-        }
-      ]
-    : []),
-  ...(show.presentationFile
-    ? [
-        {
-          title: "Fiche de présentation",
-          url: `${show.presentationFile}?dl=${show.presentationFile.originalFilename}`,
-          _key: "presentation"
-        }
-      ]
-    : [])
-];
 ---
 
 <Layout

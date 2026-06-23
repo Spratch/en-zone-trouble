@@ -1,0 +1,59 @@
+---
+import { sanityClient } from "sanity:client";
+import DetailsSection from "../../components/DetailsSection.astro";
+import Gallery from "../../components/Gallery.astro";
+import PortableText from "../../components/PortableText.astro";
+import Layout from "../../layouts/Layout.astro";
+import {
+  researchBySlugQuery,
+  researchsListQuery
+} from "../../sanity/lib/queries";
+
+export async function getStaticPaths() {
+  const researchsList = await sanityClient.fetch(researchsListQuery);
+  if (!researchsList) throw new Error("Shows not found");
+  const { researchs } = researchsList;
+  return researchs.map(({ slug }) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const research = await sanityClient.fetch(researchBySlugQuery, { slug });
+if (!research) throw new Error("Research page not found");
+
+const seoDescription = `${research.presentation[0]?.children?.[0]?.text?.substring(0, 159)}…`;
+---
+
+<Layout
+  title={research.title}
+  description={seoDescription}
+  seoImage={research.seoImage || ""}
+  type="article"
+>
+  <main class="research-page item-page">
+    <h1>{research.title}</h1>
+    <section class="page-grid">
+      <div class="page-left">
+        <PortableText
+          class="synopsis presentation"
+          value={research.presentation}
+        />
+
+        <DetailsSection item={research} />
+      </div>
+
+      <aside class="page-right">
+        {research.excerpt && <p class="excerpt">{research.excerpt}</p>}
+        {
+          research.notes && (
+            <PortableText
+              class="notes credits"
+              value={research.notes}
+            />
+          )
+        }
+      </aside>
+    </section>
+  </main>
+  {/* Galerie */}
+  {research.gallery && <Gallery gallery={research.gallery} />}
+</Layout>

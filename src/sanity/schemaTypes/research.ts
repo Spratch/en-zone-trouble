@@ -61,6 +61,14 @@ export const researchSchema = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
+      name: "date",
+      title: "Date",
+      description: "Date liée à la page",
+      type: "date",
+      options: { dateFormat: "DD/MM/YYYY" },
+      group: "presentation"
+    }),
+    defineField({
       name: "cover",
       title: "Couverture",
       description: "Image de présentation de la page",

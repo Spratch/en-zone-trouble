@@ -6,36 +6,28 @@ interface Props {
   href?: string;
   refType?: string;
   slug?: string;
+  class?: string;
 }
 
-const { href, refType, slug } = Astro.props;
+const { href, refType, slug, class: className } = Astro.props;
 
 const url =
   href ??
   `${contentRoutes[refType as keyof typeof contentRoutes]}/${refType === "member" ? "" : slug}`;
-const Icon = href
+const isExternal = href && href.startsWith("http");
+const Icon = isExternal
   ? href.endsWith(".pdf")
     ? DownloadIcon
     : ArrowTopRightIcon
   : null;
 ---
 
-<span class:list={["link", href ? "external" : "internal"]}
+<span class:list={["link", isExternal ? "external" : "internal", className]}
   ><a
     href={url}
-    target={href ? "_blank" : undefined}
-    rel={href ? "noopener noreferrer" : undefined}
+    target={isExternal ? "_blank" : undefined}
+    rel={isExternal ? "noopener noreferrer" : undefined}
     ><slot /></a
   >
-  {
-    Icon && (
-      <Icon
-        style={{
-          display: "inline-block",
-          marginBottom: "0.25em",
-          marginLeft: "-0.25em"
-        }}
-      />
-    )
-  }</span
+  {Icon && <Icon />}</span
 >

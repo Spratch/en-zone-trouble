@@ -1,6 +1,7 @@
 ---
 import type {
   PodcastsListQueryResult,
+  ResearchsListQueryResult,
   ShowsListQueryResult
 } from "../../sanity.types";
 import Thumbnail from "./Thumbnail.astro";
@@ -9,7 +10,8 @@ interface Props {
   slug: string;
   items:
     | NonNullable<ShowsListQueryResult>["shows"]
-    | NonNullable<PodcastsListQueryResult>["podcasts"];
+    | NonNullable<PodcastsListQueryResult>["podcasts"]
+    | NonNullable<ResearchsListQueryResult>["researchs"];
 }
 
 const { slug, items } = Astro.props;
