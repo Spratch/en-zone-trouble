@@ -1,17 +1,58 @@
-import { DocumentVideoIcon, MicrophoneIcon } from "@sanity/icons";
-import { defineField, defineType } from "sanity";
+import {
+  BlockContentIcon,
+  DocumentVideoIcon,
+  ImagesIcon,
+  InfoOutlineIcon,
+  MicrophoneIcon,
+  PresentationIcon,
+  UsersIcon
+} from "@sanity/icons";
+import { ALL_FIELDS_GROUP, defineField, defineType } from "sanity";
 
 export const podcastSchema = defineType({
   name: "podcast",
   title: "Podcasts",
   type: "document",
   icon: MicrophoneIcon,
+  groups: [
+    {
+      ...ALL_FIELDS_GROUP,
+      hidden: true
+    },
+    {
+      name: "presentation",
+      title: "Présentation",
+      icon: PresentationIcon,
+      default: true
+    },
+    {
+      name: "content",
+      title: "Contenu",
+      icon: BlockContentIcon
+    },
+    {
+      name: "details",
+      title: "Détails",
+      icon: InfoOutlineIcon
+    },
+    {
+      name: "credits",
+      title: "Crédits",
+      icon: UsersIcon
+    },
+    {
+      name: "gallery",
+      title: "Galerie",
+      icon: ImagesIcon
+    }
+  ],
   fields: [
     defineField({
       name: "title",
       title: "Titre",
       description: "Titre du podcast",
       type: "string",
+      group: "presentation",
       validation: (Rule) => Rule.required()
     }),
     defineField({
@@ -23,6 +64,7 @@ export const podcastSchema = defineType({
       options: {
         source: "title"
       },
+      group: "presentation",
       validation: (Rule) => Rule.required()
     }),
     defineField({
@@ -31,6 +73,7 @@ export const podcastSchema = defineType({
       description: "Date de création du podcast",
       type: "date",
       options: { dateFormat: "DD/MM/YYYY" },
+      group: "presentation",
       validation: (Rule) => Rule.required()
     }),
     defineField({
@@ -38,6 +81,7 @@ export const podcastSchema = defineType({
       title: "Couverture",
       description: "Image de couverture du podcast",
       type: "image",
+      group: "presentation",
       validation: (rule) =>
         rule.required().custom((value) => {
           return value?.asset ? true : "Une image doit être sélectionnée";
@@ -64,6 +108,7 @@ export const podcastSchema = defineType({
       title: "Synopsis",
       description: "Synopsis du podcast",
       type: "customBlock",
+      group: "content",
       validation: (Rule) => Rule.required()
     }),
     defineField({
@@ -98,50 +143,58 @@ export const podcastSchema = defineType({
             })
           ]
         }
-      ]
+      ],
+      group: "content"
+    }),
+    defineField({
+      name: "credits",
+      title: "Crédits",
+      type: "credits",
+      group: "credits"
     }),
     defineField({
       name: "infos",
       title: "Infos",
       description: "Entrer les infos du spectacle (dates, lieu, etc.)",
-      type: "customBlock"
+      type: "customBlock",
+      group: "details"
     }),
     defineField({
       name: "supports",
       title: "Soutiens",
       description: "Soutenu par…",
       type: "text",
-      rows: 2
+      rows: 2,
+      group: "details"
     }),
     defineField({
       name: "production",
       title: "Production",
       description: "Crédits de production",
       type: "text",
-      rows: 2
-    }),
-    defineField({
-      name: "credits",
-      title: "Crédits",
-      type: "credits"
-    }),
-    defineField({
-      name: "gallery",
-      title: "Galerie",
-      description: "Images liées au podcast",
-      type: "gallery"
+      rows: 2,
+      group: "details"
     }),
     defineField({
       name: "links",
       title: "Liens",
       description: "Liste des liens liés au podcast",
-      type: "linksArray"
+      type: "linksArray",
+      group: "details"
     }),
     defineField({
       name: "press",
       title: "Presse et récompenses",
       description: "Liste des liens de presse liés au podcast",
-      type: "linksArray"
+      type: "linksArray",
+      group: "details"
+    }),
+    defineField({
+      name: "gallery",
+      title: "Galerie",
+      description: "Images liées au podcast",
+      type: "gallery",
+      group: "gallery"
     })
   ],
   preview: {

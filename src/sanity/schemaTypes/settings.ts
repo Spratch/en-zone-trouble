@@ -1,15 +1,39 @@
-import { defineArrayMember, defineField, defineType } from "sanity";
+import { InfoOutlineIcon, MenuIcon } from "@sanity/icons";
+import {
+  ALL_FIELDS_GROUP,
+  defineArrayMember,
+  defineField,
+  defineType
+} from "sanity";
 
 export const settingsSchema = defineType({
   name: "settings",
   title: "Paramètres",
   type: "document",
+  groups: [
+    {
+      ...ALL_FIELDS_GROUP,
+      hidden: true
+    },
+    {
+      name: "infos",
+      title: "Infos",
+      icon: InfoOutlineIcon,
+      default: true
+    },
+    {
+      name: "footer",
+      title: "Menu de navigation",
+      icon: MenuIcon
+    }
+  ],
   fields: [
     defineField({
       name: "title",
       title: "Titre du site",
       description: "Titre du site affiché sur les pages et les métadonnées",
       type: "string",
+      group: "infos",
       validation: (Rule) =>
         Rule.required()
           .max(60)
@@ -21,6 +45,7 @@ export const settingsSchema = defineType({
       type: "text",
       rows: 3,
       description: "Entrez la description du site",
+      group: "infos",
       validation: (Rule) =>
         Rule.required()
           .max(160)
@@ -51,7 +76,16 @@ export const settingsSchema = defineType({
           description:
             "Choisissez le favicon clair utilisé sur les fonds sombres (PNG)"
         }
-      ]
+      ],
+      group: "infos"
+    }),
+    defineField({
+      name: "homeImage",
+      title: "Image d'accueil",
+      type: "imageAlt",
+      description: "Image affichée sur la page d'accueil",
+      group: "infos",
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       name: "logo",
@@ -61,13 +95,7 @@ export const settingsSchema = defineType({
       options: {
         accept: "image/svg+xml"
       },
-      validation: (Rule) => Rule.required()
-    }),
-    defineField({
-      name: "homeImage",
-      title: "Image d'accueil",
-      type: "imageAlt",
-      description: "Image affichée sur la page d'accueil",
+      group: "footer",
       validation: (Rule) => Rule.required()
     }),
     defineField({
@@ -107,6 +135,7 @@ export const settingsSchema = defineType({
           }
         })
       ],
+      group: "footer",
       validation: (Rule) => Rule.required()
     })
   ]
