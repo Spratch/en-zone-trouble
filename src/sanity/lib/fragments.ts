@@ -90,3 +90,12 @@ export const itemDetailsFragment = `
     originalFilename
   }
 `;
+
+export const coverFragment = `
+  "cover": cover{
+    ${imageSrcFragment},
+    "orientation": select(asset->metadata.dimensions.aspectRatio < 1 => "portrait", "landscape"),
+    crop,
+    hotspot,
+  }
+`;

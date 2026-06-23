@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity";
+import { defineType } from "sanity";
 
 export default defineType({
   name: "cover",
@@ -8,21 +8,5 @@ export default defineType({
   validation: (rule) =>
     rule.required().custom((value) => {
       return value?.asset ? true : "Une image doit être sélectionnée";
-    }),
-  fields: [
-    defineField({
-      name: "orientation",
-      title: "Orientation",
-      description: "Sélectionner l'orientation de l'image",
-      type: "string",
-      initialValue: "landscape",
-      validation: (Rule) => Rule.required(),
-      options: {
-        list: [
-          { title: "Paysage", value: "landscape" },
-          { title: "Portrait", value: "portrait" }
-        ]
-      }
     })
-  ]
 });

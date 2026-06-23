@@ -21,6 +21,8 @@ type ArrayOf<T> = Array<
 >;
 
 // Source: schema.json
+export type Excerpt = string;
+
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -284,7 +286,7 @@ export type Show = {
   date: string;
   cover: Cover;
   synopsis: CustomBlock;
-  excerpt?: string;
+  excerpt?: Excerpt;
   credits?: Credits;
   infos?: CustomBlock;
   dates?: Array<
@@ -313,22 +315,6 @@ export type Job = {
   _rev: string;
   title: string;
   slug: Slug;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
 };
 
 export type Podcasts = {
@@ -418,9 +404,27 @@ export type Research = {
   _rev: string;
   title: string;
   slug: Slug;
+  cover: Cover;
   presentation: CustomBlock;
   notes?: CustomBlock;
-  excerpt?: string;
+  excerpt?: Excerpt;
+  gallery?: Gallery;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type ShowsReference = {
@@ -670,6 +674,7 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | Excerpt
   | SanityImageAssetReference
   | Cover
   | SimpleEvent
@@ -696,14 +701,14 @@ export type AllSanitySchemaTypes =
   | MuxVideo
   | Show
   | Job
-  | SanityImageCrop
-  | SanityImageHotspot
   | Podcasts
   | Shows
   | About
   | Transmission
   | Calendar
   | Research
+  | SanityImageCrop
+  | SanityImageHotspot
   | ShowsReference
   | PodcastsReference
   | CalendarReference
@@ -761,7 +766,7 @@ export type HomeImageQueryResult = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: showsListQuery
-// Query: *[_type == "shows"][0]{  title,  "slug": slug.current,  "shows": showsList[]->{    title,    "slug": slug.current,    date,    "cover": cover{      "src": coalesce(asset->url, ""),      "orientation": coalesce(orientation, "landscape"),      crop,      hotspot,    },  }}
+// Query: *[_type == "shows"][0]{  title,  "slug": slug.current,  "shows": showsList[]->{    title,    "slug": slug.current,    date,      "cover": cover{    "src": coalesce(asset->url, ""),    "orientation": select(asset->metadata.dimensions.aspectRatio < 1 => "portrait", "landscape"),    crop,    hotspot,  }  }}
 export type ShowsListQueryResult = {
   title: string;
   slug: string;
@@ -811,7 +816,7 @@ export type ShowBySlugQueryResult = {
     _type: "block";
     _key: string;
   }>;
-  excerpt: string | null;
+  excerpt: Excerpt | null;
   infos: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -885,7 +890,7 @@ export type ShowBySlugQueryResult = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: podcastsListQuery
-// Query: *[_type == "podcasts"][0]{  title,  "slug": slug.current,  "podcasts": podcastsList[]->{    title,    "slug": slug.current,    date,    "cover": cover{      "src": coalesce(asset->url, ""),      "orientation": coalesce(orientation, "landscape"),      crop,      hotspot,    },  }}
+// Query: *[_type == "podcasts"][0]{  title,  "slug": slug.current,  "podcasts": podcastsList[]->{    title,    "slug": slug.current,    date,      "cover": cover{    "src": coalesce(asset->url, ""),    "orientation": select(asset->metadata.dimensions.aspectRatio < 1 => "portrait", "landscape"),    crop,    hotspot,  }  }}
 export type PodcastsListQueryResult = {
   title: string;
   slug: string;
@@ -1386,9 +1391,9 @@ declare module "@sanity/client" {
     '*[_type == "settings"][0]{\n    title,\n    description,\n    "favicons": favicon{\n      "light": light.asset->url,\n      "dark": dark.asset->url,\n    },\n    "seoImage": homeImage.asset->url,\n  }': LayoutSettingsQueryResult;
     '*[_type == "settings"][0]{\n    title,\n    "navigation": navigation[]->{\n      title,\n      "slug": slug.current\n    },\n    "navigationLogo": logo.asset->url,\n  }': FooterSettingsQueryResult;
     '*[_type == "settings"\n  && defined(homeImage.asset->url)][0].homeImage{\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n}': HomeImageQueryResult;
-    '*[_type == "shows"][0]{\n  title,\n  "slug": slug.current,\n  "shows": showsList[]->{\n    title,\n    "slug": slug.current,\n    date,\n    "cover": cover{\n      "src": coalesce(asset->url, ""),\n      "orientation": coalesce(orientation, "landscape"),\n      crop,\n      hotspot,\n    },\n  }\n}': ShowsListQueryResult;
+    '*[_type == "shows"][0]{\n  title,\n  "slug": slug.current,\n  "shows": showsList[]->{\n    title,\n    "slug": slug.current,\n    date,\n    \n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    "orientation": select(asset->metadata.dimensions.aspectRatio < 1 => "portrait", "landscape"),\n    crop,\n    hotspot,\n  }\n\n  }\n}': ShowsListQueryResult;
     '*[_type == "show" && slug.current == $slug][0]{\n    \n  title,\n  "slug": slug.current,\n  date,\n  "seoImage": cover.asset->url\n,\n    "synopsis": synopsis[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    excerpt,\n    \n  "infos": infos[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  "dates": dates[]{\n    date,\n    place,\n    title,\n    description,\n    link\n  },\n  supports,\n  production,\n  "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n  "gallery": gallery[]{\n  _type,\n  _type == "imageAlt" => {\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n},\n  _type == "mux.video" => {\n    "playbackId": coalesce(asset->playbackId, ""),\n  }\n},\n  links,\n  press,\n  reservationLink,\n  "presentationFile": presentationFile.asset->{\n    url,\n    originalFilename\n  }\n\n  }\n': ShowBySlugQueryResult;
-    '*[_type == "podcasts"][0]{\n  title,\n  "slug": slug.current,\n  "podcasts": podcastsList[]->{\n    title,\n    "slug": slug.current,\n    date,\n    "cover": cover{\n      "src": coalesce(asset->url, ""),\n      "orientation": coalesce(orientation, "landscape"),\n      crop,\n      hotspot,\n    },\n  }\n}': PodcastsListQueryResult;
+    '*[_type == "podcasts"][0]{\n  title,\n  "slug": slug.current,\n  "podcasts": podcastsList[]->{\n    title,\n    "slug": slug.current,\n    date,\n    \n  "cover": cover{\n    "src": coalesce(asset->url, ""),\n    "orientation": select(asset->metadata.dimensions.aspectRatio < 1 => "portrait", "landscape"),\n    crop,\n    hotspot,\n  }\n\n  }\n}': PodcastsListQueryResult;
     '*[_type == "podcast" && slug.current == $slug][0]{\n    \n  title,\n  "slug": slug.current,\n  date,\n  "seoImage": cover.asset->url\n,\n    "synopsis": synopsis[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n    "episodes": episodes[]{\n      title,\n      "playbackId": mp3.asset->playbackId,\n    },\n    \n  "infos": infos[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  "dates": dates[]{\n    date,\n    place,\n    title,\n    description,\n    link\n  },\n  supports,\n  production,\n  "credits": credits[]{\n  "title": title->title,\n  "value": value[]{\n    _type == "reference" => @->{\n      _type,\n      "name": name,\n      "slug": slug.current,\n      "link": link,\n    },\n    _type != "reference" => @{\n      _type,\n      "text": value,\n    },\n  },\n},\n  "gallery": gallery[]{\n  _type,\n  _type == "imageAlt" => {\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n},\n  _type == "mux.video" => {\n    "playbackId": coalesce(asset->playbackId, ""),\n  }\n},\n  links,\n  press,\n  reservationLink,\n  "presentationFile": presentationFile.asset->{\n    url,\n    originalFilename\n  }\n\n  }\n': PodcastBySlugQueryResult;
     '*[_type == "research"][0]{\n  title,\n  "presentation": presentation[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  "notes": notes[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  excerptTitle,\n  "excerpt": excerpt[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n}': ResearchQueryResult;
     '*[_type == "calendar"][0]{\n  title,\n  "introduction": introduction[]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n\n}': CalendarQueryResult;

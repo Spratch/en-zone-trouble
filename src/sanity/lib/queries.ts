@@ -1,9 +1,9 @@
 import { defineQuery } from "groq";
 import {
+  coverFragment,
   customBlockFragment,
   galleryFragment,
   imageAltFragment,
-  imageSrcFragment,
   itemDetailsFragment,
   itemMetaFragment,
   seasonsFragment,
@@ -39,12 +39,7 @@ export const showsListQuery = defineQuery(`*[_type == "shows"][0]{
     title,
     ${slugFragment},
     date,
-    "cover": cover{
-      ${imageSrcFragment},
-      "orientation": coalesce(orientation, "landscape"),
-      crop,
-      hotspot,
-    },
+    ${coverFragment}
   }
 }`);
 
@@ -64,12 +59,7 @@ export const podcastsListQuery = defineQuery(`*[_type == "podcasts"][0]{
     title,
     ${slugFragment},
     date,
-    "cover": cover{
-      ${imageSrcFragment},
-      "orientation": coalesce(orientation, "landscape"),
-      crop,
-      hotspot,
-    },
+    ${coverFragment}
   }
 }`);
 
