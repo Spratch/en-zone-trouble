@@ -694,12 +694,19 @@ main.company-page {
       }
 
       & .member-item {
-        padding-bottom: 10px;
-        line-height: 15px;
+        line-height: 1.185;
 
-        @media (min-width: 48rem) {
-          padding-bottom: 10px;
-          line-height: 18px;
+        & .member-link {
+          display: inline-flex;
+          flex-direction: row;
+          align-items: start;
+          font-size: var(--font-size-sous-titre);
+
+          & svg {
+            margin-top: -5px;
+            margin-left: 0;
+            font-size: 0.75em;
+          }
         }
 
         & span.member-name {

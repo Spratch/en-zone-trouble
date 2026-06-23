@@ -1,5 +1,6 @@
 ---
 import { sanityClient } from "sanity:client";
+import CustomLink from "../../components/CustomLink.astro";
 import PortableText from "../../components/PortableText.astro";
 import SeasonList from "../../components/SeasonList.astro";
 import Layout from "../../layouts/Layout.astro";
@@ -32,7 +33,16 @@ if (!about) throw new Error("About page not found");
               <ul>
                 {about.members.map((member) => (
                   <li class="member-item">
-                    <span class="member-name">{member.name}</span>{" "}
+                    {member.link ? (
+                      <CustomLink
+                        href={member.link}
+                        class="member-link"
+                      >
+                        <span class="member-name">{member.name}</span>
+                      </CustomLink>
+                    ) : (
+                      <span class="member-name">{member.name}</span>
+                    )}{" "}
                     <span class="member-role">{member.role}</span>
                   </li>
                 ))}
@@ -122,16 +132,18 @@ if (!about) throw new Error("About page not found");
               {about.credits.map((credit) => (
                 <div>
                   <p class="credit-title">{credit.title}</p>
-                  {credit.value
-                    .map((person) => (
-                      <a
-                        href={person.link}
-                        target="_blank"
-                      >
-                        {person.name}
-                      </a>
-                    ))
-                    .reduce((prev, curr) => [prev, ", ", curr])}
+                  <p>
+                    {credit.value
+                      .map((person) => (
+                        <a
+                          href={person.link}
+                          target="_blank"
+                        >
+                          {person.name}
+                        </a>
+                      ))
+                      .reduce((prev, curr) => [prev, ", ", curr])}
+                  </p>
                 </div>
               ))}
             </section>
