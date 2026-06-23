@@ -5,6 +5,7 @@ import Gallery from "../../components/Gallery.astro";
 import PortableText from "../../components/PortableText.astro";
 import Layout from "../../layouts/Layout.astro";
 import { showBySlugQuery, showsListQuery } from "../../sanity/lib/queries";
+import DetailsSection from "../../components/DetailsSection.astro";
 
 export async function getStaticPaths() {
   const showsList = await sanityClient.fetch(showsListQuery);
@@ -56,67 +57,7 @@ const specialLinks = [
           value={show.synopsis}
         />
 
-        {/* Details section */}
-        <section class="details">
-          {/* Special links */}
-          {
-            (show.reservationLink || show.presentationFile) && (
-              <h2>
-                {" "}
-                <DetailsParagraph links={specialLinks} />
-              </h2>
-            )
-          }
-
-          {
-            show.infos && (
-              <DetailsParagraph
-                title="Informations"
-                portableText={show.infos}
-              />
-            )
-          }
-          {
-            show.production && (
-              <DetailsParagraph
-                title="Production"
-                paragraph={show.production}
-              />
-            )
-          }
-          {
-            show.supports && (
-              <DetailsParagraph
-                title="Soutiens"
-                paragraph={show.supports}
-              />
-            )
-          }
-          {
-            show.dates && (
-              <DetailsParagraph
-                title="Dates"
-                dates={show.dates}
-              />
-            )
-          }
-          {
-            show.links && (
-              <DetailsParagraph
-                title="Liens"
-                links={show.links}
-              />
-            )
-          }
-          {
-            show.press && (
-              <DetailsParagraph
-                title="Presse"
-                links={show.press}
-              />
-            )
-          }
-        </section>
+        <DetailsSection item={show} />
       </div>
 
       <aside class="page-right">

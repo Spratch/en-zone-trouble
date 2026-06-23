@@ -160,6 +160,15 @@ export const podcastSchema = defineType({
       group: "details"
     }),
     defineField({
+      name: "dates",
+      title: "Dates",
+      description: "Dates de représentation du podcast",
+      type: "array",
+      of: [{ type: "simpleEvent" }],
+      group: "details",
+      hidden: true
+    }),
+    defineField({
       name: "supports",
       title: "Soutiens",
       description: "Soutenu par…",
@@ -173,6 +182,24 @@ export const podcastSchema = defineType({
       description: "Crédits de production",
       type: "text",
       rows: 2,
+      group: "details"
+    }),
+    defineField({
+      name: "reservationLink",
+      title: "Lien de réservation",
+      description: "Lien vers la billetterie du podcast",
+      type: "url",
+      group: "details",
+      hidden: true
+    }),
+    defineField({
+      name: "presentationFile",
+      title: "Fichier de présentation",
+      description: "Fichier PDF de présentation du podcast",
+      type: "file",
+      options: {
+        accept: ".pdf"
+      },
       group: "details"
     }),
     defineField({

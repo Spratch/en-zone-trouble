@@ -1045,6 +1045,36 @@
     }
   },
   {
+    "type": "type",
+    "name": "sanity.fileAsset.reference",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_ref": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          }
+        },
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "reference"
+          }
+        },
+        "_weak": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "boolean"
+          },
+          "optional": true
+        }
+      },
+      "dereferencesTo": "sanity.fileAsset"
+    }
+  },
+  {
     "name": "podcast",
     "type": "document",
     "attributes": {
@@ -1218,11 +1248,41 @@
         },
         "optional": true
       },
+      "credits": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "credits"
+        },
+        "optional": true
+      },
       "infos": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
           "name": "customBlock"
+        },
+        "optional": true
+      },
+      "dates": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "simpleEvent"
+            }
+          }
         },
         "optional": true
       },
@@ -1240,19 +1300,41 @@
         },
         "optional": true
       },
-      "credits": {
+      "reservationLink": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "credits"
+          "type": "string"
         },
         "optional": true
       },
-      "gallery": {
+      "presentationFile": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "gallery"
+          "type": "object",
+          "attributes": {
+            "asset": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.fileAsset.reference"
+              },
+              "optional": true
+            },
+            "media": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "unknown"
+              },
+              "optional": true
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "file"
+              }
+            }
+          }
         },
         "optional": true
       },
@@ -1269,6 +1351,14 @@
         "value": {
           "type": "inline",
           "name": "linksArray"
+        },
+        "optional": true
+      },
+      "gallery": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "gallery"
         },
         "optional": true
       }
@@ -1417,36 +1507,6 @@
     }
   },
   {
-    "type": "type",
-    "name": "sanity.fileAsset.reference",
-    "value": {
-      "type": "object",
-      "attributes": {
-        "_ref": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string"
-          }
-        },
-        "_type": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "string",
-            "value": "reference"
-          }
-        },
-        "_weak": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "boolean"
-          },
-          "optional": true
-        }
-      },
-      "dereferencesTo": "sanity.fileAsset"
-    }
-  },
-  {
     "name": "show",
     "type": "document",
     "attributes": {
@@ -1582,6 +1642,14 @@
         },
         "optional": true
       },
+      "credits": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "credits"
+        },
+        "optional": true
+      },
       "infos": {
         "type": "objectAttribute",
         "value": {
@@ -1626,38 +1694,6 @@
         },
         "optional": true
       },
-      "credits": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "credits"
-        },
-        "optional": true
-      },
-      "gallery": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "gallery"
-        },
-        "optional": true
-      },
-      "links": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "linksArray"
-        },
-        "optional": true
-      },
-      "press": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "linksArray"
-        },
-        "optional": true
-      },
       "reservationLink": {
         "type": "objectAttribute",
         "value": {
@@ -1693,6 +1729,30 @@
               }
             }
           }
+        },
+        "optional": true
+      },
+      "links": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "linksArray"
+        },
+        "optional": true
+      },
+      "press": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "linksArray"
+        },
+        "optional": true
+      },
+      "gallery": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "gallery"
         },
         "optional": true
       }
@@ -2242,18 +2302,10 @@
         },
         "optional": true
       },
-      "excerptTitle": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "excerpt": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "customBlock"
+          "type": "string"
         },
         "optional": true
       }
@@ -2453,6 +2505,14 @@
         },
         "optional": true
       },
+      "homeImage": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "imageAlt"
+        },
+        "optional": false
+      },
       "logo": {
         "type": "objectAttribute",
         "value": {
@@ -2497,14 +2557,6 @@
               }
             }
           }
-        },
-        "optional": false
-      },
-      "homeImage": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "imageAlt"
         },
         "optional": false
       },

@@ -1,0 +1,95 @@
+---
+import type {
+  PodcastBySlugQueryResult,
+  ShowBySlugQueryResult
+} from "../../sanity.types";
+import DetailsParagraph from "./DetailsParagraph.astro";
+
+interface Props {
+  item:
+    | NonNullable<ShowBySlugQueryResult>
+    | NonNullable<PodcastBySlugQueryResult>;
+}
+
+const { item } = Astro.props;
+
+const specialLinks = [
+  ...(item.reservationLink
+    ? [
+        {
+          title: "Réservation",
+          url: item.reservationLink,
+          _key: "reservation"
+        }
+      ]
+    : []),
+  ...(item.presentationFile
+    ? [
+        {
+          title: "Fiche de présentation",
+          url: `${item.presentationFile}?dl=${item.presentationFile.originalFilename}`,
+          _key: "presentation"
+        }
+      ]
+    : [])
+];
+---
+
+<section class="details">
+  {
+    (item.reservationLink || item.presentationFile) && (
+      <h2>
+        {" "}
+        <DetailsParagraph links={specialLinks} />
+      </h2>
+    )
+  }
+  {
+    item.infos && (
+      <DetailsParagraph
+        title="Informations"
+        portableText={item.infos}
+      />
+    )
+  }
+  {
+    item.production && (
+      <DetailsParagraph
+        title="Production"
+        paragraph={item.production}
+      />
+    )
+  }
+  {
+    item.supports && (
+      <DetailsParagraph
+        title="Soutiens"
+        paragraph={item.supports}
+      />
+    )
+  }
+  {
+    item.dates && (
+      <DetailsParagraph
+        title="Dates"
+        dates={item.dates}
+      />
+    )
+  }
+  {
+    item.links && (
+      <DetailsParagraph
+        title="Liens"
+        links={item.links}
+      />
+    )
+  }
+  {
+    item.press && (
+      <DetailsParagraph
+        title="Presse"
+        links={item.press}
+      />
+    )
+  }
+</section>

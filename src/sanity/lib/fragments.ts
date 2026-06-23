@@ -61,3 +61,32 @@ export const galleryFragment = `{
     "playbackId": coalesce(asset->playbackId, ""),
   }
 }`;
+
+export const itemMetaFragment = `
+  title,
+  ${slugFragment},
+  date,
+  "seoImage": cover.asset->url
+`;
+
+export const itemDetailsFragment = `
+  "infos": infos${customBlockFragment},
+  "dates": dates[]{
+    date,
+    place,
+    title,
+    description,
+    link
+  },
+  supports,
+  production,
+  ${creditsFragment}
+  "gallery": gallery[]${galleryFragment},
+  links,
+  press,
+  reservationLink,
+  "presentationFile": presentationFile.asset->{
+    url,
+    originalFilename
+  }
+`;

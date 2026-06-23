@@ -1,10 +1,11 @@
 import { defineQuery } from "groq";
 import {
-  creditsFragment,
   customBlockFragment,
   galleryFragment,
   imageAltFragment,
   imageSrcFragment,
+  itemDetailsFragment,
+  itemMetaFragment,
   seasonsFragment,
   slugFragment
 } from "./fragments";
@@ -49,31 +50,10 @@ export const showsListQuery = defineQuery(`*[_type == "shows"][0]{
 
 export const showBySlugQuery =
   defineQuery(`*[_type == "show" && slug.current == $slug][0]{
-    title,
-    ${slugFragment},
-    date,
+    ${itemMetaFragment},
     "synopsis": synopsis${customBlockFragment},
     excerpt,
-    "infos": infos${customBlockFragment},
-    "dates": dates[]{
-      date,
-      place,
-      title,
-      description,
-      link
-    },
-    supports,
-    production,
-    ${creditsFragment}
-    "gallery": gallery[]${galleryFragment},
-    links,
-    press,
-    reservationLink,
-    "presentationFile": presentationFile.asset->{
-      url,
-      originalFilename
-    },
-    "seoImage": cover.asset->url
+    ${itemDetailsFragment}
   }
 `);
 
@@ -95,22 +75,13 @@ export const podcastsListQuery = defineQuery(`*[_type == "podcasts"][0]{
 
 export const podcastBySlugQuery =
   defineQuery(`*[_type == "podcast" && slug.current == $slug][0]{
-    title,
-    ${slugFragment},
-    date,
+    ${itemMetaFragment},
     "synopsis": synopsis${customBlockFragment},
     "episodes": episodes[]{
       title,
       "playbackId": mp3.asset->playbackId,
     },
-    "infos": infos${customBlockFragment},
-    supports,
-    production,
-    ${creditsFragment}
-    "gallery": gallery[]${galleryFragment},
-    links,
-    press,
-    "seoImage": cover.asset->url
+    ${itemDetailsFragment}
   }
 `);
 

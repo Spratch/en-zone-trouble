@@ -8,6 +8,7 @@ import {
 } from "../../sanity/lib/queries";
 import Gallery from "../../components/Gallery.astro";
 import DetailsParagraph from "../../components/DetailsParagraph.astro";
+import DetailsSection from "../../components/DetailsSection.astro";
 
 export async function getStaticPaths() {
   const podcastsList = await sanityClient.fetch(podcastsListQuery);
@@ -84,49 +85,7 @@ const audios = podcast.episodes
           )
         }
 
-        {/* Details section */}
-        <section class="details">
-          {
-            podcast.infos && (
-              <DetailsParagraph
-                title="Informations"
-                portableText={podcast.infos}
-              />
-            )
-          }
-          {
-            podcast.production && (
-              <DetailsParagraph
-                title="Production"
-                paragraph={podcast.production}
-              />
-            )
-          }
-          {
-            podcast.supports && (
-              <DetailsParagraph
-                title="Soutiens"
-                paragraph={podcast.supports}
-              />
-            )
-          }
-          {
-            podcast.links && (
-              <DetailsParagraph
-                title="Liens"
-                links={podcast.links}
-              />
-            )
-          }
-          {
-            podcast.press && (
-              <DetailsParagraph
-                title="Presse"
-                links={podcast.press}
-              />
-            )
-          }
-        </section>
+        <DetailsSection item={podcast} />
       </div>
 
       <aside class="page-right">
