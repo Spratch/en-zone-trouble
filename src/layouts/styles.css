@@ -17,9 +17,11 @@
   --font-size-labeur: 18px;
   --font-size-sous-titre: 20px;
   --font-size-titre: 45px;
+  --font-size-script: 18px;
 
   --line-height-detail: 17px;
   --line-height-labeur: 22px;
+  --line-height-script: 22px;
 
   --text-gradient-first-stop: 30dvh;
   --text-gradient-second-stop: 50dvh;
@@ -30,9 +32,11 @@
     --font-size-labeur: 20px;
     --font-size-sous-titre: 25px;
     --font-size-titre: 50px;
+    --font-size-script: 20px;
 
-    --line-height-detail: 20px;
+    --line-height-detail: 18px;
     --line-height-labeur: 25px;
+    --line-height-script: 25.5px;
   }
 
   --p-max-w: auto;
@@ -332,7 +336,7 @@ main {
     & .details-wrapper {
       padding-top: 40px;
       font-size: var(--font-size-detail);
-      line-height: 16px;
+      line-height: var(--line-height-detail);
       display: grid;
       grid-gap: var(--padding);
       grid-template-columns: 1fr;
@@ -399,8 +403,8 @@ main {
   & .page-right {
     & .excerpt {
       font-family: var(--font-script);
-      font-size: 20px;
-      line-height: 25.5px;
+      font-size: var(--font-size-script);
+      line-height: var(--line-height-script);
       padding-top: 40px;
       white-space: pre-line;
       color: var(--color-accent);
@@ -511,7 +515,7 @@ main.research-page {
     & .portable-text {
       padding-top: 40px;
       font-size: var(--font-size-detail);
-      line-height: 16px;
+      line-height: var(--line-height-detail);
       color: var(--color-fg);
 
       @media (min-width: 48rem) {
@@ -627,9 +631,13 @@ main.transmission-page {
 .events-list {
   display: flex;
   flex-direction: column;
-  gap: var(--padding);
+  gap: 25px;
 
   & .event-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -5px;
+
     & .event-title {
       text-transform: uppercase;
       font-size: var(--font-size-labeur);
@@ -638,14 +646,34 @@ main.transmission-page {
     }
 
     & .event-infos {
-      font-family: var(--font-serif);
+      display: flex;
+      flex-direction: column;
       font-size: var(--font-size-détail);
-      margin-bottom: -5px;
+    }
+
+    &. .event-date {
+      font-family: var(--font-serif);
+    }
+
+    & .event-place {
+      font-family: var(--font-sans);
+      line-height: var(--line-height-detail);
     }
 
     & .event-project {
       font-family: var(--font-sans);
       font-style: oblique;
+    }
+
+    & .event-description {
+      line-height: var(--line-height-detail);
+      padding-bottom: 3px;
+      padding-top: 5px;
+    }
+
+    & p,
+    a {
+      margin-top: -3px;
     }
   }
 }
