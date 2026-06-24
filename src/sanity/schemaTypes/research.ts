@@ -20,13 +20,13 @@ export const researchSchema = defineType({
     {
       name: "presentation",
       title: "Présentation",
-      icon: PresentationIcon,
-      default: true
+      icon: PresentationIcon
     },
     {
       name: "content",
       title: "Contenu",
-      icon: BlockContentIcon
+      icon: BlockContentIcon,
+      default: true
     },
     {
       name: "details",

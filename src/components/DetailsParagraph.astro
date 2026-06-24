@@ -16,12 +16,20 @@ interface Props {
     description: string | null;
     link: string | null;
   }>;
+  class?: string;
 }
 
-const { title, paragraph, links, portableText, dates } = Astro.props;
+const {
+  title,
+  paragraph,
+  links,
+  portableText,
+  dates,
+  class: className
+} = Astro.props;
 ---
 
-<div class="details-item">
+<div class:list={["details-item", className]}>
   {title && <h2>{title}</h2>}
   {paragraph && <p class="details-item-content">{paragraph}</p>}
   {

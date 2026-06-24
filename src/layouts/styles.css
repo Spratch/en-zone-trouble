@@ -392,11 +392,6 @@ main {
           font-size: 0.9em;
         }
       }
-
-      & h2 {
-        font-variant-caps: all-small-caps;
-        padding-bottom: 0.125rem;
-      }
     }
   }
 
@@ -436,6 +431,21 @@ main {
       }
     }
   }
+}
+
+.details h2,
+.special-links,
+.portable-uppercase {
+  font-variant-caps: all-small-caps;
+  padding-bottom: 0.125rem;
+  font-size: 1.03em;
+}
+
+.portable-italic {
+  display: inline-block;
+  font-family: var(--font-script);
+  letter-spacing: 0.025em;
+  margin-inline: 0.125em;
 }
 
 .gallery {
@@ -651,7 +661,7 @@ main.transmission-page {
       font-size: var(--font-size-détail);
     }
 
-    &. .event-date {
+    & .event-date {
       font-family: var(--font-serif);
     }
 

@@ -1,0 +1,27 @@
+---
+import { usePortableText } from "astro-portabletext";
+import type { BlockProps } from "astro-portabletext/types";
+
+type Props = BlockProps;
+
+const { node, isInline, index, ...attrs } = Astro.props;
+const { getDefaultComponent } = usePortableText(node);
+const styleIs = (style: string) => style === node.style;
+
+const DefaultBlock = getDefaultComponent(); // Returns `astro-portabletext` Block component
+---
+
+{
+  styleIs("uppercase") ? (
+    <p
+      {...attrs}
+      class="portable-uppercase"
+    >
+      <slot />
+    </p>
+  ) : (
+    <DefaultBlock {...Astro.props}>
+      <slot />
+    </DefaultBlock>
+  )
+}

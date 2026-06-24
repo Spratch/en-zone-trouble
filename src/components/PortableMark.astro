@@ -1,0 +1,24 @@
+---
+import { usePortableText } from "astro-portabletext";
+import type { MarkProps } from "astro-portabletext/types";
+
+export type Props = MarkProps<never>; // Use `never` for type parameter if the mark doesn't carry additional data
+
+const props = Astro.props;
+const { getDefaultComponent } = usePortableText(props.node);
+const markTypeIs = (markType: string) => markType === props.node.markType;
+
+const DefaultBlock = getDefaultComponent(); // Returns `astro-portabletext` Block component
+---
+
+{
+  markTypeIs("em") ? (
+    <em class="portable-italic">
+      <slot />
+    </em>
+  ) : (
+    <DefaultBlock {...props}>
+      <slot />
+    </DefaultBlock>
+  )
+}

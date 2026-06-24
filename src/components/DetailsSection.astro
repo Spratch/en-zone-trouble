@@ -50,10 +50,10 @@ const specialLinks = [
   <section class="details">
     {
       (item.reservationLink || item.presentationFile) && (
-        <h2>
-          {" "}
-          <DetailsParagraph links={specialLinks} />
-        </h2>
+        <DetailsParagraph
+          links={specialLinks}
+          class="special-links"
+        />
       )
     }
     {

@@ -1,7 +1,9 @@
 ---
 import { PortableText as PortableTextInternal } from "astro-portabletext";
+import type { PortableTextComponents } from "astro-portabletext/types";
+import PortableBlock from "./PortableBlock.astro";
 import PortableLink from "./PortableLink.astro";
-
+import PortableMark from "./PortableMark.astro";
 interface Props {
   value: any;
   class?: string;
@@ -9,8 +11,12 @@ interface Props {
 
 const { value, class: className } = Astro.props;
 
-const components = {
+const components: Partial<PortableTextComponents> = {
+  block: {
+    uppercase: PortableBlock
+  },
   mark: {
+    em: PortableMark,
     internalLink: PortableLink,
     link: PortableLink
   }

@@ -1,6 +1,17 @@
-import { SchemaIcon } from "@sanity/icons";
+import {
+  ArrowTopRightIcon,
+  SchemaIcon,
+  StringIcon,
+  TextIcon
+} from "@sanity/icons";
 import { Stack } from "@sanity/ui";
-import { defineType, type ArrayOfObjectsInputProps } from "sanity";
+import {
+  defineArrayMember,
+  defineType,
+  type ArrayOfObjectsInputProps,
+  type BlockAnnotationProps,
+  type BlockStyleProps
+} from "sanity";
 
 function CustomBlockInput(props: ArrayOfObjectsInputProps) {
   return (
@@ -21,28 +32,51 @@ function CustomBlockInput(props: ArrayOfObjectsInputProps) {
       <div data-testid="pt-editor-container">
         {props.renderDefault({
           ...props,
-          initialActive: true,
+          initialActive: true
         })}
       </div>
     </Stack>
   );
 }
 
+const ExternalLinkAnnotation = (props: BlockAnnotationProps) => (
+  <span>
+    {props.renderDefault(props)} <ArrowTopRightIcon style={{ scale: 0.75 }} />
+  </span>
+);
+
+const UppercaseStyle = (props: BlockStyleProps) => (
+  <span
+    style={{
+      fontFamily: "sans-serif",
+      textTransform: "uppercase",
+      fontSize: "0.85em"
+    }}
+  >
+    {props.children}
+  </span>
+);
+
 export default defineType({
   name: "customBlock",
   type: "array",
   components: {
-    input: CustomBlockInput,
+    input: CustomBlockInput
   },
   of: [
-    {
+    defineArrayMember({
       type: "block",
+      styles: [
+        { title: "Normal", value: "normal", icon: StringIcon },
+        {
+          title: "Capitales",
+          value: "uppercase",
+          icon: TextIcon,
+          component: UppercaseStyle
+        }
+      ],
       marks: {
-        decorators: [
-          { title: "Gras", value: "strong" },
-          { title: "Italique", value: "em" },
-          { title: "Souligné", value: "underline" },
-        ],
+        decorators: [{ title: "Italique", value: "em" }],
         annotations: [
           {
             name: "link",
@@ -55,10 +89,11 @@ export default defineType({
                 validation: (Rule) =>
                   Rule.uri({
                     allowRelative: false,
-                    scheme: ["http", "https", "mailto", "tel"],
-                  }),
-              },
+                    scheme: ["http", "https", "mailto", "tel"]
+                  })
+              }
             ],
+            components: { annotation: ExternalLinkAnnotation }
           },
           {
             name: "internalLink",
@@ -70,18 +105,18 @@ export default defineType({
               { type: "podcast" },
               { type: "research" },
               { type: "transmission" },
-              { type: "member" },
+              { type: "member" }
             ],
             options: {
               creationTypeFilter: ({ document }, toTypes) => {
                 return toTypes.filter(
-                  (t) => t.type !== "research" && t.type !== "transmission",
+                  (t) => t.type !== "research" && t.type !== "transmission"
                 );
-              },
-            },
-          },
-        ],
-      },
-    },
-  ],
+              }
+            }
+          }
+        ]
+      }
+    })
+  ]
 });
