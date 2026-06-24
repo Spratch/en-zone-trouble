@@ -260,6 +260,7 @@ main {
     overflow-x: scroll;
     padding-block: var(--padding);
     display: flex;
+    align-items: start;
     grid-column-gap: var(--padding);
     z-index: 30;
     &::-webkit-scrollbar {
@@ -295,23 +296,35 @@ main {
         );
       }
 
+      font-size: var(--font-size-detail);
       & .thumbnail-title {
         font-family: var(--font-sans);
         font-weight: 400;
         font-style: oblique;
-        font-size: var(--font-size-detail);
-        color: var(--color-fg);
         & span.title-date {
           font-style: normal;
         }
+      }
+
+      & .thumbnail-subtitle {
+        font-family: var(--font-sans);
+        font-size: 0.85em;
+        margin-top: -0.25em;
       }
     }
   }
 }
 
 .item-page {
-  & h1 {
+  & .page-title {
+    display: flex;
+    align-items: baseline;
+    gap: var(--padding);
     margin-bottom: -15px;
+
+    & .page-subtitle {
+      font-family: var(--font-sans);
+    }
   }
 
   & .page-grid {
@@ -658,7 +671,7 @@ main.transmission-page {
     & .event-infos {
       display: flex;
       flex-direction: column;
-      font-size: var(--font-size-détail);
+      font-size: var(--font-size-detail);
     }
 
     & .event-date {

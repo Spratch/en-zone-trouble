@@ -68,6 +68,16 @@ export const podcastSchema = defineType({
       validation: (Rule) => Rule.required()
     }),
     defineField({
+      name: "subtitle",
+      title: "Sous-titre",
+      description:
+        "Seulement quelques mots (ex. 'Projet d'écriture', 'En création'",
+      type: "string",
+      group: "presentation",
+      validation: (Rule) =>
+        Rule.max(30).warning("Le sous-titre ne doit pas dépasser 30 caractères")
+    }),
+    defineField({
       name: "date",
       title: "Date de création",
       description: "Date de création du podcast",
@@ -207,12 +217,13 @@ export const podcastSchema = defineType({
   preview: {
     select: {
       title: "title",
-      subtitle: "date",
+      subtitle: "subtitle",
+      date: "date",
       media: "cover"
     },
-    prepare: ({ title, subtitle, media }) => ({
+    prepare: ({ title, subtitle, date, media }) => ({
       title,
-      subtitle: subtitle.split("-")[0],
+      subtitle: `${subtitle ? subtitle + ", " : ""}${date.split("-")[0]}`,
       media
     })
   }

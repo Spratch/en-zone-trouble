@@ -36,7 +36,11 @@ const audios = podcast.episodes
   type="music.album"
 >
   <main class="podcast-page item-page">
-    <h1>{podcast.title}</h1>
+    <div class="page-title">
+      <h1>{podcast.title}</h1>{
+        podcast.subtitle && <p class="page-subtitle">{podcast.subtitle}</p>
+      }
+    </div>
     <section class="page-grid">
       <div class="page-left">
         {/* Synopsis */}

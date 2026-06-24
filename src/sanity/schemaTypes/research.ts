@@ -20,13 +20,13 @@ export const researchSchema = defineType({
     {
       name: "presentation",
       title: "Présentation",
-      icon: PresentationIcon
+      icon: PresentationIcon,
+      default: true
     },
     {
       name: "content",
       title: "Contenu",
-      icon: BlockContentIcon,
-      default: true
+      icon: BlockContentIcon
     },
     {
       name: "details",
@@ -59,6 +59,16 @@ export const researchSchema = defineType({
       },
       group: "presentation",
       validation: (Rule) => Rule.required()
+    }),
+    defineField({
+      name: "subtitle",
+      title: "Sous-titre",
+      description:
+        "Seulement quelques mots (ex. 'Projet d'écriture', 'En création'",
+      type: "string",
+      group: "presentation",
+      validation: (Rule) =>
+        Rule.max(30).warning("Le sous-titre ne doit pas dépasser 30 caractères")
     }),
     defineField({
       name: "date",
@@ -161,8 +171,18 @@ export const researchSchema = defineType({
   preview: {
     select: {
       title: "title",
-      subtitle: "presentation",
+      subtitle: "subtitle",
+      presentation: "presentation",
       media: "cover"
+    },
+    prepare: (selection) => {
+      return {
+        title: selection.title,
+        subtitle:
+          selection.subtitle ||
+          selection.presentation?.[0]?.children?.[0]?.text,
+        media: selection.media
+      };
     }
   }
 });

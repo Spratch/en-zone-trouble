@@ -65,6 +65,7 @@ export const galleryFragment = `{
 export const itemMetaFragment = `
   title,
   ${slugFragment},
+  subtitle,
   date,
   "seoImage": cover.asset->url
 `;

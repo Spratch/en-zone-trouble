@@ -1,10 +1,10 @@
 ---
 import { sanityClient } from "sanity:client";
+import DetailsSection from "../../components/DetailsSection.astro";
 import Gallery from "../../components/Gallery.astro";
 import PortableText from "../../components/PortableText.astro";
 import Layout from "../../layouts/Layout.astro";
 import { showBySlugQuery, showsListQuery } from "../../sanity/lib/queries";
-import DetailsSection from "../../components/DetailsSection.astro";
 
 export async function getStaticPaths() {
   const showsList = await sanityClient.fetch(showsListQuery);
@@ -27,7 +27,11 @@ const seoDescription = `${show.synopsis[0]?.children?.[0]?.text?.substring(0, 15
   type="article"
 >
   <main class="show-page item-page">
-    <h1>{show.title}</h1>
+    <div class="page-title">
+      <h1>{show.title}</h1>{
+        show.subtitle && <p class="page-subtitle">{show.subtitle}</p>
+      }
+    </div>
     <section class="page-grid">
       <div class="page-left">
         {/* Synopsis */}

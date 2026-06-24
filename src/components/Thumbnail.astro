@@ -37,5 +37,6 @@ const { parentSlug, item } = Astro.props;
       {item.title}{" "}
       {item.date && <span class="title-date">({item.date.split("-")[0]})</span>}
     </h2>
+    {item.subtitle && <p class="thumbnail-subtitle">{item.subtitle}</p>}
   </a>
 </article>

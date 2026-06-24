@@ -38,6 +38,7 @@ export const showsListQuery = defineQuery(`*[_type == "shows"][0]{
   "shows": showsList[]->{
     title,
     ${slugFragment},
+    subtitle,
     date,
     ${coverFragment}
   }
@@ -58,6 +59,7 @@ export const podcastsListQuery = defineQuery(`*[_type == "podcasts"][0]{
   "podcasts": podcastsList[]->{
     title,
     ${slugFragment},
+    subtitle,
     date,
     ${coverFragment}
   }
@@ -81,6 +83,7 @@ export const researchsListQuery = defineQuery(`*[_type == "researchs"][0]{
   "researchs": researchsList[]->{
     title,
     ${slugFragment},
+    subtitle,
     date,
     ${coverFragment}
   }

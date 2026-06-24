@@ -30,7 +30,11 @@ const seoDescription = `${research.presentation[0]?.children?.[0]?.text?.substri
   type="article"
 >
   <main class="research-page item-page">
-    <h1>{research.title}</h1>
+    <div class="page-title">
+      <h1>{research.title}</h1>{
+        research.subtitle && <p class="page-subtitle">{research.subtitle}</p>
+      }
+    </div>
     <section class="page-grid">
       <div class="page-left">
         <PortableText
