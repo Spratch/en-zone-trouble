@@ -105,7 +105,7 @@ const specialLinks = [
       )
     }
     {
-      item.captions && item.captions.length > 0 && (
+      item.captions && item.captions.filter(Boolean).length > 0 && (
         <DetailsParagraph
           title="Légendes"
           captions={item.captions}

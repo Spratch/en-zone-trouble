@@ -25,16 +25,17 @@ if (!transmission) throw new Error("Team not found");
 
     {transmission.seasons && <SeasonList seasons={transmission.seasons} />}
     {
-      transmission.captions && transmission.captions.length > 0 && (
-        <div class="details-wrapper">
-          <section class="details">
-            <DetailsParagraph
-              title="Légendes"
-              captions={transmission.captions}
-            />
-          </section>
-        </div>
-      )
+      transmission.captions &&
+        transmission.captions.filter(Boolean).length > 0 && (
+          <div class="details-wrapper">
+            <section class="details">
+              <DetailsParagraph
+                title="Légendes"
+                captions={transmission.captions}
+              />
+            </section>
+          </div>
+        )
     }
   </main>
   {transmission.gallery && <Gallery gallery={transmission.gallery} />}
