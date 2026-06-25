@@ -5,3 +5,9 @@ minimumReleaseAgeExclude:
   - '@astrojs/markdown-satteri@0.3.1'
   - '@astrojs/react@6.0.0'
   - astro@7.0.0
+  - '@sanity/diff@6.2.0'
+  - '@sanity/mutator@6.2.0'
+  - '@sanity/schema@6.2.0'
+  - '@sanity/types@6.2.0'
+  - '@sanity/util@6.2.0'
+  - sanity@6.2.0
