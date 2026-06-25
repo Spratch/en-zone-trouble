@@ -12,6 +12,8 @@ import eventsBySeason from "./objects/eventsBySeason";
 import excerpt from "./objects/excerpt";
 import favicon from "./objects/favicon";
 import gallery from "./objects/gallery";
+import galleryImage from "./objects/galleryImage";
+import galleryVideo from "./objects/galleryVideo";
 import imageAlt from "./objects/imageAlt";
 import linksArray from "./objects/linksArray";
 import simpleEvent from "./objects/simpleEvent";
@@ -23,7 +25,6 @@ import { settingsSchema } from "./settings";
 import { showSchema } from "./show";
 import { showsSchema } from "./shows";
 import { transmissionSchema } from "./transmission";
-
 const singltetonDocs = [
   settingsSchema,
   researchsSchema,
@@ -52,7 +53,9 @@ const objects = [
   event,
   simpleEvent,
   cover,
-  excerpt
+  excerpt,
+  galleryImage,
+  galleryVideo
 ];
 export const schema: SchemaPluginOptions = {
   types: [...singltetonDocs, ...listDocs, ...objects]

@@ -16,6 +16,7 @@ interface Props {
     description: string | null;
     link: string | null;
   }>;
+  captions?: Array<string | null>;
   class?: string;
 }
 
@@ -25,6 +26,7 @@ const {
   links,
   portableText,
   dates,
+  captions,
   class: className
 } = Astro.props;
 ---
@@ -77,6 +79,20 @@ const {
           </li>
         ))}
       </ul>
+    )
+  }
+  {
+    captions && (
+      <ol class="captions-list">
+        {captions.map((caption) => (
+          <li
+            aria-hidden={!caption}
+            class:list={["caption-item", { "sr-only": !caption }]}
+          >
+            {caption}
+          </li>
+        ))}
+      </ol>
     )
   }
 </div>

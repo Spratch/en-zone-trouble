@@ -104,5 +104,13 @@ const specialLinks = [
         />
       )
     }
+    {
+      item.captions && item.captions.length > 0 && (
+        <DetailsParagraph
+          title="Légendes"
+          captions={item.captions}
+        />
+      )
+    }
   </section>
 </div>

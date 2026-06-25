@@ -405,6 +405,11 @@ main {
           font-size: 0.9em;
         }
       }
+
+      & .captions-list {
+        list-style-type: decimal;
+        list-style-position: inside;
+      }
     }
   }
 

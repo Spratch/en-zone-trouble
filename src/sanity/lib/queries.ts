@@ -109,7 +109,7 @@ export const transmissionQuery = defineQuery(`*[_type == "transmission"][0]{
   title,
   "introduction": introduction${customBlockFragment},
   ${seasonsFragment},
-  "gallery": gallery[]${galleryFragment},
+  ${galleryFragment},
 }`);
 
 export const pagesListQuery = defineQuery(`*[_type == "legal"]{

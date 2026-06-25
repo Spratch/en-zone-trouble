@@ -1,4 +1,3 @@
-import { VideoIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
 export default defineType({
@@ -10,13 +9,12 @@ export default defineType({
     defineField({
       name: "imageAlt",
       title: "Image",
-      type: "imageAlt"
+      type: "galleryImage"
     }),
     defineField({
       name: "mux.video",
       title: "Vidéo",
-      type: "mux.video",
-      icon: VideoIcon
+      type: "galleryVideo"
     })
   ],
   options: {

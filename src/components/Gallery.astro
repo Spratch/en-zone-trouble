@@ -3,9 +3,11 @@ import type { ShowBySlugQueryResult } from "../../sanity.types";
 import Img from "./Img.astro";
 import VideoPlayer from "./VideoPlayer.astro";
 
-type Props = {
-  gallery: NonNullable<NonNullable<ShowBySlugQueryResult>["gallery"]>;
-};
+type GalleryType = NonNullable<NonNullable<ShowBySlugQueryResult>["gallery"]>;
+
+interface Props {
+  gallery: GalleryType;
+}
 
 const { gallery } = Astro.props;
 ---
@@ -13,7 +15,7 @@ const { gallery } = Astro.props;
 <div class="gallery">
   {
     gallery.map((item) => {
-      if (item._type === "imageAlt") {
+      if (item._type === "galleryImage") {
         return (
           <Img
             class="gallery-item"
@@ -21,7 +23,7 @@ const { gallery } = Astro.props;
           />
         );
       }
-      if (item._type === "mux.video") {
+      if (item._type === "galleryVideo") {
         return (
           <VideoPlayer
             class="gallery-item"

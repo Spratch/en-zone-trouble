@@ -22,7 +22,7 @@ export const creditsFragment = `"credits": credits[]{
       "text": value,
     },
   },
-},`;
+}`;
 
 export const seasonsFragment = `
   "seasons": seasons[]{
@@ -54,13 +54,20 @@ export const customBlockFragment = `[]{
   }
 }`;
 
-export const galleryFragment = `{
-  _type,
-  _type == "imageAlt" => ${imageAltFragment},
-  _type == "mux.video" => {
-    "playbackId": coalesce(asset->playbackId, ""),
-  }
-}`;
+export const galleryFragment = `
+  "gallery": gallery[]{
+    "_type": select(
+      _type == "imageAlt" => "galleryImage",
+      _type == "mux.video" => "galleryVideo",
+      _type
+    ),
+    (_type == "galleryImage" || _type == "imageAlt") => ${imageAltFragment},
+    (_type == "galleryVideo" || _type == "mux.video") => {
+      "playbackId": coalesce(video.asset->playbackId, ""),
+    }
+  },
+  "captions": gallery[].caption
+`;
 
 export const itemMetaFragment = `
   title,
@@ -81,8 +88,8 @@ export const itemDetailsFragment = `
   },
   supports,
   production,
-  ${creditsFragment}
-  "gallery": gallery[]${galleryFragment},
+  ${creditsFragment},
+  ${galleryFragment},
   links,
   press,
   reservationLink,
