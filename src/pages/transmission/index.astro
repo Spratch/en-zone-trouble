@@ -1,5 +1,6 @@
 ---
 import { sanityClient } from "sanity:client";
+import DetailsParagraph from "../../components/DetailsParagraph.astro";
 import Gallery from "../../components/Gallery.astro";
 import PortableText from "../../components/PortableText.astro";
 import SeasonList from "../../components/SeasonList.astro";
@@ -23,6 +24,18 @@ if (!transmission) throw new Error("Team not found");
     }
 
     {transmission.seasons && <SeasonList seasons={transmission.seasons} />}
+    {
+      transmission.captions && transmission.captions.length > 0 && (
+        <div class="details-wrapper">
+          <section class="details">
+            <DetailsParagraph
+              title="Légendes"
+              captions={transmission.captions}
+            />
+          </section>
+        </div>
+      )
+    }
   </main>
   {transmission.gallery && <Gallery gallery={transmission.gallery} />}
 </Layout>
