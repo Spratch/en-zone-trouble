@@ -8,8 +8,5 @@ export default defineType({
   options: {
     hotspot: true
   },
-  validation: (rule) =>
-    rule.required().custom((value) => {
-      return value?.asset ? true : "Une image doit être sélectionnée";
-    })
+  validation: (rule) => rule.required().assetRequired()
 });

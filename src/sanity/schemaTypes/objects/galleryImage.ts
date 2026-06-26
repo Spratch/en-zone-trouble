@@ -30,6 +30,7 @@ export default defineType({
   options: {
     hotspot: true
   },
+  validation: (rule) => rule.required().assetRequired(),
   preview: {
     select: {
       title: "alt",

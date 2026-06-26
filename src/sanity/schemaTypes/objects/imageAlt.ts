@@ -16,6 +16,7 @@ export default defineType({
       validation: (Rule) => Rule.required()
     })
   ],
+  validation: (Rule) => Rule.assetRequired(),
   options: {
     hotspot: true
   }
