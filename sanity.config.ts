@@ -23,13 +23,13 @@ export default defineConfig({
     structureTool({
       structure,
       name: "structure",
-      title: "Contenus",
+      title: "Site",
       icon: DocumentsIcon
     }),
     structureTool({
       structure: dataStructure,
-      name: "data",
-      title: "Données",
+      name: "content",
+      title: "Contenus",
       icon: DatabaseIcon
     }),
     frFRLocale(),

@@ -15,7 +15,7 @@ export const structure: StructureResolver = (S) => {
   const li = (...a: StructureListItemType) => sli(S, a[0], a[1], a[2], a[3]);
 
   return S.list()
-    .title("Contenus")
+    .title("Site")
     .items([
       S.divider().title("Pages"),
 
@@ -32,7 +32,7 @@ export const structure: StructureResolver = (S) => {
       li("researchs", "Recherche", ComposeIcon, "singleton"),
       li("about", "À propos", InfoOutlineIcon, "singleton"),
 
-      S.divider().title("Site"),
+      S.divider().title("Général"),
 
       li("settings", "Paramètres", ControlsIcon, "singleton")
     ]);
