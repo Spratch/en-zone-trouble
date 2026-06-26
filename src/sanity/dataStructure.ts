@@ -1,6 +1,7 @@
 import {
   CaseIcon,
   ComposeIcon,
+  DocumentsIcon,
   EyeOpenIcon,
   MicrophoneIcon,
   UsersIcon
@@ -22,7 +23,11 @@ export const dataStructure: StructureResolver = (S) => {
       S.divider(),
 
       li("member", "Personnes", UsersIcon, "list"),
-      li("job", "Métiers", CaseIcon, "list")
+      li("job", "Métiers", CaseIcon, "list"),
+
+      S.divider(),
+
+      li("legal", "Pages légales", DocumentsIcon, "list")
 
       // S.divider().title("Médias")
 

@@ -3,7 +3,6 @@ import {
   CalendarIcon,
   ComposeIcon,
   ControlsIcon,
-  DocumentsIcon,
   EyeOpenIcon,
   InfoOutlineIcon,
   MicrophoneIcon
@@ -33,9 +32,8 @@ export const structure: StructureResolver = (S) => {
       li("researchs", "Recherche", ComposeIcon, "singleton"),
       li("about", "À propos", InfoOutlineIcon, "singleton"),
 
-      S.divider().title("Réglages"),
+      S.divider().title("Site"),
 
-      li("settings", "Paramètres", ControlsIcon, "singleton"),
-      li("legal", "Pages légales", DocumentsIcon, "list")
+      li("settings", "Paramètres", ControlsIcon, "singleton")
     ]);
 };
