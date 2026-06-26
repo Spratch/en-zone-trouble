@@ -11,6 +11,7 @@ import { webhooksTrigger } from "sanity-plugin-webhooks-trigger";
 import { structureTool } from "sanity/structure";
 import { dataStructure } from "./src/sanity/dataStructure";
 import CustomDocument from "./src/sanity/lib/customDocument";
+import "./src/sanity/lib/studio.css";
 import StudioNavBar from "./src/sanity/lib/studioNav";
 import { listDocs, schema } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";

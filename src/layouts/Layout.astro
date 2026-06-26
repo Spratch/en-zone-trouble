@@ -9,7 +9,6 @@ import Meta from "../components/Meta.astro";
 import NekoGhost from "../components/NekoGhost.astro";
 import { layoutSettingsQuery } from "../sanity/lib/queries";
 import "./styles.css";
-import { undefined } from "astro:schema";
 interface Props extends MetaProps {}
 
 const settings = await sanityClient.fetch(layoutSettingsQuery);
