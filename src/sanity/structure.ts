@@ -24,12 +24,12 @@ export const structure: StructureResolver = (S) => {
 
       S.divider(),
 
+      li("researchs", "Recherche", ComposeIcon, "singleton"),
       li("transmission", "Transmission", AsteriskIcon, "singleton"),
-      li("calendar", "Calendrier", CalendarIcon, "singleton"),
 
       S.divider(),
 
-      li("researchs", "Recherche", ComposeIcon, "singleton"),
+      li("calendar", "Calendrier", CalendarIcon, "singleton"),
       li("about", "À propos", InfoOutlineIcon, "singleton"),
 
       S.divider().title("Général"),
