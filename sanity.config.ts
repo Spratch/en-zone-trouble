@@ -11,7 +11,7 @@ import { webhooksTrigger } from "sanity-plugin-webhooks-trigger";
 import { structureTool } from "sanity/structure";
 import { dataStructure } from "./src/sanity/dataStructure";
 import "./src/sanity/lib/studio.css";
-import { listDocs, schema } from "./src/sanity/schemaTypes";
+import { listDocs, schema, singltetonDocs } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
 
 export default defineConfig({
@@ -58,6 +58,16 @@ export default defineConfig({
         );
       }
       return prev;
+    },
+    actions: (prev, context) => {
+      const singletonDocuments: string[] = singltetonDocs.map(
+        (doc) => doc.name
+      );
+      if (singletonDocuments.includes(context.schemaType)) {
+        return prev.filter((action) => action.action !== "duplicate");
+      } else {
+        return prev;
+      }
     },
     inspectors: (prev) =>
       prev.map((inspector) =>

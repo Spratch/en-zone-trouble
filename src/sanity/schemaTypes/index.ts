@@ -25,7 +25,8 @@ import { settingsSchema } from "./settings";
 import { showSchema } from "./show";
 import { showsSchema } from "./shows";
 import { transmissionSchema } from "./transmission";
-const singltetonDocs = [
+
+export const singltetonDocs = [
   settingsSchema,
   researchsSchema,
   calendarSchema,
