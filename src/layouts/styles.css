@@ -459,8 +459,17 @@ main {
   font-size: 1.03em;
 }
 
+.portable-uppercase {
+  margin-top: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+
+.portable-text p + p:not(.portable-uppercase) {
+  margin-top: 0.75rem;
+}
+
 .portable-italic {
-  display: inline-block;
+  display: inline;
   font-family: var(--font-script);
   letter-spacing: 0.025em;
   margin-inline: 0.125em;
