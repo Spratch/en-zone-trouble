@@ -473,6 +473,7 @@ main {
   font-family: var(--font-script);
   letter-spacing: 0.025em;
   margin-inline: 0.125em;
+  line-height: 1;
 }
 
 .gallery {
@@ -677,7 +678,7 @@ main.transmission-page {
 
     & .event-title {
       text-transform: uppercase;
-      font-size: var(--font-size-labeur);
+      font-size: var(--font-size-detail);
       line-height: 1;
       margin-block: 1px;
     }
