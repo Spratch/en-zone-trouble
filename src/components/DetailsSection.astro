@@ -40,7 +40,7 @@ const specialLinks = [
 
 <div class="details-wrapper">
   {
-    "text" in item && item.text && (
+    "text" in item && item.text && item.text.length > 0 && (
       <PortableText
         value={item.text}
         class="research-text"

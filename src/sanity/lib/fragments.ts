@@ -42,7 +42,7 @@ export const seasonsFragment = `
   }
 `;
 
-export const customBlockFragment = `[]{
+export const customBlockFragment = `[count(children[text != ""]) > 0]{
   ...,
   markDefs[]{
     ...,
