@@ -140,9 +140,10 @@ footer {
   width: 100%;
   background: linear-gradient(
     to top,
-    var(--color-footer) 45px,
+    var(--color-footer) var(--footer-h),
     transparent 60px
   );
+  pointer-events: none;
 
   & .footer-title {
     pointer-events: none;
@@ -152,9 +153,14 @@ footer {
 
     &.flou {
       position: absolute;
+      bottom: var(--footer-h);
       inset-inline: 0;
       filter: blur(0.5vw);
 
+      --padding-top: 2.5vw;
+      padding-top: var(
+        --padding-top
+      ); /* Pour laisser de l'espace au masque de flou */
       --mask-size: 60%;
       mask-image: linear-gradient(
         black 0,
@@ -189,6 +195,7 @@ footer {
   }
 
   & nav.footer-navigation {
+    pointer-events: auto;
     display: flex;
     align-items: center;
     height: var(--footer-h);
