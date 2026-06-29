@@ -102,7 +102,7 @@ export const itemDetailsFragment = `
 export const coverFragment = `
   "cover": cover{
     ${imageSrcFragment},
-    "orientation": select(asset->metadata.dimensions.aspectRatio < 1 => "portrait", "landscape"),
+    "orientation": select(asset->metadata.dimensions.aspectRatio <= 1.1 => "portrait", "landscape"),
     crop,
     hotspot,
   }
