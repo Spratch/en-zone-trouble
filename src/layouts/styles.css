@@ -519,6 +519,19 @@ main {
     font-size: var(--font-size-labeur);
     line-height: var(--line-height-labeur);
     color: var(--color-accent);
+    margin-top: calc(var(--padding) * 2);
+
+    & .episode-item {
+      display: flex;
+      gap: var(--padding);
+      padding-bottom: calc(var(--padding) / 1.5);
+
+      & span:first-child {
+        text-wrap: nowrap;
+        flex-shrink: 0;
+        width: 8ch;
+      }
+    }
 
     & button.episode-trigger {
       text-decoration: underline;
