@@ -79,7 +79,7 @@
             "type": "inline",
             "name": "sanity.imageAsset.reference"
           },
-          "optional": true
+          "optional": false
         },
         "media": {
           "type": "objectAttribute",
@@ -147,7 +147,7 @@
             "type": "inline",
             "name": "sanity.imageAsset.reference"
           },
-          "optional": true
+          "optional": false
         },
         "media": {
           "type": "objectAttribute",
@@ -920,7 +920,7 @@
             "type": "inline",
             "name": "sanity.imageAsset.reference"
           },
-          "optional": true
+          "optional": false
         },
         "media": {
           "type": "objectAttribute",
@@ -2269,38 +2269,66 @@
         },
         "optional": true
       },
-      "contact": {
+      "contacts": {
         "type": "objectAttribute",
         "value": {
-          "type": "object",
-          "attributes": {
-            "name": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "title": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": false
               },
-              "optional": false
+              "name": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": false
+              },
+              "phone": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": true
+              },
+              "email": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": true
+              },
+              "address": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": true
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "contact"
+                }
+              }
             },
-            "phone": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "email": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "address": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
+            "rest": {
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -3097,6 +3125,44 @@
           "value": {
             "type": "inline",
             "name": "mux.staticRenditions"
+          },
+          "optional": true
+        },
+        "master": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "mux.masterFile"
+          },
+          "optional": true
+        }
+      }
+    }
+  },
+  {
+    "name": "mux.masterFile",
+    "type": "type",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "mux.masterFile"
+          }
+        },
+        "status": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "url": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
           },
           "optional": true
         }

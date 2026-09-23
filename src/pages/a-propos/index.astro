@@ -8,6 +8,7 @@ import { aboutQuery } from "../../sanity/lib/queries";
 
 const about = await sanityClient.fetch(aboutQuery);
 if (!about) throw new Error("About page not found");
+console.log(about);
 ---
 
 <Layout title={about.title}>
@@ -72,37 +73,39 @@ if (!about) throw new Error("About page not found");
       <div class="page-left">
         {/* Contact */}
         {
-          about.contact && (
+          about.contacts && (
             <section class="contact">
               <h2>Contact</h2>
-              <ul class="contact-item">
-                <p class="contact-title">{about.contact.title}</p>
-                <p class="contact-name">{about.contact.name}</p>
-                {about.contact.phone && (
-                  <p class="contact-phone">
-                    <a href={`tel:${about.contact.phone.replace(/\s+/g, "")}`}>
-                      {about.contact.phone}
-                    </a>
-                  </p>
-                )}
-                {about.contact.email && (
-                  <p class="contact-email">
-                    <a href={`mailto:${about.contact.email}`}>
-                      {about.contact.email}
-                    </a>
-                  </p>
-                )}
-                {about.contact.address && (
-                  <p class="contact-address">
-                    <a
-                      href={`https://maps.google.com/?q=${about.contact.address.replace(/\s+/g, "+")}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {about.contact.address}
-                    </a>
-                  </p>
-                )}
+              <ul>
+                {about.contacts.map((contact) => (
+                  <li class="contact-item">
+                    <p class="contact-title">{contact.title}</p>
+                    <p class="contact-name">{contact.name}</p>
+                    {contact.phone && (
+                      <p class="contact-phone">
+                        <a href={`tel:${contact.phone.replace(/\s+/g, "")}`}>
+                          {contact.phone}
+                        </a>
+                      </p>
+                    )}
+                    {contact.email && (
+                      <p class="contact-email">
+                        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                      </p>
+                    )}
+                    {contact.address && (
+                      <p class="contact-address">
+                        <a
+                          href={`https://maps.google.com/?q=${contact.address.replace(/\s+/g, "+")}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {contact.address}
+                        </a>
+                      </p>
+                    )}
+                  </li>
+                ))}
               </ul>
             </section>
           )

@@ -135,8 +135,8 @@ export const aboutQuery = defineQuery(`
     link,
     "presentation": presentation${customBlockFragment}
   },
-  "contact": contact{
-    "title": *[_type == "settings"][0].title,
+  "contacts": contacts[]{
+    title,
     name,
     phone,
     email,

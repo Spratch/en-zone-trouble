@@ -36,7 +36,7 @@ export type SanityImageAssetReference = {
 
 export type GalleryImage = {
   _type: "galleryImage";
-  asset?: SanityImageAssetReference;
+  asset: SanityImageAssetReference;
   media?: unknown;
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
@@ -48,7 +48,7 @@ export type Excerpt = string;
 
 export type Cover = {
   _type: "cover";
-  asset?: SanityImageAssetReference;
+  asset: SanityImageAssetReference;
   media?: unknown;
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
@@ -189,7 +189,7 @@ export type Credits = Array<{
 
 export type ImageAlt = {
   _type: "imageAlt";
-  asset?: SanityImageAssetReference;
+  asset: SanityImageAssetReference;
   media?: unknown;
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
@@ -427,12 +427,15 @@ export type About = {
       _key: string;
     } & MemberReference
   >;
-  contact?: {
+  contacts?: Array<{
+    title: string;
     name: string;
     phone?: string;
     email?: string;
     address?: string;
-  };
+    _type: "contact";
+    _key: string;
+  }>;
   supports?: string;
 };
 
@@ -583,6 +586,13 @@ export type MuxAssetData = {
     } & MuxPlaybackId
   >;
   static_renditions?: MuxStaticRenditions;
+  master?: MuxMasterFile;
+};
+
+export type MuxMasterFile = {
+  _type: "mux.masterFile";
+  status?: string;
+  url?: string;
 };
 
 export type MuxStaticRenditions = {
@@ -776,6 +786,7 @@ export type AllSanitySchemaTypes =
   | Settings
   | MuxVideoAsset
   | MuxAssetData
+  | MuxMasterFile
   | MuxStaticRenditions
   | MuxStaticRenditionFile
   | MuxPlaybackId
@@ -799,7 +810,7 @@ export type LayoutSettingsQueryResult = {
     light: string | null;
     dark: string | null;
   } | null;
-  seoImage: string | null;
+  seoImage: string;
 } | null;
 
 // Source: src/sanity/lib/queries.ts
@@ -818,7 +829,7 @@ export type FooterSettingsQueryResult = {
 // Variable: homeImageQuery
 // Query: *[_type == "settings"  && defined(homeImage.asset->url)][0].homeImage{  "src": coalesce(asset->url, ""),  "alt": coalesce(alt, ^.title, ""),  crop,  hotspot,}
 export type HomeImageQueryResult = {
-  src: string | "";
+  src: string;
   alt: string;
   crop: SanityImageCrop | null;
   hotspot: SanityImageHotspot | null;
@@ -836,7 +847,7 @@ export type ShowsListQueryResult = {
     subtitle: string | null;
     date: string;
     cover: {
-      src: string | "";
+      src: string;
       orientation: "landscape" | "portrait";
       crop: SanityImageCrop | null;
       hotspot: SanityImageHotspot | null;
@@ -852,7 +863,7 @@ export type ShowBySlugQueryResult = {
   slug: string;
   subtitle: string | null;
   date: string;
-  seoImage: string | null;
+  seoImage: string;
   synopsis: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -931,7 +942,7 @@ export type ShowBySlugQueryResult = {
   gallery: Array<
     | {
         _type: "galleryImage";
-        src: string | "";
+        src: string;
         alt: string;
         crop: SanityImageCrop | null;
         hotspot: SanityImageHotspot | null;
@@ -963,7 +974,7 @@ export type PodcastsListQueryResult = {
     subtitle: string | null;
     date: string;
     cover: {
-      src: string | "";
+      src: string;
       orientation: "landscape" | "portrait";
       crop: SanityImageCrop | null;
       hotspot: SanityImageHotspot | null;
@@ -979,7 +990,7 @@ export type PodcastBySlugQueryResult = {
   slug: string;
   subtitle: string | null;
   date: string;
-  seoImage: string | null;
+  seoImage: string;
   synopsis: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -1061,7 +1072,7 @@ export type PodcastBySlugQueryResult = {
   gallery: Array<
     | {
         _type: "galleryImage";
-        src: string | "";
+        src: string;
         alt: string;
         crop: SanityImageCrop | null;
         hotspot: SanityImageHotspot | null;
@@ -1093,7 +1104,7 @@ export type ResearchsListQueryResult = {
     subtitle: string | null;
     date: string | null;
     cover: {
-      src: string | "";
+      src: string;
       orientation: "landscape" | "portrait";
       crop: SanityImageCrop | null;
       hotspot: SanityImageHotspot | null;
@@ -1109,7 +1120,7 @@ export type ResearchBySlugQueryResult = {
   slug: string;
   subtitle: string | null;
   date: string | null;
-  seoImage: string | null;
+  seoImage: string;
   presentation: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -1224,7 +1235,7 @@ export type ResearchBySlugQueryResult = {
   gallery: Array<
     | {
         _type: "galleryImage";
-        src: string | "";
+        src: string;
         alt: string;
         crop: SanityImageCrop | null;
         hotspot: SanityImageHotspot | null;
@@ -1373,7 +1384,7 @@ export type TransmissionQueryResult = {
   gallery: Array<
     | {
         _type: "galleryImage";
-        src: string | "";
+        src: string;
         alt: string;
         crop: SanityImageCrop | null;
         hotspot: SanityImageHotspot | null;
@@ -1428,7 +1439,7 @@ export type PageBySlugQueryResult = {
 
 // Source: src/sanity/lib/queries.ts
 // Variable: aboutQuery
-// Query: *[_type == "about"][0]{  title,  "presentation": presentation[count(children[text != ""]) > 0]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }},    "seasons": seasons[]{    range,    "events": events[]{      title,      description,      date,      place,      link,      "project": project->{        title,        "slug": slug.current,        _type,      }    }  },  "members": members[]->{    name,    slug,    role,    link,    "presentation": presentation[count(children[text != ""]) > 0]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }}  },  "contact": contact{    "title": *[_type == "settings"][0].title,    name,    phone,    email,    address  },  supports,  "pages": *[_type == "legal"]{    "slug": slug.current,    title  },  "credits": [{    "title": "Design",    "value": [{      "name": "Mathilde Mary",      "link": "https://mathildemary.fr/"    }]  },{    "title": "Développement web",    "value": [{      "name": "Joseph Clenet",      "link": "https://josephclenet.fr/"    },{      "name": "Mathilde Mary",      "link": "https://mathildemary.fr/"    }]  }]}
+// Query: *[_type == "about"][0]{  title,  "presentation": presentation[count(children[text != ""]) > 0]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }},    "seasons": seasons[]{    range,    "events": events[]{      title,      description,      date,      place,      link,      "project": project->{        title,        "slug": slug.current,        _type,      }    }  },  "members": members[]->{    name,    slug,    role,    link,    "presentation": presentation[count(children[text != ""]) > 0]{  ...,  markDefs[]{    ...,    _type == "internalLink" => {      ...,      "slug": *[_id == ^._ref][0].slug.current,      "refType": *[_id == ^._ref][0]._type    }  }}  },  "contacts": contacts[]{    title,    name,    phone,    email,    address  },  supports,  "pages": *[_type == "legal"]{    "slug": slug.current,    title  },  "credits": [{    "title": "Design",    "value": [{      "name": "Mathilde Mary",      "link": "https://mathildemary.fr/"    }]  },{    "title": "Développement web",    "value": [{      "name": "Joseph Clenet",      "link": "https://josephclenet.fr/"    },{      "name": "Mathilde Mary",      "link": "https://mathildemary.fr/"    }]  }]}
 export type AboutQueryResult = {
   title: string;
   presentation: Array<{
@@ -1519,13 +1530,13 @@ export type AboutQueryResult = {
       _key: string;
     }> | null;
   }> | null;
-  contact: {
-    title: string | null;
+  contacts: Array<{
+    title: string;
     name: string;
     phone: string | null;
     email: string | null;
     address: string | null;
-  } | null;
+  }> | null;
   supports: string | null;
   pages: Array<{
     slug: string;
@@ -1572,6 +1583,6 @@ declare module "@sanity/client" {
     '*[_type == "transmission"][0]{\n  title,\n  "introduction": introduction[count(children[text != ""]) > 0]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n,\n  \n  "gallery": gallery[]{\n    "_type": select(\n      _type == "imageAlt" => "galleryImage",\n      _type == "mux.video" => "galleryVideo",\n      _type\n    ),\n    (_type == "galleryImage" || _type == "imageAlt") => {\n  "src": coalesce(asset->url, ""),\n  "alt": coalesce(alt, ^.title, ""),\n  crop,\n  hotspot,\n},\n    (_type == "galleryVideo" || _type == "mux.video") => {\n      "playbackId": coalesce(video.asset->playbackId, ""),\n    }\n  },\n  "captions": gallery[].caption\n,\n}': TransmissionQueryResult;
     '*[_type == "legal"]{\n  "slug": slug.current\n}': PagesListQueryResult;
     '*[_type == "legal" && slug.current == $slug][0]{\n  title,\n  "slug": slug.current,\n  "content": content[count(children[text != ""]) > 0]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n}': PageBySlugQueryResult;
-    '\n  *[_type == "about"][0]{\n  title,\n  "presentation": presentation[count(children[text != ""]) > 0]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n,\n  "members": members[]->{\n    name,\n    slug,\n    role,\n    link,\n    "presentation": presentation[count(children[text != ""]) > 0]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n  },\n  "contact": contact{\n    "title": *[_type == "settings"][0].title,\n    name,\n    phone,\n    email,\n    address\n  },\n  supports,\n  "pages": *[_type == "legal"]{\n    "slug": slug.current,\n    title\n  },\n  "credits": [{\n    "title": "Design",\n    "value": [{\n      "name": "Mathilde Mary",\n      "link": "https://mathildemary.fr/"\n    }]\n  },{\n    "title": "D\xE9veloppement web",\n    "value": [{\n      "name": "Joseph Clenet",\n      "link": "https://josephclenet.fr/"\n    },{\n      "name": "Mathilde Mary",\n      "link": "https://mathildemary.fr/"\n    }]\n  }]\n}': AboutQueryResult;
+    '\n  *[_type == "about"][0]{\n  title,\n  "presentation": presentation[count(children[text != ""]) > 0]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n},\n  \n  "seasons": seasons[]{\n    range,\n    "events": events[]{\n      title,\n      description,\n      date,\n      place,\n      link,\n      "project": project->{\n        title,\n        "slug": slug.current,\n        _type,\n      }\n    }\n  }\n,\n  "members": members[]->{\n    name,\n    slug,\n    role,\n    link,\n    "presentation": presentation[count(children[text != ""]) > 0]{\n  ...,\n  markDefs[]{\n    ...,\n    _type == "internalLink" => {\n      ...,\n      "slug": *[_id == ^._ref][0].slug.current,\n      "refType": *[_id == ^._ref][0]._type\n    }\n  }\n}\n  },\n  "contacts": contacts[]{\n    title,\n    name,\n    phone,\n    email,\n    address\n  },\n  supports,\n  "pages": *[_type == "legal"]{\n    "slug": slug.current,\n    title\n  },\n  "credits": [{\n    "title": "Design",\n    "value": [{\n      "name": "Mathilde Mary",\n      "link": "https://mathildemary.fr/"\n    }]\n  },{\n    "title": "D\xE9veloppement web",\n    "value": [{\n      "name": "Joseph Clenet",\n      "link": "https://josephclenet.fr/"\n    },{\n      "name": "Mathilde Mary",\n      "link": "https://mathildemary.fr/"\n    }]\n  }]\n}': AboutQueryResult;
   }
 }

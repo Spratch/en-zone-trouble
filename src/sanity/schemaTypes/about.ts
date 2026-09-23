@@ -3,6 +3,7 @@ import {
   CalendarIcon,
   EnvelopeIcon,
   InfoOutlineIcon,
+  UserIcon,
   UsersIcon
 } from "@sanity/icons";
 import {
@@ -111,39 +112,67 @@ export const aboutSchema = defineType({
       validation: (Rule) => Rule.unique()
     }),
     defineField({
-      name: "contact",
-      title: "Contact",
-      type: "object",
+      name: "contacts",
+      title: "Contacts",
+      description: "Liste des personnes à contacter avec leurs détails",
+      type: "array",
       group: "contact",
-      fields: [
-        defineField({
-          name: "name",
-          title: "Nom",
-          description: "Nom de la personne à contacter",
-          type: "string",
-          validation: (Rule) => Rule.required()
-        }),
-        defineField({
-          name: "phone",
-          title: "Téléphone",
-          description:
-            "Formats national ou international acceptés, pas de parenthèses, de tirets ou de points",
-          type: "string",
-          validation: (Rule) => Rule.regex(/^(?:\+33|0)[1-9](?: ?\d{2}){4}$/)
-        }),
-        defineField({
-          name: "email",
-          title: "Email",
-          description: "Adresse email pour joindre la compagnie",
-          type: "string",
-          validation: (Rule) => Rule.email()
-        }),
-        defineField({
-          name: "address",
-          title: "Adresse",
-          description: "Adresse postale de contact",
-          type: "text",
-          rows: 2
+      of: [
+        defineArrayMember({
+          name: "contact",
+          title: "Contact",
+          type: "object",
+          icon: UserIcon,
+          preview: {
+            select: {
+              name: "name",
+              phone: "phone",
+              email: "email"
+            },
+            prepare: ({ name, phone, email }) => ({
+              title: name,
+              subtitle: `${phone} / ${email}`
+            })
+          },
+          fields: [
+            defineField({
+              name: "title",
+              title: "Titre",
+              description: "Titre du contact",
+              type: "string",
+              validation: (Rule) => Rule.required()
+            }),
+            defineField({
+              name: "name",
+              title: "Nom",
+              description: "Nom de la personne à contacter",
+              type: "string",
+              validation: (Rule) => Rule.required()
+            }),
+            defineField({
+              name: "phone",
+              title: "Téléphone",
+              description:
+                "Formats national ou international acceptés, pas de parenthèses, de tirets ou de points",
+              type: "string",
+              validation: (Rule) =>
+                Rule.regex(/^(?:\+33|0)[1-9](?: ?\d{2}){4}$/)
+            }),
+            defineField({
+              name: "email",
+              title: "Email",
+              description: "Adresse email pour joindre la compagnie",
+              type: "string",
+              validation: (Rule) => Rule.email()
+            }),
+            defineField({
+              name: "address",
+              title: "Adresse",
+              description: "Adresse postale de contact",
+              type: "text",
+              rows: 2
+            })
+          ]
         })
       ]
     }),
