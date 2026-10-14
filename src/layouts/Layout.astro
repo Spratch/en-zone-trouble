@@ -56,6 +56,38 @@ const { ...seo } = Astro.props;
       cssVariable="--font-script"
       preload
     />
+    <script is:inline>
+      (function () {
+        var script = document.createElement("script");
+        var viewTransitionsEnabled = document.querySelector(
+          "meta[name='astro-view-transitions-enabled']"
+        )?.content;
+
+        script.setAttribute(
+          "src",
+          "https://analytics.josephclenet.fr/script.js"
+        );
+        script.setAttribute("defer", true);
+        script.setAttribute(
+          "data-website-id",
+          "a32fcb18-c19a-4807-8d67-3c07a6a2459d"
+        );
+        script.setAttribute("data-do-not-track", "true");
+
+        if (!!viewTransitionsEnabled) {
+          script.setAttribute("data-astro-rerun", true);
+        }
+
+        var head = document.querySelector("head");
+        head.appendChild(script);
+      })();
+    </script>
+    <script
+      src="https://analytics.josephclenet.fr/script.js"
+      defer="true"
+      data-website-id="a32fcb18-c19a-4807-8d67-3c07a6a2459d"
+      data-do-not-track="true"
+    ></script>
     <ClientRouter />
   </head>
   <body transition:animate="none">
