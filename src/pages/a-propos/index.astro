@@ -8,7 +8,6 @@ import { aboutQuery } from "../../sanity/lib/queries";
 
 const about = await sanityClient.fetch(aboutQuery);
 if (!about) throw new Error("About page not found");
-console.log(about);
 ---
 
 <Layout title={about.title}>

@@ -3,6 +3,7 @@ import { defineConfig, fontProviders } from "astro/config";
 
 import react from "@astrojs/react";
 import sanity from "@sanity/astro";
+import umami from "@yeskunall/astro-umami";
 
 // https://astro.build/config
 export default defineConfig({
@@ -15,7 +16,12 @@ export default defineConfig({
       apiVersion: "2026-05-26",
       studioBasePath: "/admin"
     }),
-    react()
+    react(),
+    umami({
+      id: "a32fcb18-c19a-4807-8d67-3c07a6a2459d",
+      doNotTrack: true,
+      endpointUrl: "https://analytics.josephclenet.fr"
+    })
   ],
   fonts: [
     {

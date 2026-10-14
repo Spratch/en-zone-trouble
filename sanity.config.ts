@@ -7,6 +7,7 @@ import {
 import { frFRLocale } from "@sanity/locale-fr-fr";
 import { defineConfig } from "sanity";
 import { muxInput } from "sanity-plugin-mux-input";
+import { umamiTool } from "sanity-plugin-umami-analytics-tool";
 import { webhooksTrigger } from "sanity-plugin-webhooks-trigger";
 import { structureTool } from "sanity/structure";
 import { dataStructure } from "./src/sanity/dataStructure";
@@ -44,6 +45,10 @@ export default defineConfig({
       text: "Déployer les mises à jour vers le site public. Quand le contenu est prêt, cliquez sur 'trigger'",
       encryptionSalt: "043ec7ed84f10f1d83faf117d4818fa1",
       name: "deploy"
+    }),
+    umamiTool({
+      title: "Statistiques",
+      url: "https://analytics.josephclenet.fr/share/8xCZivIvinDYKcIU"
     })
   ],
   document: {
